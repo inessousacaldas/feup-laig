@@ -437,22 +437,25 @@ LSXSceneGraph.prototype.parseTextures = function(rootElement) {
 
 
 /*
- *@param rootElement SCENE tag from LSX
- * Parse tag MATERIALS from LSX
+ *@param rootElement SCENE tag from DSX
+ * Parse tag materials from DSX
  */
 LSXSceneGraph.prototype.parseMaterials = function(rootElement) {
-	//Get MATERIALS
-    var tempMat =  rootElement.getElementsByTagName("MATERIALS");
+	//Get materials
+    var tempMat =  rootElement.getElementsByTagName("materials");
 	if (tempMat == null) {
-		return "MATERIALS is missing.";
+		return "materials is missing.";
 	}
 
 	if (tempMat.length != 1) {
-		return "Only one MATERIALS is allowed.";
+		return "Only one materials is allowed.";
 	}
 
 	var materials = tempMat[0];
 	
+	if (materials.children == null || materials.children.length < 1){
+		return "material in materials missing.";
+	}
 	//Get each material
 	for(var i = 0; i < materials.children.length; ++i){
 		var material = materials.children[i];
@@ -461,18 +464,32 @@ LSXSceneGraph.prototype.parseMaterials = function(rootElement) {
 			return "Duplicate material id: " + id;
 
 		this.materials[id] = new Material(this.scene,id);
-		var shininess = this.reader.getFloat(material.children[0],"value");
-		this.materials[id].setShininess(shininess);
-		var data = this.reader.getRGBA(material.children[1]);
-		this.materials[id].setSpecular(data[0],data[1],data[2],data[3]);
+				
+		var data = this.reader.getRGBA(material.children[0]);
+		this.materials[id].setEmission(data[0],data[1],data[2],data[3]);
+		data = this.reader.getRGBA(material.children[1]);
+		this.materials[id].setAmbient(data[0],data[1],data[2],data[3]);
 		data = this.reader.getRGBA(material.children[2]);
 		this.materials[id].setDiffuse(data[0],data[1],data[2],data[3]);
 		data = this.reader.getRGBA(material.children[3]);
-		this.materials[id].setAmbient(data[0],data[1],data[2],data[3]);
-		data = this.reader.getRGBA(material.children[4]);
-		this.materials[id].setEmission(data[0],data[1],data[2],data[3]);
-		
+		this.materials[id].setSpecular(data[0],data[1],data[2],data[3]);
+		var shininess = this.reader.getFloat(material.children[4],"value");
+		this.materials[id].setShininess(shininess);
 	}
+	
+	/*<materials>
+    
+        <!-- Deve existir um ou mais blocos "material" -->
+        <!-- Os identificadores "id" nao podem ser repetidos -->
+        <material id="ss" >
+            <emission r="ff" g="ff" b="ff" a="ff" />
+            <ambient r="ff" g="ff" b="ff" a="ff" />
+            <diffuse r="ff" g="ff" b="ff" a="ff" />
+            <specular r="ff" g="ff" b="ff" a="ff" />
+            <shininess value="ff" />
+        </material>
+        
+    </materials>*/
 }
 
 /*
