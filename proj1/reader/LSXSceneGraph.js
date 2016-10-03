@@ -344,52 +344,146 @@ LSXSceneGraph.prototype.parseIllumination = function(rootElement) {
  */
 LSXSceneGraph.prototype.parseLights = function(rootElement) {
 	//Get LIGHTS
-    var tempLights =  rootElement.getElementsByTagName("LIGHTS");
+    var tempLights =  rootElement.getElementsByTagName("lights");
 	if (tempLights == null) {
-		return "LIGHTS element is missing.";
+		return "lights element is missing.";
 	}
 
 	if (tempLights.length != 1) {
-		return "only one LIGHTS is allowed.";
+		return "only one lights is allowed.";
 	}
 	//Get LIGHTS - LIGHT
 
 	var lights = tempLights[0];
+	
+	//testa se existe pelo menos uma luz
+	if (lights.children == null || lights.children.length < 1)
+		return "There should be at least one light"
 
-	for (var i = 0; i < lights.children.length; ++i) {
-		var light = lights.children[i];
-		if (light.nodeName != "LIGHT")
-			return "expected LIGHT in LIGHTS: " + light.nodeName;
-		var id = this.reader.getString(light, "id");
+	//divide as luzes pelas 2 categorias
+	var omniLights = lights.getElementsByTagName("omni");
+	var spotLights = lights.getElementsByTagName("spot");
+	//console.log("AHHHHHHHHHHHHH omni size:" + omniLights.length);
+	//console.log("AHHHHHHHHHHHHH spot size:" + spotLights.length);
+	
+	//verifica se existe mais alguma luz para além das 2 categorias
+	if (omniLights.length + spotLights.length != lights.children.length)
+		return "There should be only 'omni' or 'spot' lights";
+	
+	//adicionar todas as omni lights
+	for (var i = 0; i <omniLights.length; i++){
+		var omniLight = omniLights[i];
+		var id = this.reader.getString(omniLight, "id");
 		if (id == null)
 			return "LIGHT without id.";
-
+		
+		//falta verificar se existem ids repetidos
+		
 		this.lights.push(new Light(this.scene, i, id));
-
-		var enable = this.reader.getBoolean(light.children[0], "value");
+		
+		var enable = this.reader.getBoolean(omniLight, "enabled");
 		if (enable)
 			this.lights[i].enable();
 		else
 			this.lights[i].disable();
-
+		
 		var data = [];
-		//position of light
-		data.push(this.reader.getFloat(light.children[1], "x"));
-		data.push(this.reader.getFloat(light.children[1], "y"));
-		data.push(this.reader.getFloat(light.children[1], "z"));
-		data.push(this.reader.getFloat(light.children[1], "w"));
+		
+		//position of omniLight
+		data.push(this.reader.getFloat(omniLight.children[0], "x"));
+		data.push(this.reader.getFloat(omniLight.children[0], "y"));
+		data.push(this.reader.getFloat(omniLight.children[0], "z"));
+		data.push(this.reader.getFloat(omniLight.children[0], "w"));
 		this.lights[i].setPosition(data[0], data[1], data[2], data[3]);
 
-		//components of light
-		data = this.reader.getRGBA(light.children[2]);
+		//components of omniLight
+		data = this.reader.getRGBA(omniLight.children[1]);
 		this.lights[i].setAmbient(data[0], data[1], data[2], data[3]);
 
-		data = this.reader.getRGBA(light.children[3]);
+		data = this.reader.getRGBA(omniLight.children[2]);
 		this.lights[i].setDiffuse(data[0], data[1], data[2], data[3]);
 
-		data = this.reader.getRGBA(light.children[4]);
+		data = this.reader.getRGBA(omniLight.children[3]);
 		this.lights[i].setSpecular(data[0], data[1], data[2], data[3]);
+		
 	}
+	
+	//adicionar todas as spot lights
+	for (var i = 0; i <spotLights.length; i++){
+		var spotlight = spotLights[i];
+		var id = this.reader.getString(spotlight, "id");
+		if (id == null)
+			return "LIGHT without id.";
+		
+		//falta verificar se existem ids repetidos
+		
+		this.lights.push(new Light(this.scene, i, id));
+		
+		var enable = this.reader.getBoolean(spotlight, "enabled");
+		if (enable)
+			this.lights[i].enable();
+		else
+			this.lights[i].disable();
+		
+		var angle = this.reader.getFloat(spotlight, "angle");
+		var exponent = this.reader.getFloat(spotlight, "exponent");
+		
+		this.lights[i].setSpotCutOff(angle); //nao tenho a certeza que seja este
+		this.lights[i].setSpotExponent(exponent);
+		
+		var data = [];
+		
+		//target of spotlight
+		data.push(this.reader.getFloat(spotlight.children[0], "x"));
+		data.push(this.reader.getFloat(spotlight.children[0], "y"));
+		data.push(this.reader.getFloat(spotlight.children[0], "z"));
+		this.lights[i].setSpotDirection(data[0], data[1], data[2]); //target é diferente de direction?
+		
+		//position of spotlight
+		data = [];
+		data.push(this.reader.getFloat(spotlight.children[1], "x"));
+		data.push(this.reader.getFloat(spotlight.children[1], "y"));
+		data.push(this.reader.getFloat(spotlight.children[1], "z"));
+		//erro no exemplo de dsx? não existe componente "w", mas a função
+		//setPosition() precisa de "w"
+		data.push(this.reader.getFloat(spotlight.children[1], "w"));
+		this.lights[i].setPosition(data[0], data[1], data[2], data[3]);
+
+		//components of spotlight
+		data = this.reader.getRGBA(spotlight.children[2]);
+		this.lights[i].setAmbient(data[0], data[1], data[2], data[3]);
+
+		data = this.reader.getRGBA(spotlight.children[3]);
+		this.lights[i].setDiffuse(data[0], data[1], data[2], data[3]);
+
+		data = this.reader.getRGBA(spotlight.children[4]);
+		this.lights[i].setSpecular(data[0], data[1], data[2], data[3]);
+		
+	}
+	
+	/*
+	<lights>
+    
+        <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
+        <!-- Os identificadores "id" nao podem ser repetidos -->
+        <omni id="ss" enabled="tt" >
+            <location x="ff" y="ff" z="ff" w="ff" />
+            <ambient r="ff" g="ff" b="ff" a="ff" />
+            <diffuse r="ff" g="ff" b="ff" a="ff" />
+            <specular r="ff" g="ff" b="ff" a="ff" />
+        </omni>
+        
+        <spot id="ss" enabled="tt" angle="ff" exponent="ff">
+            <!-- atencao, "target" e' diferente de "direction" -->
+            <target x="ff" y="ff" z="ff" />
+            <location x="ff" y="ff" z="ff" />
+            <ambient r="ff" g="ff" b="ff" a="ff" />
+            <diffuse r="ff" g="ff" b="ff" a="ff" />
+            <specular r="ff" g="ff" b="ff" a="ff" />
+        </spot>
+    </lights>
+	*/
+	
 }
 
 /*
