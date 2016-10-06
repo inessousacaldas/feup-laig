@@ -84,10 +84,12 @@ LSXScene.prototype.onGraphLoaded = function ()
 	//All lights are invisible, enabled or not depends from the lsx
     for (var i = 0; i < this.graph.lights.length; ++i) {
     	this.lights.push(this.graph.lights[i]);
-    	this.lights[i].setVisible(false);
-    	this.lightsEnabled[this.lights[i].id] = this.lights[i].enabled;
+    	this.lights[i].setVisible(true);
+    	this.lightsEnabled[this.lights[i].name] = this.lights[i].enabled;
+		this.lights[i].update();
     }
 
+	
 	//controls all lights
     this.lightsEnabled[this.allLights] = false;
 	for (i in this.lights) {
@@ -125,7 +127,6 @@ LSXScene.prototype.onGraphLoaded = function ()
  * Draws the scene. Updates with changes
  */
 LSXScene.prototype.display = function () {
-    this.shader.bind();
 
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
@@ -143,8 +144,8 @@ LSXScene.prototype.display = function () {
 	{	
 		this.multMatrix(this.graph.initials.localTransformations);
 	
-		for (var i = 0; i < this.lights.length; ++i)
-			this.lights[i].update();
+		//for (var i = 0; i < this.lights.length; ++i)
+		//	this.lights[i].update();
 
 		
 		// Draw axis
@@ -158,7 +159,6 @@ LSXScene.prototype.display = function () {
 		this.processScene();
 	}	
 
-    this.shader.unbind();
 };
 
 /*

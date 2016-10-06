@@ -2,13 +2,13 @@
  * Light
  * @constructor
  * @param scene CGFscene,
- * @param an id - number of position
- * @param id name of the light
+ * @param id id - number of position
+ * @param name name of the light
  */
 
-function Light(scene, an, id) {
-    CGFlight.call(this, scene, an);
-    this.id = id;
+function Light(scene, id, name) {
+    CGFlight.call(this, scene, id);
+    this.name = name;
 }
 
 Light.prototype = Object.create(CGFlight.prototype);

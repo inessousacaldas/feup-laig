@@ -363,22 +363,19 @@ LSXSceneGraph.prototype.parseLights = function(rootElement) {
 	//divide as luzes pelas 2 categorias
 	var omniLights = lights.getElementsByTagName("omni");
 	var spotLights = lights.getElementsByTagName("spot");
-	//console.log("AHHHHHHHHHHHHH omni size:" + omniLights.length);
-	//console.log("AHHHHHHHHHHHHH spot size:" + spotLights.length);
 	
 	//verifica se existe mais alguma luz para além das 2 categorias
 	if (omniLights.length + spotLights.length != lights.children.length)
 		return "There should be only 'omni' or 'spot' lights";
 	
 	//adicionar todas as omni lights
-	for (var i = 0; i <omniLights.length; i++){
+	for (var i = 0; i < omniLights.length; i++){
 		var omniLight = omniLights[i];
 		var id = this.reader.getString(omniLight, "id");
 		if (id == null)
 			return "LIGHT without id.";
 		
 		//falta verificar se existem ids repetidos
-		
 		this.lights.push(new Light(this.scene, i, id));
 		
 		var enable = this.reader.getBoolean(omniLight, "enabled");
@@ -409,7 +406,7 @@ LSXSceneGraph.prototype.parseLights = function(rootElement) {
 	}
 	
 	//adicionar todas as spot lights
-	for (var i = 0; i <spotLights.length; i++){
+	for (var i = 0; i < spotLights.length; i++){
 		var spotlight = spotLights[i];
 		var id = this.reader.getString(spotlight, "id");
 		if (id == null)
