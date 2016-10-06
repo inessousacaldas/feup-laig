@@ -144,8 +144,8 @@ LSXScene.prototype.display = function () {
 	{	
 		this.multMatrix(this.graph.initials.localTransformations);
 	
-		//for (var i = 0; i < this.lights.length; ++i)
-		//	this.lights[i].update();
+		for (var i = 0; i < this.lights.length; ++i)
+			this.lights[i].update();
 
 		
 		// Draw axis
@@ -234,7 +234,7 @@ LSXScene.prototype.updateLight = function(lightId, enable) {
 	if(lightId != this.allLights){
 		console.log("Changing light " + lightId);
 		for (var i = 0; i < this.graph.lights.length; ++i) {
-			if (this.lights[i].id == lightId) {
+			if (this.lights[i].name == lightId) {
 				var light = this.lights[i];
 				enable ? light.enable() : light.disable();
 				return;

@@ -129,13 +129,13 @@ LSXSceneGraph.prototype.parseSceneGraph = function(rootElement) {
     }
 
 	console.log("*******LEAVES*******");
-    error = this.parseLeaves(rootElement);
+    error = this.parsePrimitives(rootElement);
     if (error) {
         return error;
     }
 
 	console.log("*******NODES*******");
-    error = this.parseNodes(rootElement);
+    error = this.parseComponents(rootElement);
     if (error) {
         return error;
     }
@@ -375,7 +375,7 @@ LSXSceneGraph.prototype.parseLights = function(rootElement) {
 		if (id == null)
 			return "LIGHT without id.";
 		
-		//falta verificar se existem ids repetidos
+		//TODO: falta verificar se existem ids repetidos
 		this.lights.push(new Light(this.scene, i, id));
 		
 		var enable = this.reader.getBoolean(omniLight, "enabled");
@@ -406,13 +406,14 @@ LSXSceneGraph.prototype.parseLights = function(rootElement) {
 	}
 	
 	//adicionar todas as spot lights
-	for (var i = 0; i < spotLights.length; i++){
-		var spotlight = spotLights[i];
+	for (; i < spotLights.length + omniLights.length; i++){
+		console.log('-------> id AAAAAA' + i);
+		var spotlight = spotLights[i - omniLights.length];
 		var id = this.reader.getString(spotlight, "id");
 		if (id == null)
 			return "LIGHT without id.";
 		
-		//falta verificar se existem ids repetidos
+		//TODO: falta verificar se existem ids repetidos
 		
 		this.lights.push(new Light(this.scene, i, id));
 		
@@ -441,10 +442,7 @@ LSXSceneGraph.prototype.parseLights = function(rootElement) {
 		data.push(this.reader.getFloat(spotlight.children[1], "x"));
 		data.push(this.reader.getFloat(spotlight.children[1], "y"));
 		data.push(this.reader.getFloat(spotlight.children[1], "z"));
-		//erro no exemplo de dsx? não existe componente "w", mas a função
-		//setPosition() precisa de "w"
-		data.push(this.reader.getFloat(spotlight.children[1], "w"));
-		this.lights[i].setPosition(data[0], data[1], data[2], data[3]);
+		this.lights[i].setPosition(data[0], data[1], data[2], 1); //value of w = 1
 
 		//components of spotlight
 		data = this.reader.getRGBA(spotlight.children[2]);
@@ -457,30 +455,7 @@ LSXSceneGraph.prototype.parseLights = function(rootElement) {
 		this.lights[i].setSpecular(data[0], data[1], data[2], data[3]);
 		
 	}
-	
-	/*
-	<lights>
-    
-        <!-- Deve existir um ou mais blocos "omni" ou "spot" -->
-        <!-- Os identificadores "id" nao podem ser repetidos -->
-        <omni id="ss" enabled="tt" >
-            <location x="ff" y="ff" z="ff" w="ff" />
-            <ambient r="ff" g="ff" b="ff" a="ff" />
-            <diffuse r="ff" g="ff" b="ff" a="ff" />
-            <specular r="ff" g="ff" b="ff" a="ff" />
-        </omni>
-        
-        <spot id="ss" enabled="tt" angle="ff" exponent="ff">
-            <!-- atencao, "target" e' diferente de "direction" -->
-            <target x="ff" y="ff" z="ff" />
-            <location x="ff" y="ff" z="ff" />
-            <ambient r="ff" g="ff" b="ff" a="ff" />
-            <diffuse r="ff" g="ff" b="ff" a="ff" />
-            <specular r="ff" g="ff" b="ff" a="ff" />
-        </spot>
-    </lights>
-	*/
-	
+		
 }
 
 /*
@@ -568,45 +543,32 @@ LSXSceneGraph.prototype.parseMaterials = function(rootElement) {
 		this.materials[id].setShininess(shininess);
 	}
 	
-	/*<materials>
-    
-        <!-- Deve existir um ou mais blocos "material" -->
-        <!-- Os identificadores "id" nao podem ser repetidos -->
-        <material id="ss" >
-            <emission r="ff" g="ff" b="ff" a="ff" />
-            <ambient r="ff" g="ff" b="ff" a="ff" />
-            <diffuse r="ff" g="ff" b="ff" a="ff" />
-            <specular r="ff" g="ff" b="ff" a="ff" />
-            <shininess value="ff" />
-        </material>
-        
-    </materials>*/
 }
 
 /*
  *@param rootElement SCENE tag from LSX
- * Parse tag LEAVES from LSX - sets all primitives for the scene
+ * Parse tag primitives from LSX - sets all primitives for the scene
  */
-LSXSceneGraph.prototype.parseLeaves = function(rootElement) {
-	//Get LEAVES - primitives to be drawn
-    var tempLeaves =  rootElement.getElementsByTagName("LEAVES");
+LSXSceneGraph.prototype.parsePrimitives = function(rootElement) {
+	//Get primitives - primitives to be drawn
+    var tempLeaves =  rootElement.getElementsByTagName("primitives");
 	if (tempLeaves == null) {
-		return "LEAVES is missing.";
+		return "primitives is missing.";
 	}
 
 	if (tempLeaves.length != 1) {
-		return "Only one LEAVES is allowed.";
+		return "Only one primitives is allowed.";
 	}
 
 	var leaves = tempLeaves[0];
 
-	allLeaf = leaves.getElementsByTagName("LEAF");
+	allLeaf = leaves.getElementsByTagName("primitive");
 
 	if (allLeaf == null) {
-		return "LEAF in LEAVES missing";
+		return "primitive in primitives missing";
 	}
 	if (allLeaf.length == 0) {
-		return "No LEAF found."
+		return "No primitive found."
 	}
 
 	//Get each leaf
@@ -614,40 +576,94 @@ LSXSceneGraph.prototype.parseLeaves = function(rootElement) {
 		var leaf = allLeaf[i]
 		var id = this.reader.getString(leaf, "id");
 		if (id in this.leaves)
-			return "Duplicate leaf id: " + id;
+			return "Duplicate primitive id: " + id;
 
-		var type = this.reader.getString(leaf, "type");
-		var data;
+		if(leaf.children.length != 1)
+			return "Only one type of primitive allowed in primitive id: " + id;
+		
+	
+		var type = leaf.children[0].tagName
 
+		console.log('no id ' + id);
 		//Different types of primitives
 		switch (type) {
 			case "rectangle":
-				data = this.reader.getArrayOfFloats(leaf, "args", 4);
+			
+				var data = [];
+		
+				data.push(this.reader.getFloat(leaf.children[0], "x1"));
+				data.push(this.reader.getFloat(leaf.children[0], "y1"));
+				data.push(this.reader.getFloat(leaf.children[0], "x2"));
+				data.push(this.reader.getFloat(leaf.children[0], "y2"));
+	
 				if (data == null)
 					return "rectangle with error " + id; 
+				
 				this.leaves[id] = new LeafRectangle(id, data[0], data[1], data[2], data[3]);
 				break;
+				
 			case "cylinder":
-				data = this.reader.getArrayOfFloats(leaf, "args", 5);
+			
+				var data = [];
+		
+				data.push(this.reader.getFloat(leaf.children[0], "base"));
+				data.push(this.reader.getFloat(leaf.children[0], "top"));
+				data.push(this.reader.getFloat(leaf.children[0], "height"));
+				data.push(this.reader.getInteger(leaf.children[0], "slices"));
+				data.push(this.reader.getInteger(leaf.children[0], "stacks"));
+				
 				if (data == null)
 					return "cylinder with error " + id;
 				if(data[3] % 1 != 0  || data[4] % 1 != 0 )
 					return "cylinder " + id + " 4th/5th arg must be integer.";
 				this.leaves[id] = new LeafCylinder(id, data[0], data[1], data[2], data[3], data[4]);
 				break;
+			
 			case "sphere":
-				data = this.reader.getArrayOfFloats(leaf, "args", 3);
+				
+				var data = [];
+		
+				data.push(this.reader.getFloat(leaf.children[0], "radius"));
+				data.push(this.reader.getInteger(leaf.children[0], "slices"));
+				data.push(this.reader.getInteger(leaf.children[0], "stacks"));
+				
 				if (data == null)
 					return "sphere with error " + id;
 				if(data[1] % 1 != 0  || data[2] % 1 != 0 )
 					return "sphere " + id + " 2nd/3rd arg must be integer.";
 				this.leaves[id] = new LeafSphere(id, data[0], data[1], data[2]);
 				break;
+			
 			case "triangle":
-				data = this.reader.getArrayOfFloats(leaf, "args", 9);
+				
+				var data = [];
+		
+				data.push(this.reader.getFloat(leaf.children[0], "x1"));
+				data.push(this.reader.getFloat(leaf.children[0], "y1"));
+				data.push(this.reader.getFloat(leaf.children[0], "z1"));
+				data.push(this.reader.getFloat(leaf.children[0], "x2"));
+				data.push(this.reader.getFloat(leaf.children[0], "y2"));
+				data.push(this.reader.getFloat(leaf.children[0], "z2"));
+				data.push(this.reader.getFloat(leaf.children[0], "x3"));
+				data.push(this.reader.getFloat(leaf.children[0], "y3"));
+				data.push(this.reader.getFloat(leaf.children[0], "z3"));
+				
 				if (data == null)
 					return "triangle with error" + id;
 				this.leaves[id] = new LeafTriangle(id, data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]);
+				break;
+			
+			case "torus":
+			
+				var data = [];
+		
+				data.push(this.reader.getFloat(leaf.children[0], "inner"));
+				data.push(this.reader.getFloat(leaf.children[0], "outer"));
+				data.push(this.reader.getInteger(leaf.children[0], "slices"));
+				data.push(this.reader.getInteger(leaf.children[0], "loops"));
+			
+				//TODO
+				console.log("Falta fazer\n");
 				break;
 			default:
 				return "Leaf type unknown: " + type;
@@ -657,29 +673,29 @@ LSXSceneGraph.prototype.parseLeaves = function(rootElement) {
 
 /*
  *@param rootElement SCENE tag from LSX
- * Parse tag NODES from LSX
+ * Parse tag components from LSX
  */
-LSXSceneGraph.prototype.parseNodes = function(rootElement) {
-	//Get NODES
-    var tempNodes =  rootElement.getElementsByTagName("NODES");
+LSXSceneGraph.prototype.parseComponents = function(rootElement) {
+	//Get components
+    var tempNodes =  rootElement.getElementsByTagName("components");
 	if (tempNodes == null) {
-		return "NODES is missing.";
+		return "components is missing.";
 	}
 
 	if (tempNodes.length != 1) {
-		return "Only one NODES is allowed";
+		return "Only one components is allowed";
 	}
 
 	var nodes = tempNodes[0];
 	
 
-	tempNode = nodes.getElementsByTagName("NODE");
+	tempNode = nodes.getElementsByTagName("component");
 
 	if (tempNode == null) {
-		return "NODE in NODES missing";
+		return "component in components missing";
 	}
 	if (tempNode.length == 0) {
-		return "No NODE found."
+		return "No component found."
 	}
 
 	for (var i = 0; i < tempNode.length; ++i) {
@@ -691,7 +707,7 @@ LSXSceneGraph.prototype.parseNodes = function(rootElement) {
 	}
 
 	if (!(this.root in this.nodes))
-		return "Node with root id missing";
+		return "component with root id missing";
 
 	for (key in this.nodes) {
 		for (var i = 0; i < this.nodes[key].children.length; ++i) {
@@ -704,8 +720,8 @@ LSXSceneGraph.prototype.parseNodes = function(rootElement) {
 
 /*
  *@param node
- * Parse each NODE
- * Called by parseNodes
+ * Parse each component
+ * Called by parseComponents
  */
 LSXSceneGraph.prototype.parseNode = function(node) {
 	//Id of node
