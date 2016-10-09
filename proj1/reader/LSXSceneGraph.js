@@ -19,6 +19,7 @@ function LSXSceneGraph(filename, scene) {
     this.lights = [];
     this.textures = [];
     this.materials = [];
+	this.transformationsMap = {};
     this.leaves = [];
     this.nodes = [];
 
@@ -109,7 +110,6 @@ LSXSceneGraph.prototype.parseSceneGraph = function(rootElement) {
         return error;
     }
 
-	/* TODO: Fazer as luzes - omni e spot*/
  	console.log("*******LIGHTS*******");
     error = this.parseLights(rootElement);
     if (error) {
@@ -127,14 +127,20 @@ LSXSceneGraph.prototype.parseSceneGraph = function(rootElement) {
     if (error) {
         return error;
     }
+	
+	console.log("*******TRANSFORMATIONS*******");
+    error = this.parseTransformations(rootElement);
+    if (error) {
+        return error;
+    }
 
-	console.log("*******LEAVES*******");
+	console.log("*******PRIMITIVES*******");
     error = this.parsePrimitives(rootElement);
     if (error) {
         return error;
     }
 
-	console.log("*******NODES*******");
+	console.log("*******COMPONENTS*******");
     error = this.parseComponents(rootElement);
     if (error) {
         return error;
@@ -394,6 +400,7 @@ LSXSceneGraph.prototype.parseLights = function(rootElement) {
 		this.lights[i].setPosition(data[0], data[1], data[2], data[3]);
 
 		//components of omniLight
+		//data = [];
 		data = this.reader.getRGBA(omniLight.children[1]);
 		this.lights[i].setAmbient(data[0], data[1], data[2], data[3]);
 
@@ -445,6 +452,7 @@ LSXSceneGraph.prototype.parseLights = function(rootElement) {
 		this.lights[i].setPosition(data[0], data[1], data[2], 1); //value of w = 1
 
 		//components of spotlight
+		data = [];
 		data = this.reader.getRGBA(spotlight.children[2]);
 		this.lights[i].setAmbient(data[0], data[1], data[2], data[3]);
 
@@ -543,6 +551,126 @@ LSXSceneGraph.prototype.parseMaterials = function(rootElement) {
 		this.materials[id].setShininess(shininess);
 	}
 	
+}
+
+
+LSXSceneGraph.prototype.parseTransformations = function(rootElement) {
+	var tempTransformations =  rootElement.getElementsByTagName("transformations");
+	if (tempTransformations == null) {
+		return "transformations is missing.";
+	}
+
+	if (tempTransformations.length != 1) {
+		return "Only one transformations is allowed.";
+	}
+	
+	var transformations = tempTransformations[0];
+
+	allTransformations = transformations.getElementsByTagName("transformation");
+
+	if (allTransformations == null) {
+		return "transformation in transformations missing";
+	}
+	if (allTransformations.length == 0) {
+		return "No transformation found.";
+	}
+	
+	for (var i = 0; i < allTransformations.length; ++i) {
+		var transformationGroup = allTransformations[i];
+		if (transformationGroup == null) {
+			return "transformationGroup in transformations missing";
+		}
+		if (transformationGroup.length == 0) {
+			return "No transformationGroup found.";
+		}
+		if (transformationGroup.children.length == 0) {
+			return "No transformation found.";
+		}
+		var id = this.reader.getString(transformationGroup, "id");
+		
+		if (this.transformationsMap.hasOwnProperty(id))
+			return "The transformation " + id + " is repeated.";
+		
+		console.log("Found Transformation " + id);
+		
+		var transformationList = [];
+		
+		for (var j = 0; j < transformationGroup.children.length; ++j) {
+			var transformation = transformationGroup.children[j];
+			
+			if (transformation == null) {
+				return "transformation in transformationGroup missing";
+			}
+			var trans = [1, 0, 0, 0,
+						0, 1, 0, 0,
+						0, 0, 1, 0,
+						0, 0, 0, 1];
+						
+			var type = transformation.tagName;
+			
+			switch (type){
+				case "translate":
+					var tx = this.reader.getFloat(transformation, "x");
+					var ty = this.reader.getFloat(transformation, "y");
+					var tz = this.reader.getFloat(transformation, "z");
+					trans = [1, 0, 0, tx,
+							0, 1, 0, ty,
+							0, 0, 1, tz,
+							0, 0, 0, 1];
+					console.log(id + " - Added translate transformation");
+					break;
+				case "rotate":
+					var axis = this.reader.getString(transformation, "axis");
+					var angle = this.reader.getFloat(transformation, "angle");
+					switch (axis){
+						case "x":
+							//fall through
+						case "X":
+							trans = [1, 0, 0, 0,
+									0, Math.cos(angle), -Math.sin(angle), 0,
+									0, Math.sin(angle), Math.cos(angle), 0,
+									0, 0, 0, 1];
+							break;
+						case "y":
+							//fall through
+						case "Y":
+							trans = [Math.cos(angle), 0, Math.sin(angle), 0,
+									0, 1, 0, 0,
+									-Math.sin(angle), 0, Math.cos(angle), 0,
+									0, 0, 0, 1];
+							break;
+						case "z":
+							//fall through
+						case "Z":
+							trans = [Math.cos(angle), -Math.sin(angle), 0, 0,
+									Math.sin(angle), Math.cos(angle), 0, 0,
+									0, 0, 1, 0,
+									0, 0, 0, 1];
+							break;
+						default:
+							return "Wrong axis detected in transformation id: " + id;
+					}
+					console.log(id + " - Added rotate transformation");
+					break;
+				case "scale":
+					var sx = this.reader.getFloat(transformation, "x");
+					var sy = this.reader.getFloat(transformation, "y");
+					var sz = this.reader.getFloat(transformation, "z");
+					trans = [sx, 0, 0, 0,
+							0, sy, 0, 0,
+							0, 0, sz, 0,
+							0, 0, 0, 1];
+					console.log(id + " - Added scale transformation");
+					break;
+				default:
+					return "Wrong type of transformation in id " + id;
+			}
+			transformationList.push(trans);
+			
+		}
+		var transformationMatrix = multiplyMatrix(transformationList);
+		this.transformationsMap[id] = transformationMatrix;
+	}
 }
 
 /*
@@ -817,3 +945,31 @@ LSXSceneGraph.prototype.onXMLError=function (message) {
 	console.error("XML Loading Error: "+message);	
 	this.loadedOk=false;
 };
+
+function multiplyMatrix(list) {
+	var result = list[0];
+	if (list.length < 2)
+		return result;
+	
+	for(var k=1;k<list.length;k++){
+		var matrix = result;
+		result = [];
+		var matrixToMultiply = list[k];
+		var temp = [];
+		for (var i=0;i<matrix.length;i=i+4){
+			for (var j=0;j<4;j++){
+				var element = matrix[i] * matrixToMultiply[j] +
+						matrix[i+1] * matrixToMultiply[j+4] +
+						matrix[i+2] * matrixToMultiply[j+8] + 
+						matrix[i+3] * matrixToMultiply[j+12];
+				temp.push(element);
+			}
+		}	
+		result = result.concat(temp);
+	}
+	
+	/*for (var k=0;k<result.length;k++){
+		console.log("k " + k + " = " + result[k]);
+	}*/
+	return result;
+}

@@ -147,6 +147,31 @@
 
 </materials>
 
+<transformations>
+
+	<transformation id = "t1">
+		<translate x="1" y="2" z="3" />
+	</transformation>
+	
+	<transformation id = "t2">
+		<translate x="2" y="1" z="1.5" />
+		<rotate axis="x" angle="30" />
+	</transformation>
+	
+	<transformation id = "t3">
+		<rotate axis="Y" angle="50" />
+		<translate x="3" y="0" z="0" />
+		<rotate axis="y" angle="90" />
+		<scale x="1" y="1" z="2" />
+	</transformation>
+	
+	<transformation id = "t4">
+		<scale x="1" y="2" z="1" />
+		<translate x="2" y="0.5" z="1.5" />
+		<scale x="0.5" y="1" z="2" />
+	</transformation>
+	
+</transformations>
 
 <primitives>
 
