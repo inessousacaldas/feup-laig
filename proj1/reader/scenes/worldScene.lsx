@@ -216,9 +216,14 @@
 <components>
 					 
 	<component id="WorldScene">       <!--   defines one intermediate node; may be repeated as necessary -->
+		
+		<transformation>
+		
+		</transformation>
 
         <!-- next two lines are mandatory -->
-        <MATERIAL id="default" />      <!-- declared material superimposes the material received from parent node -->
+
+		<MATERIAL id="default" />      <!-- declared material superimposes the material received from parent node -->
                                   <!-- id="null" maintains material from parent node        -->
         <TEXTURE id="clear" />       <!-- declared texture superimposes the texture received from parent node -->
                                   <!-- id="null" maintains texture from parent node       -->
@@ -251,7 +256,12 @@
 
  <!-- DEFINIR PLATAFORMA -->	
        <component id="plataform">
-            <MATERIAL id="default" />
+	   
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="default" />
             <TEXTURE id="forest" />	
 			
 			<TRANSLATION x="-25" y="0" z="-25" />
@@ -268,7 +278,12 @@
         </component>
 		
 		<component id="plataform1">
-            <MATERIAL id="null" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
 			<TRANSLATION x="0" y="-1" z="0" />
@@ -283,7 +298,12 @@
 		
 
 		<component id="plataform2">
-            <MATERIAL id="null" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
             <TRANSLATION x="0" y="-1" z="1" />
@@ -295,7 +315,12 @@
         </component>
 
         <component id="plataform3">
-            <MATERIAL id="null" />
+			
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="0" y="-1" z="0" />
@@ -309,7 +334,12 @@
 		
 		
 		<component id="plataform4">
-            <MATERIAL id="null" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="1" y="-1" z="0" />
@@ -322,7 +352,12 @@
         </component>
 
         <component id="plataform5">
-            <MATERIAL id="null" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 		
             <TRANSLATION x="1" y="-1" z="1" />
@@ -335,7 +370,12 @@
         </component>
 		
         <component id="plataform6">
-            <MATERIAL id="null" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
             <TRANSLATION x="0" y="0" z="1" />
@@ -350,7 +390,12 @@
 		<!-- DEFINIR Colina -->			
 		
 		<component id="hill">
-            <MATERIAL id="null" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="hillGreen" />		
 			
 			<TRANSLATION x="-25" y="2" z="-25" />
@@ -365,7 +410,12 @@
 		
 		
 		<component id="hillBase">
-            <MATERIAL id="null" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="0" y="1" z="0" />
@@ -381,7 +431,12 @@
 		
 		
 		<component id="hillFirstStep">
-            <MATERIAL id="null" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			
@@ -397,7 +452,12 @@
         </component>
 		
 		<component id="hillSecondStep">
-            <MATERIAL id="null" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			
@@ -413,7 +473,12 @@
         </component>
 		
 		<component id="hillWall">
-            <MATERIAL id="null" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="hillStep" />
 			
             <DESCENDANTS>
@@ -428,7 +493,12 @@
 		
 <!-- DEFINIR RIO -->		
 		<component id="river">
-            <MATERIAL id="matWater" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="matWater" />
             <TEXTURE id="texWater" />
 		
 
@@ -447,7 +517,12 @@
         </component>
 				
 		<component id="riverTop">
-            <MATERIAL id="null" />
+			
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 		
@@ -464,7 +539,12 @@
         </component>
 		
 		<component id="riverDescend1">
-            <MATERIAL id="null" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 		
@@ -480,7 +560,12 @@
 		
 		
 		<component id="riverSecondAux">
-            <MATERIAL id="null" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="-20" y="9.1" z="-5" />
@@ -492,7 +577,12 @@
         </component>
 		
 		<component id="riverSecondStep">
-            <MATERIAL id="null" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="-20" y="9.1" z="0" />
@@ -504,7 +594,12 @@
 	   </component>
 	   
 	   	<component id="riverDescend2">
-            <MATERIAL id="null" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 		
 			<TRANSLATION x="-4.9" y="3.1" z="0" />
@@ -517,7 +612,12 @@
         </component>
 		
 		<component id="riverFirstStep">
-            <MATERIAL id="null" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="-5" y="3.1" z="0" />
@@ -530,7 +630,12 @@
         </component>
 		
 		<component id="riverDescend3">
-            <MATERIAL id="null" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 	
 			<TRANSLATION x="5.1" y="0.1" z="0" />
@@ -543,7 +648,12 @@
         </component>
 		
 		<component id="riverGround">
-            <MATERIAL id="null" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 		
@@ -558,6 +668,11 @@
  <!-- DEFINIR MOINHO -->	
  
 		<component id="waterHouse">
+		
+			<transformation>
+		
+			</transformation>
+
 			<MATERIAL id="null" />
 			<TEXTURE id="stoneHouse" />
 
@@ -579,6 +694,11 @@
         </component>
 		
 		<component id="baseHouse">
+		
+			<transformation>
+		
+			</transformation>
+
 			<MATERIAL id="null" />
 			<TEXTURE id="null" />
 
@@ -595,6 +715,11 @@
         </component>
 		
 		<component id="cylinderHouse">
+		
+			<transformation>
+		
+			</transformation>
+
 			<MATERIAL id="null" />
 			<TEXTURE id="wallHouse" />
 
@@ -608,6 +733,11 @@
         </component>
 		
 		<component id="roofHouse">
+
+			<transformation>
+
+			</transformation>
+
 			<MATERIAL id="null" />
 			<TEXTURE id="roofHouse" />
 
@@ -622,7 +752,12 @@
 		
 		
 		<component id="door">
-            <MATERIAL id="null" />
+		
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="doorText" />
 
 			<TRANSLATION x="-4.6" y="0" z="-1.5" />
@@ -636,7 +771,12 @@
         </component>	
 		
 		<component id="window">
-            <MATERIAL id="null" />
+		
+			<transformation>
+		
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="windowText" />
 			
 	
@@ -650,7 +790,12 @@
         </component>
 		
 		<component id="waterMill">
-            <MATERIAL id="null" />
+
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="wood" />
 			<TRANSLATION x="0" y="5" z="5" />
 			
@@ -675,7 +820,12 @@
 		
 
 		<component id="millCenter">
-            <MATERIAL id="null" />
+		
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<SCALE sx="3" sy="3" sz="0.8" />
@@ -687,7 +837,11 @@
 		
 
 		<component id="millSpiral">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="woodFloor" />
 
 			<TRANSLATION x="0" y="0" z="-2" />
@@ -701,7 +855,11 @@
 		
 
 		<component id="mill1">
-            <MATERIAL id="null" />
+   			<transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="0" y="0" z="0.8" />
@@ -723,7 +881,12 @@
 		
 
 		<component id="mill2">
-            <MATERIAL id="null" />
+
+			<transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="0" y="0" z="0.8" />
@@ -745,7 +908,11 @@
 		</component>
 
 		<component id="mill3">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="0" y="0" z="0.8" />
@@ -766,7 +933,11 @@
         
 		</component>
 		<component id="mill4">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="0" y="0" z="0.8" />
@@ -788,7 +959,11 @@
 		</component>		
 
 		<component id="mill5">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="0" y="0" z="0.8" />
@@ -810,7 +985,11 @@
 		</component>
 		
 		<component id="mill6">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="0" y="0" z="0.8" />
@@ -831,7 +1010,11 @@
 		</component>
 
 		<component id="mill7">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="0" y="0" z="0.8" />
@@ -853,7 +1036,11 @@
 		</component>	
 		
 		<component id="mill8">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="0" y="0" z="0.8" />
@@ -875,7 +1062,11 @@
 		</component>	
 		
 		<component id="mill9">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="0" y="0" z="0.8" />
@@ -897,7 +1088,11 @@
 		</component>		
 
 		<component id="mill10">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="0" y="0" z="0.8" />
@@ -919,7 +1114,11 @@
 		</component>		
 
 		<component id="mill11">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="0" y="0" z="0.8" />
@@ -941,7 +1140,11 @@
 		</component>	
 
 		<component id="mill12">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="0" y="0" z="0.8" />
@@ -963,7 +1166,11 @@
 		</component>
 
 		<component id="towerHouse">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="towerStone" />
 			
 			<TRANSLATION x="-20" y="10" z="40" />
@@ -980,7 +1187,11 @@
 		</component>
 
 		<component id="baseTower">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<ROTATION axis="x" angle="90" />
@@ -995,6 +1206,10 @@
 		
 		
 		<component id="topTower">
+			<transformation>
+
+			</transformation>
+
 			<MATERIAL id="null" />
 			<TEXTURE id="null" />
 
@@ -1007,6 +1222,10 @@
         </component>
 		
 		<component id="bottomTower">
+			<transformation>
+
+			</transformation>
+
 			<MATERIAL id="null" />
 			<TEXTURE id="null" />
 
@@ -1017,7 +1236,11 @@
         </component>
 
 		<component id="topFloorTower">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			 <TRANSLATION x="-5" y="10.1" z="-5" />
@@ -1032,7 +1255,11 @@
         </component>
 					
 		<component id="floorTower">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
 		
@@ -1051,7 +1278,11 @@
         </component>
 		
 		<component id="floorTowerWood">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="woodFloor" />
 
             <DESCENDANTS>
@@ -1060,7 +1291,11 @@
         </component>
 		
 		<component id="wallsTower">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="towerWall" />
 		
 			 <TRANSLATION x="0" y="1" z="0" />
@@ -1075,7 +1310,11 @@
         </component>
 		
 		<component id="walls1">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 		
 			<TRANSLATION x="2" y="0" z="0" />
@@ -1090,7 +1329,11 @@
 		 </component>
 		
 		<component id="walls2">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="0" y="0" z="2" />
@@ -1105,7 +1348,11 @@
         </component>
 		
 		<component id="wallsMini">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			 <SCALE sx="2" sy="1.5" sz="2" />
@@ -1118,7 +1365,11 @@
         </component>
 		
 		<component id="wallsMini1">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			 
@@ -1134,7 +1385,11 @@
         </component>
 		
 		<component id="wallsMini2">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			 
@@ -1150,7 +1405,11 @@
         </component>
 		
 		<component id="wall_1">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
 			
@@ -1165,7 +1424,11 @@
         </component>
 		
 		<component id="wall1_2">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			 <TRANSLATION x="0" y="0" z="4" />
@@ -1181,7 +1444,11 @@
         </component>
 			
 		<component id="pillarsTower">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 		
 			<SCALE sx="2" sy="3" sz="2" />
@@ -1196,7 +1463,11 @@
         </component>
 		
 		<component id="pillar1">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			 <TRANSLATION x="4" y="1" z="0" />
@@ -1212,7 +1483,11 @@
         </component>
 
 		<component id="pillar2">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="4" y="1" z="4" />
@@ -1228,7 +1503,11 @@
         </component>
 
 		<component id="pillar3">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
 			<TRANSLATION x="0" y="1" z="4" />
@@ -1244,7 +1523,11 @@
         </component>
 
 		<component id="pillar4">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="0" y="1" z="0" />
@@ -1260,7 +1543,11 @@
         </component>
 		
 		<component id="roofTower">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
 		
@@ -1276,7 +1563,11 @@
 		
 <!-- DEFINIR ESCADAS -->
 		<component id="stairs">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="wood" />
 
 			
@@ -1289,7 +1580,11 @@
         </component>
 		
 		<component id="stairs1">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
 			
@@ -1306,7 +1601,11 @@
         </component>
 
 		<component id="stairs2">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
 			
@@ -1322,7 +1621,11 @@
         </component>
 		
 		<component id="steps">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
             <DESCENDANTS>
@@ -1340,7 +1643,11 @@
         </component>
 		
 	<component id="step1">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
 			
@@ -1354,7 +1661,11 @@
         </component>
 		
 		<component id="step2">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
 			
@@ -1368,7 +1679,11 @@
         </component>
 
 		<component id="step3">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
 			
@@ -1383,7 +1698,11 @@
 		
 		
 		<component id="step4">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
 			
@@ -1397,7 +1716,11 @@
         </component>
 		
 		<component id="step5">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
 			<TRANSLATION x="9.2" y="-1" z="-1.5" />
@@ -1410,7 +1733,11 @@
         </component>
 			
 		<component id="step6">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
 			
@@ -1424,7 +1751,11 @@
         </component>
 		
 		<component id="step7">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
 			
@@ -1438,7 +1769,11 @@
         </component>
 		
 		<component id="step8">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
 			
@@ -1452,7 +1787,11 @@
         </component>
 		
 		<component id="step9">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
 			
@@ -1466,7 +1805,11 @@
         </component>
 		
 		<component id="step10">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 
 			
@@ -1483,7 +1826,11 @@
 <!-- DEFINIR FOGUEIRA -->
 
 		<component id="campFire">
-            <MATERIAL id="logMat" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="logMat" />
             <TEXTURE id="woodTree" />
 			
 			<TRANSLATION x="-20" y="20.3" z="38" />
@@ -1501,7 +1848,11 @@
 		</component>
 		
 		<component id="log1">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			
@@ -1515,7 +1866,11 @@
 
 		
 		<component id="log2">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="-1" y="0" z="0.5" />
@@ -1530,7 +1885,11 @@
 		</component>
 
 		<component id="log3">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="-1.5" y="0" z="1.5" />
@@ -1546,7 +1905,11 @@
 		</component>
 		
 		<component id="log4">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="-1" y="0" z="2.5" />
@@ -1562,7 +1925,11 @@
 
 		<component id="fire">
 			
-            <MATERIAL id="fireMat" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="fireMat" />
             <TEXTURE id="fireText" />
 			<TRANSLATION x="0" y="2.0" z="1.5" />
 			<SCALE sx="2" sy="3" sz="2" />
@@ -1580,7 +1947,11 @@
 
 			<component id="pyramid1">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="null" />      
                        
 	        <TRANSLATION x="0" y="0" z="0.5" /> 
@@ -1596,7 +1967,11 @@
 
 	    <component id="pyramid2">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="null" />      
                        
 	        <TRANSLATION x="0" y="0" z="0.5" /> 
@@ -1614,7 +1989,11 @@
 
 	    <component id="pyramid3">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="null" />      
                        
 	        <TRANSLATION x="0" y="0" z="-0.5" /> 
@@ -1631,7 +2010,11 @@
 
 	    <component id="pyramid4">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="null" />      
                        
 	        <TRANSLATION x="0" y="0" z="-0.5" /> 
@@ -1651,7 +2034,11 @@
 		
 		<component id="pyramidBottom">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="null" />      
                        
 	        <TRANSLATION x="-0.5" y="-0.58" z="-0.5" /> 
@@ -1672,7 +2059,11 @@
  
 		<component id="vane">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="vaneText" />      
 
 	        <TRANSLATION x="-3" y="3" z="4" /> 
@@ -1690,7 +2081,11 @@
 		
 		<component id="postBase">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="null" />      
 			
 			<ROTATION axis="x" angle="-90" />
@@ -1704,7 +2099,11 @@
 		
 		<component id="postTop">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="null" />      
 
 	        <TRANSLATION x="0" y="12" z="0" /> 
@@ -1718,7 +2117,11 @@
 		
 		<component id="sails">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="sailText" />      
 			
 			<ROTATION axis="y" angle="90" />
@@ -1744,7 +2147,11 @@
 		
 		<component id="sail1">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="null" />      
 
 			<TRANSLATION x="0.75" y="0.55" z="0.3" />
@@ -1764,7 +2171,11 @@
 		
 		<component id="sail2">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="null" />      
 
 			<TRANSLATION x="-0.55" y="-0.25" z="0.3" />
@@ -1784,7 +2195,11 @@
 		
 		<component id="sail3">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="null" />      
 
 			<TRANSLATION x="0.25" y="-1.5" z="0.3" />
@@ -1804,7 +2219,11 @@
 		
 		<component id="sail4">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="null" />      
 
 			<TRANSLATION x="1.5" y="-0.75" z="0.3" />
@@ -1824,7 +2243,11 @@
 		
 		
 		<component id="tree1">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="leafText" />
 			<TRANSLATION x="0" y ="13" z="-18" />
             <DESCENDANTS>
@@ -1835,7 +2258,11 @@
 		</component>
 		
 		<component id="tree2">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="leafText" />
 			<TRANSLATION x="-23" y ="16" z="-2" />
 			 <SCALE sx="0.7" sy="0.7" sz="0.7" />  
@@ -1852,7 +2279,11 @@
 
 	    <component id="treeTrunk2">      
 	    
-	        <MATERIAL id="trunkMat" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="trunkMat" />     
 	        <TEXTURE id="woodTree" />      
                        
 	        <TRANSLATION x="0" y="-5" z="0" /> 
@@ -1870,7 +2301,11 @@
 	    </component>
 			
 		<component id="tree3">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="leafText" />
 			<TRANSLATION x="10" y ="0" z="-20" />
 			 <SCALE sx="0.7" sy="0.7" sz="0.7" />  
@@ -1883,7 +2318,11 @@
 		</component>
 		
 		<component id="tree4">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="leafText" />
 			<TRANSLATION x="-23" y ="3" z="6" />
 			 <SCALE sx="0.7" sy="0.7" sz="0.7" />  
@@ -1897,7 +2336,11 @@
 		
 		
 		<component id="tree5">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="leafText" />
 			<TRANSLATION x="-15" y ="13" z="20" />
 			 <SCALE sx="1" sy="1.2" sz="1" />  
@@ -1914,7 +2357,11 @@
 	
 	    <component id="treeTop3">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="null" />      
                        
 	        <TRANSLATION x="0" y="15" z="0" /> 
@@ -1932,7 +2379,11 @@
 		
 	    <component id="treeTop3_2">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="null" />      
                        
 	        <TRANSLATION x="0" y="20" z="0" /> 
@@ -1950,7 +2401,11 @@
 
 	    <component id="treeTrunk3">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="woodTree" />      
 			
 			<ROTATION axis="x" angle="-90" />
@@ -1969,7 +2424,11 @@
 		
 		<component id="path">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="clear" />      
                        
 	        <TRANSLATION x="0" y="0.1" z="0" /> 
@@ -1986,7 +2445,11 @@
 
 		<component id="p1">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="pathTextZ" />      
 
 	        <TRANSLATION x="-6" y="0" z="42" /> 
@@ -2001,7 +2464,11 @@
 		
 		<component id="p2">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="pathTextX" />      
 
 	        <TRANSLATION x="-6" y="0" z="18" /> 
@@ -2016,7 +2483,11 @@
 		
 		<component id="p3">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="pathTextZ" />      
 
 	        <TRANSLATION x="16" y="0" z="18" /> 
@@ -2032,7 +2503,11 @@
 		
 		<component id="p4">      
 	    
-	        <MATERIAL id="null" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />     
 	        <TEXTURE id="pathTextX" />      
 
 	        <TRANSLATION x="16" y="0" z="-8" /> 
@@ -2048,7 +2523,11 @@
 <!-- DEFINIR PONTE -->
 	
 		<component id="bridge">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="bridgeText" />	
 			
 			<TRANSLATION x="16" y="2" z="-6" />
@@ -2063,7 +2542,11 @@
         </component>
 		
 		<component id="baseBridge">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />	
 
 			<TRANSLATION x="0" y="0.3" z="0" />
@@ -2080,7 +2563,11 @@
         </component>
 		
 			<component id="entranceBridge1">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />	
 
 			
@@ -2102,7 +2589,11 @@
 		
 		
 		<component id="entranceBridge2">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />	
 
 			<TRANSLATION x="0" y="0.3" z="6.5" />
@@ -2122,7 +2613,11 @@
 <!-- DEFINIR ARVORES -->		
 
 		<component id="treeModel">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 	
             <DESCENDANTS>
@@ -2136,7 +2631,11 @@
 		</component>
 	
 		<component id="crown1">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<SCALE sx="4" sy="4" sz="4" />
@@ -2148,7 +2647,11 @@
 		</component>
 	
 		<component id="crown2">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="0" y="3" z="0" />
@@ -2161,7 +2664,11 @@
     </component>
 	
 		<component id="crown3">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="0" y="4" z="0" />
@@ -2175,7 +2682,11 @@
 	
 	    <component id="treeTrunk">      
 	    
-	        <MATERIAL id="trunkMat" />     
+	        <transformation>
+
+			</transformation>
+
+			<MATERIAL id="trunkMat" />     
 	        <TEXTURE id="woodTree" />      
                        
 	        <TRANSLATION x="0" y="-5" z="0" /> 
@@ -2195,7 +2706,11 @@
 <!-- DEFINIR ARBUSTOS -->			
 	
 		<component id="bushes">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="leafText" />
 			
             <DESCENDANTS>
@@ -2214,7 +2729,11 @@
 		</component>
 		
 		<component id="bush1">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="-23" y="0" z="12" /> 
@@ -2229,7 +2748,11 @@
 		</component>
 		
 		<component id="bush2">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="-23" y="0" z="16" />
@@ -2245,7 +2768,11 @@
 		</component>
 		
 		<component id="bush3">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="-23" y="0" z="20" />
@@ -2261,7 +2788,11 @@
 		</component>
 		
 		<component id="bush4">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="-23" y="0" z="24" />
@@ -2277,7 +2808,11 @@
 		</component>
 		
 		<component id="bush5">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="-23" y="0" z="28" />
@@ -2293,7 +2828,11 @@
 		</component>
 		
 		<component id="bush6">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="-23" y="0" z="32" />
@@ -2309,7 +2848,11 @@
 		</component>
 		
 		<component id="bush7">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="-23" y="0" z="36" />
@@ -2325,7 +2868,11 @@
 		</component>
 		
 		<component id="bush8">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="-23" y="0" z="40" />
@@ -2341,7 +2888,11 @@
 		</component>
 		
 		<component id="bush9">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="6" y="0" z="2.5" />
@@ -2356,7 +2907,11 @@
 		</component>
 		
 		<component id="bush10">
-            <MATERIAL id="null" />
+            <transformation>
+
+			</transformation>
+
+			<MATERIAL id="null" />
             <TEXTURE id="null" />
 			
 			<TRANSLATION x="6" y="0" z="-7.5" />

@@ -203,19 +203,19 @@ LSXScene.prototype.processNode = function(node, parentTexture, parentMaterial) {
 	//Applies transformations
 	this.pushMatrix();
 	
-	this.multMatrix(this.graph.nodes[node].localTransformations);
+	this.multMatrix(this.graph.components[node].localTransformations);
 
 	//Receives material and texture from parent?
-	var material = this.graph.nodes[node].material;
+	var material = this.graph.components[node].material;
 	if (material == "null")
 		material = parentMaterial;
 
-	var texture = this.graph.nodes[node].texture;
+	var texture = this.graph.components[node].texture;
 	if (texture == "null")
 		texture = parentTexture;
 
 	//Process the node's children
-	var children = this.graph.nodes[node].children;
+	var children = this.graph.components[node].children;
 	for (var i = 0; i < children.length; ++i) {
 		this.processNode(children[i], texture, material);
 	}

@@ -21,7 +21,7 @@ function LSXSceneGraph(filename, scene) {
     this.materials = [];
 	this.transformationsMap = {};
     this.leaves = [];
-    this.nodes = [];
+    this.components = [];
 
 
 	this.scene = scene;
@@ -805,75 +805,79 @@ LSXSceneGraph.prototype.parsePrimitives = function(rootElement) {
  */
 LSXSceneGraph.prototype.parseComponents = function(rootElement) {
 	//Get components
-    var tempNodes =  rootElement.getElementsByTagName("components");
-	if (tempNodes == null) {
+    var tempComponents =  rootElement.getElementsByTagName("components");
+	if (tempComponents == null) {
 		return "components is missing.";
 	}
 
-	if (tempNodes.length != 1) {
+	if (tempComponents.length != 1) {
 		return "Only one components is allowed";
 	}
 
-	var nodes = tempNodes[0];
+	var components = tempComponents[0];
 	
 
-	tempNode = nodes.getElementsByTagName("component");
+	tempComponent = components.getElementsByTagName("component");
 
-	if (tempNode == null) {
+	if (tempComponent == null) {
 		return "component in components missing";
 	}
-	if (tempNode.length == 0) {
+	if (tempComponent.length == 0) {
 		return "No component found."
 	}
 
-	for (var i = 0; i < tempNode.length; ++i) {
-		var node = tempNode[i];
+	for (var i = 0; i < tempComponent.length; ++i) {
+		var component = tempComponent[i];
 
-		error = this.parseNode(node);
+		error = this.parseComponent(component);
 		if (error)
 			return error;
 	}
 
-	if (!(this.root in this.nodes))
+	if (!(this.root in this.components))
 		return "component with root id missing";
 
-	for (key in this.nodes) {
-		for (var i = 0; i < this.nodes[key].children.length; ++i) {
-			var child = this.nodes[key].children[i];
-			if (!((child in this.nodes) || (child in this.leaves)))
+	for (key in this.components) {
+		for (var i = 0; i < this.components[key].children.length; ++i) {
+			var child = this.components[key].children[i];
+			if (!((child in this.components) || (child in this.leaves)))
 				return "Child " + child + " is missing";
 		}
 	}
 }
 
 /*
- *@param node
+ *@param component
  * Parse each component
  * Called by parseComponents
  */
-LSXSceneGraph.prototype.parseNode = function(node) {
-	//Id of node
-	var id = this.reader.getString(node, "id");
-	console.log(id);
+LSXSceneGraph.prototype.parseComponent = function(component) {
+	//Id of component
+	var id = this.reader.getString(component, "id");
+	console.log("Found component " + id);
 	if (id in this.leaves)
-		return "Copy id leaf " + id;
-	if (id in this.nodes)
-		return "Copy id node " + id;
+		return "Duplicate primitive id " + id;
+	if (id in this.components)
+		return "Duplicate component id " + id;
 	
-	this.nodes[id] = new Node(id);
+	this.components[id] = new Node(id);
+	
+	//Get NODE Transformation
+	
+	var childNode = component.children[0];
 
 	//Get NODE MATERIAL
-	var childNode = node.children[0];
+	childNode = component.children[1];
 	if (childNode.nodeName != "MATERIAL")
 		return "Expected MATERIAL in NODE " + id + "in 1st child.";
 	var material = this.reader.getString(childNode, "id");
 	
 	if(!(material in this.materials) && material != "null")
 		return "No MATERIAL " + material +  " for NODE " + id;
-	this.nodes[id].setMaterial(material);
+	this.components[id].setMaterial(material);
 
 	//Get NODE TEXTURE
-	childNode = node.children[1];
+	childNode = component.children[2];
 	if (childNode.nodeName != "TEXTURE")
 		return "Expected TEXTURE in NODE " + id + "in 2nd child.";
 	var texture = this.reader.getString(childNode, "id");
@@ -881,11 +885,11 @@ LSXSceneGraph.prototype.parseNode = function(node) {
 	if(!(texture in this.textures) && texture != "null" && texture != "clear")
 		return "No TEXTURE " + texture +  " for NODE " + id;
 	
-	this.nodes[id].setTexture(texture);
+	this.components[id].setTexture(texture);
 
 	//Get Local Transformations of Node - OPTIONAL
-	for (var i = 2; i < node.children.length - 1; ++i) {
-		var transformation = node.children[i];
+	for (var i = 3; i < component.children.length - 1; ++i) {
+		var transformation = component.children[i];
 		var type = transformation.nodeName;
 		switch (type) {
 			case "ROTATION":
@@ -894,13 +898,13 @@ LSXSceneGraph.prototype.parseNode = function(node) {
 					switch (axis) {
 						 
 						case "x":
-							this.nodes[id].rotateX(angle * deg2rad);
+							this.components[id].rotateX(angle * deg2rad);
 							break;
 						case "y":
-							this.nodes[id].rotateY(angle * deg2rad);
+							this.components[id].rotateY(angle * deg2rad);
 							break;
 						case "z":
-							this.nodes[id].rotateZ(angle *deg2rad);
+							this.components[id].rotateZ(angle *deg2rad);
 							break;
 						default:
 							return "Unknown rotation axis: " + axis;
@@ -910,13 +914,13 @@ LSXSceneGraph.prototype.parseNode = function(node) {
 				var sx = this.reader.getFloat(transformation, "sx");
 				var sy = this.reader.getFloat(transformation, "sy");
 				var sz = this.reader.getFloat(transformation, "sz");
-				this.nodes[id].scale(sx, sy, sz);
+				this.components[id].scale(sx, sy, sz);
 				break;
 			case "TRANSLATION":
 				var x = this.reader.getFloat(transformation, "x");
 				var y = this.reader.getFloat(transformation, "y");
 				var z = this.reader.getFloat(transformation, "z");
-				this.nodes[id].translate(x, y, z);
+				this.components[id].translate(x, y, z);
 				break;
 			default:
 				return "Unknown transformation: " + type;
@@ -924,7 +928,7 @@ LSXSceneGraph.prototype.parseNode = function(node) {
 	}
 
 	//Get children of NODE
-	var new_children = node.children[node.children.length - 1];
+	var new_children = component.children[component.children.length - 1];
 	if (new_children.nodeName != "DESCENDANTS")
 		return "Expected DESCENDANTS tag in NODE " + id;
 
@@ -933,7 +937,7 @@ LSXSceneGraph.prototype.parseNode = function(node) {
 
 	for (var i = 0; i < new_children.children.length; ++i) {
 		var new_child = this.reader.getString(new_children.children[i], "id");
-		this.nodes[id].addChild(new_child);
+		this.components[id].addChild(new_child);
 	}
 }
 	
