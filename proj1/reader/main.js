@@ -33,6 +33,7 @@ serialInclude(['../lib/CGF.js',
 'LeafTriangle.js', 
 'Material.js',
 'Node.js',
+'Views.js',
 
 
 main=function()

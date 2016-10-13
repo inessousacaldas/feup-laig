@@ -1,15 +1,21 @@
 <dsx>
 
 <scene root="WorldScene" axis_length = "0" />     <!-- identifier of root node of the scene graph; this node     -->
-
-<INITIALS>
-        <frustum near="1.5" far="500" />
-        <translation x="0" y="0" z="0" />
-        <rotation axis="x" angle="0" />
-        <rotation axis="y" angle="0" />
-        <rotation axis="z" angle="0" />
-        <scale sx="1" sy="1" sz="1" />
-    </INITIALS>
+   
+   <views default="main_view" >
+    
+        <!-- declaracao obrigatoria de pelo menos uma vista; -->
+        <!-- se varias vistas declaradas, o default e' a -->
+        <!-- primeira vista; de cada vez que se pressione a tecla v/V, -->
+        <!-- a vista muda para a proxima da lista; da --> 
+        <!-- ultima vista da lista volta 'a primeira -->
+        <perspective id="main_view" near="0.1" far="500" angle="0.4">
+            <from x="50" y="80" z="130" />
+            <to x="0" y="0" z="0" />
+        </perspective>
+        
+    </views>
+    
 
     <illumination doublesided = "0" local = "0">
 	
@@ -40,7 +46,7 @@
             <specular r="1" g="1" b="0.4" a="1" />
         </omni>
 		
-		 <spot id="Teste" enabled="1" angle="10" exponent="0.5">
+		<spot id="Teste" enabled="1" angle="10" exponent="0.5">
             <target x="0" y="0" z="0" />
             <location x="-20" y="30" z="40" />
             <ambient r="0" g="0" b="0" a="1" />

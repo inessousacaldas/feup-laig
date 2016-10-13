@@ -14,7 +14,7 @@ function LSXSceneGraph(filename, scene) {
 	this.loadedOk = null;
 	this.filename = 'scenes/'+filename;
 	
-    this.initials = new Initials();
+	this.views = new Views();
     this.illumination = new Illumination();
     this.lights = [];
     this.textures = [];
@@ -81,25 +81,22 @@ LSXSceneGraph.prototype.parseSceneGraph = function(rootElement) {
 	
 	this.root = this.reader.getString(sceneInfo[0], 'root');
 	
+	this.axisLength = this.reader.getFloat(sceneInfo[0], 'axis_length');
+	
 	if(this.root == null){
 		return "root id is missing."
 	}
 	
-	
-	//Get INITIALS - reference -> reference length of axis
-    var refTemp = this.reader.getFloat(sceneInfo[0], "axis_length");
-	if (refTemp == null) {
-	    return "reference in scene is missing.";
+	if(this.axisLength == null){
+		return "axis length is missing."
 	}
-
-	this.initials.referenceLength = refTemp;
 	
 	
 	/* TODO: Faltam fazer a parte das vistas */
 	
 
-	console.log("*******INITIALS*******");
-    var error = this.parseInitials(rootElement);
+	console.log("*******VIEWS*******");
+    var error = this.parseViews(rootElement);
     if (error) {
         return error;
     }
@@ -156,125 +153,63 @@ LSXSceneGraph.prototype.parseSceneGraph = function(rootElement) {
  *@param rootElement SCENE tag from LSX
  * Parse tag INITIALS from LSX
  */
-LSXSceneGraph.prototype.parseInitials = function(rootElement) {
-
-	//Get INITIAlS
-	var initialsTemp =  rootElement.getElementsByTagName("INITIALS");
-	if (initialsTemp == null) {
-		return "INITIALS is missing";
+LSXSceneGraph.prototype.parseViews = function(rootElement) {
+	var tempViews =  rootElement.getElementsByTagName("views");
+	if (tempViews == null) {
+		return "views element is missing.";
 	}
 
-	if (initialsTemp.length != 1) {
-		return "Only one INITIALS is allowed";
+	if (tempViews.length != 1) {
+		return "only one views is allowed.";
 	}
+	//Get views - perspective
 
-	var initials = initialsTemp[0];
+	var perspectives = tempViews[0];
 	
+	var def = this.reader.getString(perspectives, "default");
 	
-	if (initials.children[1].nodeName != "translation" ||
-	    initials.children[2].nodeName != "rotation" ||
-	    initials.children[3].nodeName != "rotation" ||
-	    initials.children[4].nodeName != "rotation" ||
-	    initials.children[5].nodeName != "scale")
-			return "Write in order: Translation, Rotation, Scale";
+	//testa se existe pelo menos uma perspetiva
+	if (perspectives.children == null || perspectives.children.length < 1)
+		return "There should be at least one perspective"
 
+	//adicionar todas as perspetivas
+	for (var i = 0; i < perspectives.children.length; i++){
+		var perspective = perspectives.children[i];
+		var id = this.reader.getString(perspective, "id");
+		if (id == null)
+			return "perspective without id.";
 		
-	
-	//Get INITIALS - frustrum
-	frustTemp = initials.getElementsByTagName("frustum");
-	if (frustTemp == null) {
-	    return "frustum in INITIALS is missing.";
-	}
-	if (frustTemp.length != 1) {
-	    return "Only one frustum is allowed in INITIALS.";
-	}
-
-	var frustum = frustTemp[0];
-
-	this.initials.frustum.near = this.reader.getFloat(frustum, "near");
-	
-	if (this.initials.frustum.near == null)
-		return "Frustum near is missing.";
-	if (isNaN(this.initials.frustum.near))
-		return "Frustum near is NaN.";
-
-	this.initials.frustum.far = this.reader.getFloat(frustum, "far");
-	if (this.initials.frustum.far == null)
-		return "Frustum far is missing.";
-	if (isNaN(this.initials.frustum.far))
-		return "Frustum far is NaN.";
-
-	//Get INITIALS - translation
-    transTemp = initials.getElementsByTagName("translation");
-	if (transTemp == null) {
-	    return "translation in INITIALS is missing.";
-	}
-	if (transTemp.length != 1) {
-	    return "Only one translation in INITIALS is allowed.";
+		var near = this.reader.getFloat(perspective, "near");
+		var far = this.reader.getFloat(perspective, "far");
+		var angle = this.reader.getFloat(perspective, "angle");
+		
+		if (perspective.children.length != 2)
+			return "Wrong perspective type found in view " + id;
+		
+		var from_child = perspective.children[0];
+		var to_child = perspective.children[1];
+		
+		var x_from = this.reader.getFloat(from_child, "x");
+		var y_from = this.reader.getFloat(from_child, "y");
+		var z_from = this.reader.getFloat(from_child, "z");
+		
+		var x_to = this.reader.getFloat(to_child, "x");
+		var y_to = this.reader.getFloat(to_child, "y");
+		var z_to = this.reader.getFloat(to_child, "z");
+		
+		//ar newPerspective = new Views(id,angle,near,far,x_from,y_from,z_from,x_to,y_to,z_to);
+		
+		this.views.addView(i,angle,near,far,x_from,y_from,z_from,x_to,y_to,z_to);
+		
+		if (id == def)
+			this.views.setDefault(i);
+		console.log("Added view " + id);
+		
 	}
 	
-    var translation = transTemp[0];
-    var translationData = vec3.create();
-    translationData[0] = this.reader.getFloat(translation, "x");
-    if (translationData[0] == null)
-		return "Translation x attribute missing";
-	if (isNaN(translationData[0]))
-		return "Translation x is NaN";
-    translationData[1] = this.reader.getFloat(translation, "y");
-    if (translationData[1] == null)
-		return "Translation y attribute missing";
-	if (isNaN(translationData[1]))
-		return "Translation y is NaN";
-    translationData[2] = this.reader.getFloat(translation, "z");
-    if (translationData[2] == null)
-		return "Translation z attribute missing";
-	if (isNaN(translationData[2]))
-		return "Translation z is NaN";
-
-    mat4.translate(this.initials.localTransformations, this.initials.localTransformations, translationData);
-
-	//Get INITIALS - rotation
-    rotTemp = initials.getElementsByTagName("rotation");
-	if (rotTemp == null) {
-	    return "rotation in INITIALS is missing.";
-	}
-    if (rotTemp.length != 3) {
-        return "3 'rotation' elements needed in INITIALS";
-    }
-
-	var rotations = []
-    for (var i = 0; i < rotTemp.length; ++i) {
-    	var rotation = rotTemp[i];
-    	var axis = this.reader.getString(rotation, "axis");
-    	if (["x", "y", "z"].indexOf(axis) == -1)
-    		return "Unknow axis: " + axis;
-		if (axis in rotations)
-			return "Duplicate axis rotation in INITIALS " + axis;
-
-    	var angle = this.reader.getString(rotation, "angle");
-    	rotations[axis] = angle;
-    }
-	mat4.rotateX(this.initials.localTransformations, this.initials.localTransformations, rotations["x"] * Math.PI / 180);
-	mat4.rotateY(this.initials.localTransformations, this.initials.localTransformations, rotations["y"] * Math.PI / 180);
-	mat4.rotateZ(this.initials.localTransformations, this.initials.localTransformations, rotations["z"] * Math.PI / 180);
-
-	//Get INITIALS - scale
-    scaleTemp = initials.getElementsByTagName("scale");
-	if (scaleTemp == null) {
-	    return "scale in INITIALS is missing.";
-	}
-	if (scaleTemp.length != 1) {
-	    return "Only one scale is allowed in INITIALS.";
-	}
-
-	var scale = scaleTemp[0];
-    var scaleData = vec3.create();
-    scaleData[0] = this.reader.getFloat(scale, "sx");
-    scaleData[1] = this.reader.getFloat(scale, "sy");
-    scaleData[2] = this.reader.getFloat(scale, "sz");
-    mat4.scale(this.initials.localTransformations, this.initials.localTransformations, scaleData);
-
-
+	if (this.views.getDefault == null)
+		return "No default view detected";
+	
 };
 
 /*
@@ -905,7 +840,7 @@ LSXSceneGraph.prototype.parseComponent = function(component) {
 	//Get NODE MATERIAL
 	childNode = component.children[1];
 	if (childNode.nodeName != "materials")
-		return "Expected materials in component " + id + "in 2nd child.";
+		return "Expected materials in component " + id + " in 2nd child.";
 	
 	for (var i=0;i<childNode.children.length;i++){
 		var material = childNode.children[i];
@@ -925,7 +860,7 @@ LSXSceneGraph.prototype.parseComponent = function(component) {
 	//Get NODE TEXTURE
 	childNode = component.children[2];
 	if (childNode.nodeName != "texture")
-		return "Expected texture in component " + id + "in 3rd child.";
+		return "Expected texture in component " + id + " in 3rd child.";
 	var texture = this.reader.getString(childNode, "id");
 	
 	if(!(texture in this.textures) && texture != "null" && texture != "clear")
