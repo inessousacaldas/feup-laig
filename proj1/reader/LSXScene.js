@@ -24,7 +24,7 @@ LSXScene.prototype.init = function (application) {
     this.lightsEnabled = []; //Control every single light
 
 	this.primitives = [];
- 	
+ 	this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
 
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -49,9 +49,18 @@ LSXScene.prototype.setInterface = function(myinterface) {
  * Create camera in default position
  */
 LSXScene.prototype.initCameras = function () {
-	//this.camera = this.graph.views.views[0];
-    this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50, 80, 130), vec3.fromValues(0, 0, 0));
+	
+	var camera = this.graph.views.getCurrentView();
+	
+	this.camera.setPosition(vec3.fromValues(camera.fromX, camera.fromY, camera.fromZ));
+	this.camera.setTarget(vec3.fromValues(camera.toX, camera.toY, camera.toZ));
+
 };
+LSXScene.prototype.updateCamera = function () {
+	this.graph.views.changeView();
+	this.initCameras();
+}
+
 
 /*
  * Defines default apperence

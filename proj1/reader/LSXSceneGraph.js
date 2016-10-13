@@ -201,7 +201,7 @@ LSXSceneGraph.prototype.parseViews = function(rootElement) {
 		
 		//ar newPerspective = new Views(id,angle,near,far,x_from,y_from,z_from,x_to,y_to,z_to);
 		
-		this.views.addView(i,angle,near,far,x_from,y_from,z_from,x_to,y_to,z_to);
+		this.views.addView(this.scene, i,angle,near,far,x_from,y_from,z_from,x_to,y_to,z_to);
 		
 		if (id == def)
 			this.views.setDefault(i);

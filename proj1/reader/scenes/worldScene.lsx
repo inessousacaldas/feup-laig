@@ -13,6 +13,10 @@
             <from x="50" y="80" z="130" />
             <to x="0" y="0" z="0" />
         </perspective>
+		 <perspective id="view1" near="0.1" far="600" angle="0.4">
+            <from x="50" y="80" z="0" />
+            <to x="0" y="0" z="0" />
+        </perspective>
         
     </views>
     

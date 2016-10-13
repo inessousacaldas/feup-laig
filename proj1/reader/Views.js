@@ -19,12 +19,23 @@ Views.prototype.constructor = Views;
  * @param s 
  * @param t
  */
-Views.prototype.addView = function(id, near, far, angle, fromX, fromY, fromZ, toX, toY, toZ) {
+Views.prototype.addView = function(scene, id, near, far, angle, fromX, fromY, fromZ, toX, toY, toZ) {
 	
+
 	
-    var camera = new CGFcamera(angle, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ));
-	console.log('nova camera');
-	this.views.push(camera);
+	var view = {
+		near:near,
+		far:far,
+		angle:angle,
+		fromX:fromX,
+		fromY:fromY,
+		fromZ:fromZ,
+		toX:toX,
+		toY:toY,
+		toZ:toZ
+	};
+	
+	this.views.push(view);
 	
 };
 
@@ -41,6 +52,7 @@ Views.prototype.repetedId = function(id){
 };
 
 Views.prototype.getCurrentView = function() {
+	
 	return this.views[this.idDefault];
 };
 
