@@ -82,6 +82,8 @@ LSXSceneGraph.prototype.parseSceneGraph = function(rootElement) {
 	this.root = this.reader.getString(sceneInfo[0], 'root');
 	
 	this.axisLength = this.reader.getFloat(sceneInfo[0], 'axis_length');
+	this.localTransformations = mat4.create();
+	mat4.identity(this.localTransformations);
 	
 	if(this.root == null){
 		return "root id is missing."

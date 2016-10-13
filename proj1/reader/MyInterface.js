@@ -50,7 +50,7 @@ MyInterface.prototype.processKeyboard = function(event)
 		console.log('Key presssed: ', event);
 		var speed=0.05;
 		var zoom = 1;
-	
+		console.log(event.charCode);
 		switch (event.charCode)
 		{
 			//'a'
@@ -72,7 +72,16 @@ MyInterface.prototype.processKeyboard = function(event)
 			case(106):        this.scene.camera.pan([-zoom/2,0,0] );  break;
 			//'l'
 			case(108):        this.scene.camera.pan([zoom/2,0,0] );  break;
-
+			
+			//v or V
+			case(118): //fall through
+			case(86): 	console.log(event.charCode + " I'm changing view"); break;
+			
+			//m or M 
+			case(109): //fall through
+			case(77): 	console.log(event.charCode + " I'm changing materials"); break;
+			
+			
 		}
 }
 

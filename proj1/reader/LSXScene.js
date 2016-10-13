@@ -20,8 +20,6 @@ LSXScene.prototype.init = function (application) {
     this.myinterface = null;
     this.graph = null;
 
-    this.initCameras(); //Set default configuration of camera view
-
 	this.allLights = 'All'; //ID To control all lights
     this.lightsEnabled = []; //Control every single light
 
@@ -51,6 +49,7 @@ LSXScene.prototype.setInterface = function(myinterface) {
  * Create camera in default position
  */
 LSXScene.prototype.initCameras = function () {
+	//this.camera = this.graph.views.views[0];
     this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50, 80, 130), vec3.fromValues(0, 0, 0));
 };
 
@@ -69,11 +68,11 @@ LSXScene.prototype.setDefaultAppearance = function () {
  */
 LSXScene.prototype.onGraphLoaded = function () 
 {
-	this.camera.near = this.graph.initials.frustum.near;
-	this.camera.far = this.graph.initials.frustum.far;
+	
+	this.initCameras(); //Set default configuration of camera view
 
-    if (this.graph.initials.referenceLength > 0)
-	   this.axis = new CGFaxis(this, this.graph.initials.referenceLength);
+    if (this.graph.axisLength > 0)
+	   this.axis = new CGFaxis(this, this.graph.axisLength);
 	   
 	this.gl.clearColor(this.graph.illumination.background[0],this.graph.illumination.background[1],this.graph.illumination.background[2],this.graph.illumination.background[3]);
 	this.setGlobalAmbientLight(this.graph.illumination.ambient[0],this.graph.illumination.ambient[1],this.graph.illumination.ambient[2],this.graph.illumination.ambient[3]);
@@ -142,7 +141,7 @@ LSXScene.prototype.display = function () {
 	//Process scene if LSX read ok
 	if (this.graph != null && this.graph.loadedOk)
 	{	
-		this.multMatrix(this.graph.initials.localTransformations);
+		this.multMatrix(this.graph.localTransformations);
 	
 		for (var i = 0; i < this.lights.length; ++i)
 			this.lights[i].update();

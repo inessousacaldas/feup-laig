@@ -21,7 +21,9 @@ Views.prototype.constructor = Views;
  */
 Views.prototype.addView = function(id, near, far, angle, fromX, fromY, fromZ, toX, toY, toZ) {
 	
+	
     var camera = new CGFcamera(angle, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ));
+	console.log('nova camera');
 	this.views.push(camera);
 	
 };
@@ -38,8 +40,8 @@ Views.prototype.repetedId = function(id){
 	return (id in this.views);
 };
 
-Views.prototype.getView = function() {
-	return this.views[idDefault];
+Views.prototype.getCurrentView = function() {
+	return this.views[this.idDefault];
 };
 
 Views.prototype.changeView = function(){
