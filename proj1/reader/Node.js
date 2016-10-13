@@ -6,6 +6,7 @@
 function Node(id) {
     this.id = id;
     this.material = "null";
+	this.materials = [];
     this.texture = "clear";
     this.localTransformations = mat4.create();
     mat4.identity(this.localTransformations);
@@ -22,6 +23,11 @@ Node.prototype.constructor = Node;
 
 Node.prototype.setMaterial = function(material) {
     this.material = material;
+}
+
+Node.prototype.addMaterial = function(material) {
+    this.materials.push(material);
+	
 }
 
 /*
@@ -84,3 +90,13 @@ Node.prototype.translate = function(x, y, z) {
     mat4.translate(this.localTransformations, this.localTransformations, vec3.fromValues(x, y, z));
 }
 
+/*
+ * Multiplies a transformation matrix with local transformations
+ * @param matrix transformation matrix (mat4)
+
+ */
+Node.prototype.multMatrix = function(matrix){
+	
+	//this.localTransformations = mat4.multiply(this.localTransformations, matrix);
+	mat4.multiply(this.localTransformations, matrix, this.localTransformations);
+}

@@ -516,14 +516,15 @@ LSXSceneGraph.prototype.parseTextures = function(rootElement) {
  */
 LSXSceneGraph.prototype.parseMaterials = function(rootElement) {
 	//Get materials
-    var tempMat =  rootElement.getElementsByTagName("materials");
+    var tempMat =  rootElement.querySelectorAll("dsx > materials");
+
 	if (tempMat == null) {
 		return "materials is missing.";
 	}
 
-	if (tempMat.length != 1) {
+	/*if (tempMat.length != 1) {
 		return "Only one materials is allowed.";
-	}
+	}*/
 
 	var materials = tempMat[0];
 	
@@ -555,7 +556,9 @@ LSXSceneGraph.prototype.parseMaterials = function(rootElement) {
 
 
 LSXSceneGraph.prototype.parseTransformations = function(rootElement) {
+	
 	var tempTransformations =  rootElement.getElementsByTagName("transformations");
+	
 	if (tempTransformations == null) {
 		return "transformations is missing.";
 	}
@@ -593,7 +596,8 @@ LSXSceneGraph.prototype.parseTransformations = function(rootElement) {
 		
 		console.log("Found Transformation " + id);
 		
-		var transformationList = [];
+		var trans =  mat4.create();
+		mat4.identity(trans);
 		
 		for (var j = 0; j < transformationGroup.children.length; ++j) {
 			var transformation = transformationGroup.children[j];
@@ -601,11 +605,7 @@ LSXSceneGraph.prototype.parseTransformations = function(rootElement) {
 			if (transformation == null) {
 				return "transformation in transformationGroup missing";
 			}
-			var trans = [1, 0, 0, 0,
-						0, 1, 0, 0,
-						0, 0, 1, 0,
-						0, 0, 0, 1];
-						
+			
 			var type = transformation.tagName;
 			
 			switch (type){
@@ -613,39 +613,30 @@ LSXSceneGraph.prototype.parseTransformations = function(rootElement) {
 					var tx = this.reader.getFloat(transformation, "x");
 					var ty = this.reader.getFloat(transformation, "y");
 					var tz = this.reader.getFloat(transformation, "z");
-					trans = [1, 0, 0, tx,
-							0, 1, 0, ty,
-							0, 0, 1, tz,
-							0, 0, 0, 1];
+					
+					mat4.translate(trans, trans, vec3.fromValues(tx, ty, tz));
+					
 					console.log(id + " - Added translate transformation");
 					break;
 				case "rotate":
 					var axis = this.reader.getString(transformation, "axis");
 					var angle = this.reader.getFloat(transformation, "angle");
+					
 					switch (axis){
 						case "x":
 							//fall through
 						case "X":
-							trans = [1, 0, 0, 0,
-									0, Math.cos(angle), -Math.sin(angle), 0,
-									0, Math.sin(angle), Math.cos(angle), 0,
-									0, 0, 0, 1];
+							 mat4.rotateX(trans, trans, angle*deg2rad);
 							break;
 						case "y":
 							//fall through
 						case "Y":
-							trans = [Math.cos(angle), 0, Math.sin(angle), 0,
-									0, 1, 0, 0,
-									-Math.sin(angle), 0, Math.cos(angle), 0,
-									0, 0, 0, 1];
+							mat4.rotateY(trans, trans, angle*deg2rad);
 							break;
 						case "z":
 							//fall through
 						case "Z":
-							trans = [Math.cos(angle), -Math.sin(angle), 0, 0,
-									Math.sin(angle), Math.cos(angle), 0, 0,
-									0, 0, 1, 0,
-									0, 0, 0, 1];
+							mat4.rotateZ(trans, trans, angle*deg2rad);
 							break;
 						default:
 							return "Wrong axis detected in transformation id: " + id;
@@ -653,23 +644,23 @@ LSXSceneGraph.prototype.parseTransformations = function(rootElement) {
 					console.log(id + " - Added rotate transformation");
 					break;
 				case "scale":
+				
 					var sx = this.reader.getFloat(transformation, "x");
 					var sy = this.reader.getFloat(transformation, "y");
 					var sz = this.reader.getFloat(transformation, "z");
-					trans = [sx, 0, 0, 0,
-							0, sy, 0, 0,
-							0, 0, sz, 0,
-							0, 0, 0, 1];
+					
+					mat4.scale(trans, trans, vec3.fromValues(sx,sy,sz));
 					console.log(id + " - Added scale transformation");
 					break;
+				
 				default:
 					return "Wrong type of transformation in id " + id;
 			}
-			transformationList.push(trans);
 			
 		}
-		var transformationMatrix = multiplyMatrix(transformationList);
-		this.transformationsMap[id] = transformationMatrix;
+		
+		this.transformationsMap[id] = trans; // add transformation matrix to map
+		
 	}
 }
 
@@ -865,34 +856,19 @@ LSXSceneGraph.prototype.parseComponent = function(component) {
 	//Get NODE Transformation
 	
 	var childNode = component.children[0];
-
-	//Get NODE MATERIAL
-	childNode = component.children[1];
-	if (childNode.nodeName != "MATERIAL")
-		return "Expected MATERIAL in NODE " + id + "in 1st child.";
-	var material = this.reader.getString(childNode, "id");
-	
-	if(!(material in this.materials) && material != "null")
-		return "No MATERIAL " + material +  " for NODE " + id;
-	this.components[id].setMaterial(material);
-
-	//Get NODE TEXTURE
-	childNode = component.children[2];
-	if (childNode.nodeName != "TEXTURE")
-		return "Expected TEXTURE in NODE " + id + "in 2nd child.";
-	var texture = this.reader.getString(childNode, "id");
-	
-	if(!(texture in this.textures) && texture != "null" && texture != "clear")
-		return "No TEXTURE " + texture +  " for NODE " + id;
-	
-	this.components[id].setTexture(texture);
-
-	//Get Local Transformations of Node - OPTIONAL
-	for (var i = 3; i < component.children.length - 1; ++i) {
-		var transformation = component.children[i];
-		var type = transformation.nodeName;
-		switch (type) {
-			case "ROTATION":
+	if (childNode.nodeName != "transformation")
+		return "Expected transformation in component " + id + " in 1st child.";
+	for (var i=0;i<childNode.children.length;i++){
+		var transformation = childNode.children[i];
+		
+		switch (transformation.nodeName) {
+			case "transformationref":
+				var transformationId = this.reader.getString(transformation, "id");
+				if (transformationId in this.transformationsMap){
+					this.components[id].multMatrix(this.transformationsMap[transformationId]);
+				}
+				break;
+			case "rotate":
 				var axis = this.reader.getString(transformation, "axis");
 				var angle = this.reader.getFloat(transformation, "angle");
 					switch (axis) {
@@ -910,35 +886,71 @@ LSXSceneGraph.prototype.parseComponent = function(component) {
 							return "Unknown rotation axis: " + axis;
 					}
 				break;
-			case "SCALE":
-				var sx = this.reader.getFloat(transformation, "sx");
-				var sy = this.reader.getFloat(transformation, "sy");
-				var sz = this.reader.getFloat(transformation, "sz");
+			case "scale":
+				var sx = this.reader.getFloat(transformation, "x");
+				var sy = this.reader.getFloat(transformation, "y");
+				var sz = this.reader.getFloat(transformation, "z");
 				this.components[id].scale(sx, sy, sz);
 				break;
-			case "TRANSLATION":
+			case "translate":
 				var x = this.reader.getFloat(transformation, "x");
 				var y = this.reader.getFloat(transformation, "y");
 				var z = this.reader.getFloat(transformation, "z");
 				this.components[id].translate(x, y, z);
 				break;
 			default:
-				return "Unknown transformation: " + type;
+				return "Wrong transformation found in component id " + id;
 		}
 	}
+	//Get NODE MATERIAL
+	childNode = component.children[1];
+	if (childNode.nodeName != "materials")
+		return "Expected materials in component " + id + "in 2nd child.";
+	
+	for (var i=0;i<childNode.children.length;i++){
+		var material = childNode.children[i];
+		var materialId = this.reader.getString(material, "id");
+	
+		if(!(materialId in this.materials) && materialId != "null")
+			return "No material " + materialId +  " for component " + id;
+		this.components[id].addMaterial(materialId);
+	}
+	
+	//to set first material from list
+	var material = childNode.children[0];
+	var materialId = this.reader.getString(material, "id");
+	this.components[id].setMaterial(materialId)
+	
 
+	//Get NODE TEXTURE
+	childNode = component.children[2];
+	if (childNode.nodeName != "texture")
+		return "Expected texture in component " + id + "in 3rd child.";
+	var texture = this.reader.getString(childNode, "id");
+	
+	if(!(texture in this.textures) && texture != "null" && texture != "clear")
+		return "No texture " + texture +  " for component " + id;
+	
+	this.components[id].setTexture(texture);
+
+	
 	//Get children of NODE
 	var new_children = component.children[component.children.length - 1];
-	if (new_children.nodeName != "DESCENDANTS")
-		return "Expected DESCENDANTS tag in NODE " + id;
+	if (new_children.nodeName != "children")
+		return "Expected children tag in component " + id;
 
 	if (new_children.children.length == 0)
-		return "NODE " + id + " as no descendants";
+		return "component " + id + " has no descendants";
 
 	for (var i = 0; i < new_children.children.length; ++i) {
-		var new_child = this.reader.getString(new_children.children[i], "id");
-		this.components[id].addChild(new_child);
+		var new_child = new_children.children[i];
+		
+		if (new_child.nodeName != "componentref" && new_child.nodeName != "primitiveref" )
+			return "Wrong children type found for component " + id;
+		var new_childId = this.reader.getString(new_child, "id");
+		this.components[id].addChild(new_childId);
 	}
+	
 }
 	
 /*
