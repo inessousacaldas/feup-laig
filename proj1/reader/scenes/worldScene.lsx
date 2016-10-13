@@ -227,7 +227,7 @@
 			<material id="default" />
         </materials>
 
-        <TEXTURE id="clear" />       <!-- declared texture superimposes the texture received from parent node -->
+        <texture id="clear" />       <!-- declared texture superimposes the texture received from parent node -->
                                   <!-- id="null" maintains texture from parent node       -->
                                   <!-- id="clear" clears texture declaration received from parent node      -->
 
@@ -260,15 +260,15 @@
        <component id="plataform">
 	   
 			<transformation>
-				<TRANSLATION x="-25" y="0" z="-25" />
-				<SCALE sx="70" sy="2" sz="70" />
+				<translate x="-25" y="0" z="-25" />
+				<scale x="70" y="2" z="70" />
 			</transformation>
 
 			<materials>
 				<material id="default" />
 			</materials>
 			
-            <TEXTURE id="forest" />	
+            <texture id="forest" />	
 
             <children>
                 <componentref id="plataform1" />  <!-- bottom -->
@@ -283,15 +283,15 @@
 		<component id="plataform1">
 		
 			<transformation>
-				<TRANSLATION x="0" y="-1" z="0" />
-				<ROTATION axis="x" angle="90" />
+				<translate x="0" y="-1" z="0" />
+				<rotate axis="x" angle="90" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <primitiveref id="idSquare" />
@@ -303,14 +303,14 @@
 		<component id="plataform2">
 		
 			<transformation>
-				<TRANSLATION x="0" y="-1" z="1" />
+				<translate x="0" y="-1" z="1" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <primitiveref id="idSquare" />
@@ -321,15 +321,15 @@
         <component id="plataform3">
 			
 			<transformation>
-				<TRANSLATION x="0" y="-1" z="0" />
-				<ROTATION axis="y" angle="-90" />
+				<translate x="0" y="-1" z="0" />
+				<rotate axis="y" angle="-90" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <primitiveref id="idSquare" />
@@ -341,15 +341,15 @@
 		<component id="plataform4">
 		
 			<transformation>
-				<TRANSLATION x="1" y="-1" z="0" />
-				<ROTATION axis="y" angle="180" />
+				<translate x="1" y="-1" z="0" />
+				<rotate axis="y" angle="180" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <primitiveref id="idSquare" />
@@ -360,15 +360,15 @@
         <component id="plataform5">
 		
 			<transformation>
-				<TRANSLATION x="1" y="-1" z="1" />
-				<ROTATION axis="y" angle="90" />
+				<translate x="1" y="-1" z="1" />
+				<rotate axis="y" angle="90" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 		
 
             <children>
@@ -380,15 +380,15 @@
         <component id="plataform6">
 		
 			<transformation>
-				<TRANSLATION x="0" y="0" z="1" />
-				<ROTATION axis="x" angle="-90" />
+				<translate x="0" y="0" z="1" />
+				<rotate axis="x" angle="-90" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <primitiveref id="idSquare" />
@@ -401,14 +401,14 @@
 		<component id="hill">
 		
 			<transformation>
-				<TRANSLATION x="-25" y="2" z="-25" />
+				<translate x="-25" y="2" z="-25" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="hillGreen" />		
+            <texture id="hillGreen" />		
 
             <children>
                 <componentref id="hillBase" />
@@ -422,15 +422,15 @@
 		<component id="hillBase">
 		
 			<transformation>
-				<TRANSLATION x="0" y="1" z="0" />
-				<SCALE sx="30" sy="3" sz="35" />
+				<translate x="0" y="1" z="0" />
+				<scale x="30" y="3" z="35" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="plataform1" />
@@ -443,15 +443,15 @@
 		<component id="hillFirstStep">
 		
 			<transformation>
-				<TRANSLATION x="0" y="7" z="0" />
-				<SCALE sx="20" sy="6" sz="27" />
+				<translate x="0" y="7" z="0" />
+				<scale x="20" y="6" z="27" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="plataform1" />
@@ -464,15 +464,15 @@
 		<component id="hillSecondStep">
 		
 			<transformation>
-				<TRANSLATION x="0" y="11" z="0" />
-				<SCALE sx="15" sy="4" sz="17" />
+				<translate x="0" y="11" z="0" />
+				<scale x="15" y="4" z="17" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="plataform1" />
@@ -492,7 +492,7 @@
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="hillStep" />
+            <texture id="hillStep" />
 			
             <children>
 			
@@ -515,7 +515,7 @@
 				<material id="matWater" />
 			</materials>
 			
-            <TEXTURE id="texWater" />
+            <texture id="texWater" />
 		
             <children>
                 
@@ -534,17 +534,17 @@
 		<component id="riverTop">
 			
 			<transformation>
-				<TRANSLATION x="-15" y="13.1" z="-7.9" />
-				<ROTATION axis="y" angle="90" />
-				<ROTATION axis="x" angle="-90" />	
-				<SCALE sx="17.1" sy="5" sz="2" />
+				<translate x="-15" y="13.1" z="-7.9" />
+				<rotate axis="y" angle="90" />
+				<rotate axis="x" angle="-90" />	
+				<scale x="17.1" y="5" z="2" />
 			</transformation>
 
 			<materials>
 				<material id="matWater" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <primitiveref id="idSquare" />
@@ -554,15 +554,15 @@
 		<component id="riverDescend1">
 		
 			<transformation>
-				<TRANSLATION x="-20" y="9" z="-7.9" />
-				<SCALE sx="5" sy="4.1" sz="4" />
+				<translate x="-20" y="9" z="-7.9" />
+				<scale x="5" y="4.1" z="4" />
 			</transformation>
 			
 			<materials>
 				<material id="matWater" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <primitiveref id="idSquare" />
@@ -572,16 +572,16 @@
 		<component id="riverSecondAux">
 		
 			<transformation>
-				<TRANSLATION x="-20" y="9.1" z="-5" />
-				<SCALE sx="5" sy="2" sz="3" />
-				<ROTATION axis="x" angle="-90" />
+				<translate x="-20" y="9.1" z="-5" />
+				<scale x="5" y="2" z="3" />
+				<rotate axis="x" angle="-90" />
 			</transformation>
 
 			<materials>
 				<material id="matWater" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <primitiveref id="idSquare" />
@@ -591,16 +591,16 @@
 		<component id="riverSecondStep">
 		
 			<transformation>
-				<TRANSLATION x="-20" y="9.1" z="0" />
-				<SCALE sx="15.1" sy="1" sz="5" />
-				<ROTATION axis="x" angle="-90" />
+				<translate x="-20" y="9.1" z="0" />
+				<scale x="15.1" y="1" z="5" />
+				<rotate axis="x" angle="-90" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <primitiveref id="idSquare" />
@@ -610,16 +610,16 @@
 	   	<component id="riverDescend2">
 		
 			<transformation>
-				<TRANSLATION x="-4.9" y="3.1" z="0" />
-				<ROTATION axis="y" angle="90" />
-				<SCALE sx="5" sy="6" sz="1" />
+				<translate x="-4.9" y="3.1" z="0" />
+				<rotate axis="y" angle="90" />
+				<scale x="5" y="6" z="1" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <primitiveref id="idSquare" />
@@ -629,16 +629,16 @@
 		<component id="riverFirstStep">
 		
 			<transformation>
-				<TRANSLATION x="-5" y="3.1" z="0" />
-				<SCALE sx="10.1" sy="1" sz="5" />
-				<ROTATION axis="x" angle="-90" />
+				<translate x="-5" y="3.1" z="0" />
+				<scale x="10.1" y="1" z="5" />
+				<rotate axis="x" angle="-90" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
 			<children>
                 <primitiveref id="idSquare" />
@@ -648,16 +648,16 @@
 		<component id="riverDescend3">
 		
 			<transformation>
-				<TRANSLATION x="5.1" y="0.1" z="0" />
-				<ROTATION axis="y" angle="90" />
-				<SCALE sx="5" sy="3" sz="1" />
+				<translate x="5.1" y="0.1" z="0" />
+				<rotate axis="y" angle="90" />
+				<scale x="5" y="3" z="1" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 	
             <children>
                 <primitiveref id="idSquare" />
@@ -667,16 +667,16 @@
 		<component id="riverGround">
 		
 			<transformation>
-				<TRANSLATION x="-25" y="0.1" z="0" />
-				<SCALE sx="70" sy="1" sz="5" />
-				<ROTATION axis="x" angle="-90" />
+				<translate x="-25" y="0.1" z="0" />
+				<scale x="70" y="1" z="5" />
+				<rotate axis="x" angle="-90" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <primitiveref id="idSquare" />
@@ -688,14 +688,14 @@
 		<component id="waterHouse">
 		
 			<transformation>
-				<TRANSLATION x="36" y="0" z="-10" />
+				<translate x="36" y="0" z="-10" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-			<TEXTURE id="stoneHouse" />
+			<texture id="stoneHouse" />
 
 			<children>
 				<componentref id="baseHouse" />
@@ -714,15 +714,15 @@
 		<component id="baseHouse">
 		
 			<transformation>
-				<SCALE sx="9" sy="9" sz="9" />
-				<TRANSLATION x="-0.5" y="1" z="-0.5" />
+				<scale x="9" y="9" z="9" />
+				<translate x="-0.5" y="1" z="-0.5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-			<TEXTURE id="null" />
+			<texture id="null" />
 
             <children>
                 <componentref id="plataform1" />
@@ -737,16 +737,16 @@
 		<component id="cylinderHouse">
 		
 			<transformation>
-				<TRANSLATION x="0" y="9" z="0" />
-				<SCALE sx="4" sy="6" sz="4" />
-				<ROTATION axis="x" angle="-90" />
+				<translate x="0" y="9" z="0" />
+				<scale x="4" y="6" z="4" />
+				<rotate axis="x" angle="-90" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-			<TEXTURE id="wallHouse" />
+			<texture id="wallHouse" />
 
 			<children>
 				<primitiveref id="idCylinder" />
@@ -756,16 +756,16 @@
 		<component id="roofHouse">
 
 			<transformation>
-				<TRANSLATION x="0" y="15" z="0" />
-				<SCALE sx="5" sy="6" sz="5" />
-				<ROTATION axis="x" angle="-90" />
+				<translate x="0" y="15" z="0" />
+				<scale x="5" y="6" z="5" />
+				<rotate axis="x" angle="-90" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-			<TEXTURE id="roofHouse" />
+			<texture id="roofHouse" />
 
 			<children>
 				<primitiveref id="idCone" />
@@ -775,16 +775,16 @@
 		<component id="door">
 		
             <transformation>
-				<TRANSLATION x="-4.6" y="0" z="-1.5" />
-				<ROTATION axis="y" angle="-90" />
-				<SCALE sx="3" sy="5" sz="1" />
+				<translate x="-4.6" y="0" z="-1.5" />
+				<rotate axis="y" angle="-90" />
+				<scale x="3" y="5" z="1" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="doorText" />
+            <texture id="doorText" />
 
             <children>
                 <primitiveref id="idSquare" />
@@ -794,16 +794,16 @@
 		<component id="window">
 		
 			<transformation>
-				<TRANSLATION x="4.6" y="3" z="1.5" />
-				<ROTATION axis="y" angle="90" />
-				<SCALE sx="3" sy="3" sz="0" />
+				<translate x="4.6" y="3" z="1.5" />
+				<rotate axis="y" angle="90" />
+				<scale x="3" y="3" z="0" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="windowText" />
+            <texture id="windowText" />
 			
             <children>
                 <primitiveref id="idSquare" />
@@ -813,14 +813,14 @@
 		<component id="waterMill">
 
             <transformation>
-				<TRANSLATION x="0" y="5" z="5" />
+				<translate x="0" y="5" z="5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="wood" />
+            <texture id="wood" />
 			
             <children>
                 <componentref id="millCenter" />
@@ -844,14 +844,14 @@
 		<component id="millCenter">
 		
             <transformation>
-				<SCALE sx="3" sy="3" sz="0.8" />
+				<scale x="3" y="3" z="0.8" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <primitiveref id="idCylinder" />
@@ -863,15 +863,15 @@
 		<component id="millSpiral">
             
 			<transformation>
-				<TRANSLATION x="0" y="0" z="-2" />
-				<SCALE sx="0.5" sy="0.5" sz="4" />
+				<translate x="0" y="0" z="-2" />
+				<scale x="0.5" y="0.5" z="4" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="woodFloor" />
+            <texture id="woodFloor" />
 
             <children>
                 <primitiveref id="idCylinder" />
@@ -883,16 +883,16 @@
 		<component id="mill1">
 		
    			<transformation>
-				<TRANSLATION x="0" y="0" z="0.8" />
-				<ROTATION axis="x" angle="90" />
-				<SCALE sx="0.8" sy="0.8" sz="5" />
+				<translate x="0" y="0" z="0.8" />
+				<rotate axis="x" angle="90" />
+				<scale x="0.8" y="0.8" z="5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
 				<componentref id="plataform1" />
@@ -908,17 +908,17 @@
 		<component id="mill2">
 
 			<transformation>
-				<TRANSLATION x="0" y="0" z="0.8" />
-				<ROTATION axis="x" angle="90" />
-				<ROTATION axis="y" angle="30" />
-				<SCALE sx="0.8" sy="0.8" sz="5" />
+				<translate x="0" y="0" z="0.8" />
+				<rotate axis="x" angle="90" />
+				<rotate axis="y" angle="30" />
+				<scale x="0.8" y="0.8" z="5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
 				<componentref id="plataform1" />
@@ -935,17 +935,17 @@
 		<component id="mill3">
             
 			<transformation>
-				<TRANSLATION x="0" y="0" z="0.8" />
-				<ROTATION axis="x" angle="90" />
-				<ROTATION axis="y" angle="60" />
-				<SCALE sx="0.8" sy="0.8" sz="5" />		
+				<translate x="0" y="0" z="0.8" />
+				<rotate axis="x" angle="90" />
+				<rotate axis="y" angle="60" />
+				<scale x="0.8" y="0.8" z="5" />		
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
 				<componentref id="plataform1" />
@@ -961,17 +961,17 @@
 		<component id="mill4">
 		
             <transformation>
-				<TRANSLATION x="0" y="0" z="0.8" />
-				<ROTATION axis="x" angle="90" />
-				<ROTATION axis="y" angle="90" />
-				<SCALE sx="0.8" sy="0.8" sz="5" />
+				<translate x="0" y="0" z="0.8" />
+				<rotate axis="x" angle="90" />
+				<rotate axis="y" angle="90" />
+				<scale x="0.8" y="0.8" z="5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
 				<componentref id="plataform1" />
@@ -988,17 +988,17 @@
 		<component id="mill5">
 		
             <transformation>
-				<TRANSLATION x="0" y="0" z="0.8" />
-				<ROTATION axis="x" angle="90" />
-				<ROTATION axis="y" angle="120" />
-				<SCALE sx="0.8" sy="0.8" sz="5" />
+				<translate x="0" y="0" z="0.8" />
+				<rotate axis="x" angle="90" />
+				<rotate axis="y" angle="120" />
+				<scale x="0.8" y="0.8" z="5" />
 			</transformation>
 			
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 		
             <children>
 				<componentref id="plataform1" />
@@ -1015,17 +1015,17 @@
 		<component id="mill6">
 		
             <transformation>
-				<TRANSLATION x="0" y="0" z="0.8" />
-				<ROTATION axis="x" angle="90" />
-				<ROTATION axis="y" angle="150" />
-				<SCALE sx="0.8" sy="0.8" sz="5" />
+				<translate x="0" y="0" z="0.8" />
+				<rotate axis="x" angle="90" />
+				<rotate axis="y" angle="150" />
+				<scale x="0.8" y="0.8" z="5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
 				<componentref id="plataform1" />
@@ -1042,17 +1042,17 @@
 		<component id="mill7">
 		
             <transformation>
-				<TRANSLATION x="0" y="0" z="0.8" />
-				<ROTATION axis="x" angle="90" />
-				<ROTATION axis="y" angle="180" />
-				<SCALE sx="0.8" sy="0.8" sz="5" />
+				<translate x="0" y="0" z="0.8" />
+				<rotate axis="x" angle="90" />
+				<rotate axis="y" angle="180" />
+				<scale x="0.8" y="0.8" z="5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
 
             <children>
@@ -1070,17 +1070,17 @@
 		<component id="mill8">
             
 			<transformation>
-				<TRANSLATION x="0" y="0" z="0.8" />
-				<ROTATION axis="x" angle="90" />
-				<ROTATION axis="y" angle="210" />
-				<SCALE sx="0.8" sy="0.8" sz="5" />
+				<translate x="0" y="0" z="0.8" />
+				<rotate axis="x" angle="90" />
+				<rotate axis="y" angle="210" />
+				<scale x="0.8" y="0.8" z="5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
 				 <componentref id="plataform1" />
@@ -1097,17 +1097,17 @@
 		<component id="mill9">
 		
             <transformation>
-				<TRANSLATION x="0" y="0" z="0.8" />
-				<ROTATION axis="x" angle="90" />
-				<ROTATION axis="y" angle="240" />
-				<SCALE sx="0.8" sy="0.8" sz="5" />
+				<translate x="0" y="0" z="0.8" />
+				<rotate axis="x" angle="90" />
+				<rotate axis="y" angle="240" />
+				<scale x="0.8" y="0.8" z="5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
 				 <componentref id="plataform1" />
@@ -1123,17 +1123,17 @@
 		<component id="mill10">
 		
             <transformation>
-				<TRANSLATION x="0" y="0" z="0.8" />
-				<ROTATION axis="x" angle="90" />
-				<ROTATION axis="y" angle="270" />
-				<SCALE sx="0.8" sy="0.8" sz="5" />
+				<translate x="0" y="0" z="0.8" />
+				<rotate axis="x" angle="90" />
+				<rotate axis="y" angle="270" />
+				<scale x="0.8" y="0.8" z="5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
 				 <componentref id="plataform1" />
@@ -1149,17 +1149,17 @@
 		<component id="mill11">
 		
             <transformation>
-				<TRANSLATION x="0" y="0" z="0.8" />
-				<ROTATION axis="x" angle="90" />
-				<ROTATION axis="y" angle="300" />
-				<SCALE sx="0.8" sy="0.8" sz="5" />
+				<translate x="0" y="0" z="0.8" />
+				<rotate axis="x" angle="90" />
+				<rotate axis="y" angle="300" />
+				<scale x="0.8" y="0.8" z="5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
 				<componentref id="plataform1" />
@@ -1175,17 +1175,17 @@
 		<component id="mill12">
 		
             <transformation>
-				<TRANSLATION x="0" y="0" z="0.8" />
-				<ROTATION axis="x" angle="90" />
-				<ROTATION axis="y" angle="330" />
-				<SCALE sx="0.8" sy="0.8" sz="5" />
+				<translate x="0" y="0" z="0.8" />
+				<rotate axis="x" angle="90" />
+				<rotate axis="y" angle="330" />
+				<scale x="0.8" y="0.8" z="5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
 				 <componentref id="plataform1" />
@@ -1201,14 +1201,14 @@
 		<component id="towerHouse">
 		
             <transformation>
-				<TRANSLATION x="-20" y="10" z="40" />
+				<translate x="-20" y="10" z="40" />
 			</transformation>
 			
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="towerStone" />
+            <texture id="towerStone" />
 			
             <children>
                 <componentref id="baseTower" />
@@ -1220,15 +1220,15 @@
 
 		<component id="baseTower">
             <transformation>
-				<ROTATION axis="x" angle="90" />
-				<SCALE sx="2" sy="2" sz="10" />
+				<rotate axis="x" angle="90" />
+				<scale x="2" y="2" z="10" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
 			<children>
                 <componentref id="topTower" />
@@ -1240,14 +1240,14 @@
 		<component id="topTower">
 		
 			<transformation>
-				<ROTATION axis="y" angle="180" />
+				<rotate axis="y" angle="180" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-			<TEXTURE id="null" />
+			<texture id="null" />
 			
 			<children>
 				<primitiveref id="idTower" />
@@ -1265,7 +1265,7 @@
 				<material id="null" />
 			</materials>
 			
-			<TEXTURE id="null" />
+			<texture id="null" />
 
 			<children>
 				<primitiveref id="idTower" />
@@ -1276,14 +1276,14 @@
 		<component id="topFloorTower">
 		
             <transformation>
-				 <TRANSLATION x="-5" y="10.1" z="-5" />
+				 <translate x="-5" y="10.1" z="-5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <componentref id="floorTower" />
@@ -1297,14 +1297,14 @@
 		<component id="floorTower">
 		
             <transformation>
-				<SCALE sx="10" sy="1" sz="10" />
+				<scale x="10" y="1" z="10" />
 			</transformation>
 			
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <componentref id="floorTowerWood" />
@@ -1327,7 +1327,7 @@
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="woodFloor" />
+            <texture id="woodFloor" />
 
             <children>
 					<componentref id="plataform6" />    
@@ -1338,14 +1338,14 @@
 		<component id="wallsTower">
 		
             <transformation>
-				<TRANSLATION x="0" y="1" z="0" />
+				<translate x="0" y="1" z="0" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="towerWall" />
+            <texture id="towerWall" />
 		
 			<children>
 				<componentref id="walls1" />
@@ -1359,15 +1359,15 @@
 		<component id="walls1">
 		
             <transformation>
-				<TRANSLATION x="2" y="0" z="0" />
-				<SCALE sx="6" sy="1.5" sz="2" />
+				<translate x="2" y="0" z="0" />
+				<scale x="6" y="1.5" z="2" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 		
 			<children>
 				<componentref id="wall_1" />
@@ -1379,15 +1379,15 @@
 		<component id="walls2">
 		
             <transformation>
-				<TRANSLATION x="0" y="0" z="2" />
-				<SCALE sx="2" sy="1.5" sz="6" />
+				<translate x="0" y="0" z="2" />
+				<scale x="2" y="1.5" z="6" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 						
 			<children>
 				<componentref id="wall_1" />
@@ -1399,14 +1399,14 @@
 		<component id="wallsMini">
 		
             <transformation>
-				<SCALE sx="2" sy="1.5" sz="2" />
+				<scale x="2" y="1.5" z="2" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="wallsMini1" />
@@ -1418,14 +1418,14 @@
 		<component id="wallsMini1">
 		
             <transformation>
-				<TRANSLATION x="4" y="0" z="1" />
+				<translate x="4" y="0" z="1" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="plataform1" />
@@ -1440,14 +1440,14 @@
 		<component id="wallsMini2">
 		
             <transformation>
-				<TRANSLATION x="4" y="0" z="3" />
+				<translate x="4" y="0" z="3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="plataform1" />
@@ -1470,7 +1470,7 @@
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <componentref id="plataform1" />
@@ -1485,14 +1485,14 @@
 		<component id="wall1_2">
 		
             <transformation>
-				 <TRANSLATION x="0" y="0" z="4" />
+				 <translate x="0" y="0" z="4" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="plataform1" />
@@ -1508,14 +1508,14 @@
 		<component id="pillarsTower">
 		
             <transformation>
-				<SCALE sx="2" sy="3" sz="2" />
+				<scale x="2" y="3" z="2" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 		
 			<children>
 				<componentref id="pillar1" />
@@ -1529,14 +1529,14 @@
 		<component id="pillar1">
 		
             <transformation>
-				<TRANSLATION x="4" y="1" z="0" />
+				<translate x="4" y="1" z="0" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="plataform1" />
@@ -1552,14 +1552,14 @@
 		<component id="pillar2">
 		
             <transformation>
-				<TRANSLATION x="4" y="1" z="4" />
+				<translate x="4" y="1" z="4" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="plataform1" />
@@ -1575,14 +1575,14 @@
 		<component id="pillar3">
 		
             <transformation>
-				<TRANSLATION x="0" y="1" z="4" />
+				<translate x="0" y="1" z="4" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <componentref id="plataform1" />
@@ -1598,14 +1598,14 @@
 		<component id="pillar4">
 		
             <transformation>
-				<TRANSLATION x="0" y="1" z="0" />
+				<translate x="0" y="1" z="0" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="plataform1" />
@@ -1620,14 +1620,14 @@
 		<component id="roofTower">
 		
             <transformation>
-				<TRANSLATION x="0" y="7" z="0" />
+				<translate x="0" y="7" z="0" />
 			</transformation>
 			
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <componentref id="floorTower" />
@@ -1647,7 +1647,7 @@
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="wood" />
+            <texture id="wood" />
 			
             <children>
                 <componentref id="stairs1" />
@@ -1660,17 +1660,17 @@
 		<component id="stairs1">
 		
             <transformation>
-				<TRANSLATION x="5.2" y="10" z="-1.5" />
-				<ROTATION axis="z" angle="20" />
-				<ROTATION axis="x" angle="90" />
-				<SCALE sx="0.2" sy="0.2" sz="22" />
+				<translate x="5.2" y="10" z="-1.5" />
+				<rotate axis="z" angle="20" />
+				<rotate axis="x" angle="90" />
+				<scale x="0.2" y="0.2" z="22" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <primitiveref id="idCylinder" />
@@ -1681,17 +1681,17 @@
 		<component id="stairs2">
 		
             <transformation>
-				<TRANSLATION x="5.2" y="10" z="1.5" />
-				<ROTATION axis="z" angle="20" />
-				<ROTATION axis="x" angle="90" />
-				<SCALE sx="0.2" sy="0.2" sz="22" />
+				<translate x="5.2" y="10" z="1.5" />
+				<rotate axis="z" angle="20" />
+				<rotate axis="x" angle="90" />
+				<scale x="0.2" y="0.2" z="22" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <primitiveref id="idCylinder" />
@@ -1709,7 +1709,7 @@
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <componentref id="step1" />
@@ -1728,15 +1728,15 @@
 	<component id="step1">
 	
             <transformation>
-				<TRANSLATION x="12.1" y="-9" z="-1.5" />
-				<SCALE sx="0.2" sy="0.2" sz="3" />
+				<translate x="12.1" y="-9" z="-1.5" />
+				<scale x="0.2" y="0.2" z="3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <primitiveref id="idCylinder" />
@@ -1747,15 +1747,15 @@
 		<component id="step2">
 		
             <transformation>
-				<TRANSLATION x="11.4" y="-7" z="-1.5" />
-				<SCALE sx="0.2" sy="0.2" sz="3" />
+				<translate x="11.4" y="-7" z="-1.5" />
+				<scale x="0.2" y="0.2" z="3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <primitiveref id="idCylinder" />
@@ -1766,15 +1766,15 @@
 		<component id="step3">
 		
 			<transformation>
-				<TRANSLATION x="10.6" y="-5" z="-1.5" />
-				<SCALE sx="0.2" sy="0.2" sz="3" />
+				<translate x="10.6" y="-5" z="-1.5" />
+				<scale x="0.2" y="0.2" z="3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <primitiveref id="idCylinder" />       
@@ -1785,15 +1785,15 @@
 		<component id="step4">
 		
             <transformation>
-				<TRANSLATION x="9.9" y="-3" z="-1.5" />
-				<SCALE sx="0.2" sy="0.2" sz="3" />
+				<translate x="9.9" y="-3" z="-1.5" />
+				<scale x="0.2" y="0.2" z="3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <primitiveref id="idCylinder" />
@@ -1804,15 +1804,15 @@
 		<component id="step5">
 		
             <transformation>
-				<TRANSLATION x="9.2" y="-1" z="-1.5" />
-				<SCALE sx="0.2" sy="0.2" sz="3" />
+				<translate x="9.2" y="-1" z="-1.5" />
+				<scale x="0.2" y="0.2" z="3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <primitiveref id="idCylinder" />
@@ -1823,15 +1823,15 @@
 		<component id="step6">
 		
             <transformation>
-				<TRANSLATION x="8.4" y="1" z="-1.5" />
-				<SCALE sx="0.2" sy="0.2" sz="3" />
+				<translate x="8.4" y="1" z="-1.5" />
+				<scale x="0.2" y="0.2" z="3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <primitiveref id="idCylinder" />
@@ -1842,15 +1842,15 @@
 		<component id="step7">
 		
             <transformation>
-				<TRANSLATION x="7.7" y="3" z="-1.5" />
-				<SCALE sx="0.2" sy="0.2" sz="3" />
+				<translate x="7.7" y="3" z="-1.5" />
+				<scale x="0.2" y="0.2" z="3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <primitiveref id="idCylinder" />
@@ -1861,15 +1861,15 @@
 		<component id="step8">
 		
             <transformation>
-				<TRANSLATION x="7" y="5" z="-1.5" />
-				<SCALE sx="0.2" sy="0.2" sz="3" />
+				<translate x="7" y="5" z="-1.5" />
+				<scale x="0.2" y="0.2" z="3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <primitiveref id="idCylinder" />
@@ -1880,15 +1880,15 @@
 		<component id="step9">
 		
             <transformation>
-				<TRANSLATION x="6.3" y="7" z="-1.5" />
-				<SCALE sx="0.2" sy="0.2" sz="3" />
+				<translate x="6.3" y="7" z="-1.5" />
+				<scale x="0.2" y="0.2" z="3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <primitiveref id="idCylinder" />
@@ -1899,15 +1899,15 @@
 		<component id="step10">
 		
             <transformation>
-				<TRANSLATION x="5.6" y="9" z="-1.5" />
-				<SCALE sx="0.2" sy="0.2" sz="3" />
+				<translate x="5.6" y="9" z="-1.5" />
+				<scale x="0.2" y="0.2" z="3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
                 <primitiveref id="idCylinder" />
@@ -1921,14 +1921,14 @@
 		<component id="campFire">
 		
             <transformation>
-				<TRANSLATION x="-20" y="20.3" z="38" />
+				<translate x="-20" y="20.3" z="38" />
 			</transformation>
 
 			<materials>
 				<material id="logMat" />
 			</materials>
 
-            <TEXTURE id="woodTree" />
+            <texture id="woodTree" />
 			
             <children>
 				<componentref id="log1" /> 
@@ -1943,14 +1943,14 @@
 		<component id="log1">
 		
             <transformation>
-				<SCALE sx="0.2" sy="0.2" sz="3" />
+				<scale x="0.2" y="0.2" z="3" />
 			</transformation>
 			
 			<materials>
 				<material id="null" />
 			</materials>
 
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
 					<primitiveref id="idCylinder" />
@@ -1962,16 +1962,16 @@
 		<component id="log2">
 		
             <transformation>
-				<TRANSLATION x="-1" y="0" z="0.5" />
-				<ROTATION axis="y" angle="45" />
-				<SCALE sx="0.2" sy="0.2" sz="3" />
+				<translate x="-1" y="0" z="0.5" />
+				<rotate axis="y" angle="45" />
+				<scale x="0.2" y="0.2" z="3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
 					<primitiveref id="idCylinder" /> 
@@ -1982,16 +1982,16 @@
 		<component id="log3">
 		
             <transformation>
-				<TRANSLATION x="-1.5" y="0" z="1.5" />
-				<ROTATION axis="y" angle="90" />
-				<SCALE sx="0.2" sy="0.2" sz="3" />
+				<translate x="-1.5" y="0" z="1.5" />
+				<rotate axis="y" angle="90" />
+				<scale x="0.2" y="0.2" z="3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 
-            <TEXTURE id="null" />
+            <texture id="null" />
 
             <children>
 					<primitiveref id="idCylinder" /> 
@@ -2002,16 +2002,16 @@
 		<component id="log4">
 		
             <transformation>
-				<TRANSLATION x="-1" y="0" z="2.5" />
-				<ROTATION axis="y" angle="135" />
-				<SCALE sx="0.2" sy="0.2" sz="3" />
+				<translate x="-1" y="0" z="2.5" />
+				<rotate axis="y" angle="135" />
+				<scale x="0.2" y="0.2" z="3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
 					<primitiveref id="idCylinder" /> 
@@ -2022,15 +2022,15 @@
 		<component id="fire">
 			
             <transformation>
-				<TRANSLATION x="0" y="2.0" z="1.5" />
-				<SCALE sx="2" sy="3" sz="2" />
+				<translate x="0" y="2.0" z="1.5" />
+				<scale x="2" y="3" z="2" />
 			</transformation>
 
 			<materials>
 				<material id="fireMat" />
 			</materials>
 
-            <TEXTURE id="fireText" />
+            <texture id="fireText" />
 			
             <children>
 				<componentref id="pyramidBottom" /> 
@@ -2047,16 +2047,16 @@
 			<component id="pyramid1">      
 	    
 	        <transformation>
-				<TRANSLATION x="0" y="0" z="0.5" /> 
-				<ROTATION axis="x" angle="-30" />
-				<TRANSLATION x="0" y="0" z="-0.3" />
+				<translate x="0" y="0" z="0.5" /> 
+				<rotate axis="x" angle="-30" />
+				<translate x="0" y="0" z="-0.3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-	        <TEXTURE id="null" />      
+	        <texture id="null" />      
                        
 	        <children>
 	            <primitiveref id="idTriangle" />     
@@ -2067,18 +2067,18 @@
 	    <component id="pyramid2">      
 	    
 	        <transformation>
-				<TRANSLATION x="0" y="0" z="0.5" /> 
-				<ROTATION axis="y" angle="90" />
-				<TRANSLATION x="0.5" y="0" z="0.5" />
-				<ROTATION axis="x" angle="-30" />
-				<TRANSLATION x="0" y="0" z="-0.3" />
+				<translate x="0" y="0" z="0.5" /> 
+				<rotate axis="y" angle="90" />
+				<translate x="0.5" y="0" z="0.5" />
+				<rotate axis="x" angle="-30" />
+				<translate x="0" y="0" z="-0.3" />
 			</transformation>
 			
 			<materials>
 				<material id="null" />
 			</materials>
       
-	        <TEXTURE id="null" />      
+	        <texture id="null" />      
 			
 	        <children>
 	            <primitiveref id="idTriangle" />     
@@ -2089,17 +2089,17 @@
 	    <component id="pyramid3">      
 	    
 	        <transformation>
-				<TRANSLATION x="0" y="0" z="-0.5" /> 
-				<ROTATION axis="y" angle="180" />
-				<ROTATION axis="x" angle="-30" />
-				<TRANSLATION x="0" y="0" z="-0.3" />
+				<translate x="0" y="0" z="-0.5" /> 
+				<rotate axis="y" angle="180" />
+				<rotate axis="x" angle="-30" />
+				<translate x="0" y="0" z="-0.3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
      
-	        <TEXTURE id="null" />      
+	        <texture id="null" />      
 
 	        <children>
 	            <primitiveref id="idTriangle" />     
@@ -2110,18 +2110,18 @@
 	    <component id="pyramid4">      
 	    
 	        <transformation>
-				<TRANSLATION x="0" y="0" z="-0.5" /> 
-				<ROTATION axis="y" angle="270" />
-				<TRANSLATION x="0.5" y="0" z="0.5" />
-				<ROTATION axis="x" angle="-30" />
-				<TRANSLATION x="0" y="0" z="-0.3" />
+				<translate x="0" y="0" z="-0.5" /> 
+				<rotate axis="y" angle="270" />
+				<translate x="0.5" y="0" z="0.5" />
+				<rotate axis="x" angle="-30" />
+				<translate x="0" y="0" z="-0.3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
        
-	        <TEXTURE id="null" />      
+	        <texture id="null" />      
                        
 	        <children>
 	            <primitiveref id="idTriangle" />     
@@ -2132,15 +2132,15 @@
 		<component id="pyramidBottom">      
 	    
 	        <transformation>
-				<TRANSLATION x="-0.5" y="-0.58" z="-0.5" /> 
-				<ROTATION axis="x" angle="90" />
+				<translate x="-0.5" y="-0.58" z="-0.5" /> 
+				<rotate axis="x" angle="90" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
       
-	        <TEXTURE id="null" />      
+	        <texture id="null" />      
                       
 	        <children>
 	            <primitiveref id="idSquare" />     
@@ -2155,15 +2155,15 @@
 		<component id="vane">      
 	    
 	        <transformation>
-				<TRANSLATION x="-3" y="3" z="4" /> 
-				<ROTATION axis="y" angle="150" />
+				<translate x="-3" y="3" z="4" /> 
+				<rotate axis="y" angle="150" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
        
-	        <TEXTURE id="vaneText" />      
+	        <texture id="vaneText" />      
 
 	        <children>
 				<componentref id="postBase" />
@@ -2176,15 +2176,15 @@
 		<component id="postBase">      
 	    
 	        <transformation>
-				<ROTATION axis="x" angle="-90" />
-				<SCALE sx="0.3" sy="0.3" sz="12" />
+				<rotate axis="x" angle="-90" />
+				<scale x="0.3" y="0.3" z="12" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
        
-	        <TEXTURE id="null" />      
+	        <texture id="null" />      
 			
 	        <children>
 				<primitiveref id="idTower" />
@@ -2195,15 +2195,15 @@
 		<component id="postTop">      
 	    
 	        <transformation>
-				<TRANSLATION x="0" y="12" z="0" /> 
-				<SCALE sx="1" sy="1" sz="1" />
+				<translate x="0" y="12" z="0" /> 
+				<scale x="1" y="1" z="1" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
         
-	        <TEXTURE id="null" />      
+	        <texture id="null" />      
 
 	        <children>
 				<primitiveref id="idSphere" />
@@ -2214,16 +2214,16 @@
 		<component id="sails">      
 	    
 	        <transformation>
-				<ROTATION axis="y" angle="90" />
-				<TRANSLATION x="-2.5" y="14.5" z="-0.5" /> 
-				<SCALE sx="5" sy="5" sz="0.5" />
+				<rotate axis="y" angle="90" />
+				<translate x="-2.5" y="14.5" z="-0.5" /> 
+				<scale x="5" y="5" z="0.5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
       
-	        <TEXTURE id="sailText" />      
+	        <texture id="sailText" />      
 			
 	        <children>
 				<componentref id="plataform1" />
@@ -2244,16 +2244,16 @@
 		<component id="sail1">      
 	    
 	        <transformation>
-				<TRANSLATION x="0.75" y="0.55" z="0.3" />
-				<ROTATION axis="y" angle="90" />
-				<SCALE sx="0.5" sy="1" sz="0.5" />
+				<translate x="0.75" y="0.55" z="0.3" />
+				<rotate axis="y" angle="90" />
+				<scale x="0.5" y="1" z="0.5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
         
-	        <TEXTURE id="null" />      
+	        <texture id="null" />      
 
 	        <children>
 				 <componentref id="pyramidBottom" /> 
@@ -2268,16 +2268,16 @@
 		<component id="sail2">      
 	    
 	        <transformation>
-				<TRANSLATION x="-0.55" y="-0.25" z="0.3" />
-				<ROTATION axis="z" angle="90" />
-				<SCALE sx="0.5" sy="1.0" sz="0.5" />
+				<translate x="-0.55" y="-0.25" z="0.3" />
+				<rotate axis="z" angle="90" />
+				<scale x="0.5" y="1.0" z="0.5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
       
-	        <TEXTURE id="null" />      
+	        <texture id="null" />      
 
 	        <children>
 				 <componentref id="pyramidBottom" /> 
@@ -2293,16 +2293,16 @@
 		<component id="sail3">      
 	    
 	        <transformation>
-				<TRANSLATION x="0.25" y="-1.5" z="0.3" />
-				<ROTATION axis="z" angle="180" />
-				<SCALE sx="0.5" sy="1.0" sz="0.5" />
+				<translate x="0.25" y="-1.5" z="0.3" />
+				<rotate axis="z" angle="180" />
+				<scale x="0.5" y="1.0" z="0.5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
        
-	        <TEXTURE id="null" />      
+	        <texture id="null" />      
 			
 	        <children>
 				 <componentref id="pyramidBottom" /> 
@@ -2317,16 +2317,16 @@
 		<component id="sail4">      
 	    
 	        <transformation>
-				<TRANSLATION x="1.5" y="-0.75" z="0.3" />
-				<ROTATION axis="z" angle="-90" />
-				<SCALE sx="0.5" sy="1.0" sz="0.5" />
+				<translate x="1.5" y="-0.75" z="0.3" />
+				<rotate axis="z" angle="-90" />
+				<scale x="0.5" y="1.0" z="0.5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
        
-	        <TEXTURE id="null" />      
+	        <texture id="null" />      
 
 	        <children>
 				 <componentref id="pyramidBottom" /> 
@@ -2342,14 +2342,14 @@
 		<component id="tree1">
 		
             <transformation>
-				<TRANSLATION x="0" y ="13" z="-18" />
+				<translate x="0" y ="13" z="-18" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="leafText" />
+            <texture id="leafText" />
 			
 			<children>
                 <componentref id="treeModel" />
@@ -2360,15 +2360,15 @@
 		<component id="tree2">
 		
             <transformation>
-				<TRANSLATION x="-23" y ="16" z="-2" />
-				<SCALE sx="0.7" sy="0.7" sz="0.7" />  
+				<translate x="-23" y ="16" z="-2" />
+				<scale x="0.7" y="0.7" z="0.7" />  
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="leafText" />
+            <texture id="leafText" />
 			
             <children>
                  <componentref id="crown1" />
@@ -2382,15 +2382,15 @@
 	    <component id="treeTrunk2">      
 	    
 	        <transformation>
-				<TRANSLATION x="0" y="-5" z="0" /> 
-				<SCALE sx="2" sy="10" sz="2" />  
+				<translate x="0" y="-5" z="0" /> 
+				<scale x="2" y="10" z="2" />  
 			</transformation>
 			
 			<materials>
 				<material id="trunkMat" />
 			</materials>
    
-	        <TEXTURE id="woodTree" />      
+	        <texture id="woodTree" />      
                       
 	        <children>   
 	             <componentref id="pyramid1" /> 
@@ -2404,15 +2404,15 @@
 		<component id="tree3">
 		
             <transformation>
-				<TRANSLATION x="10" y ="0" z="-20" />
-				<SCALE sx="0.7" sy="0.7" sz="0.7" />  
+				<translate x="10" y ="0" z="-20" />
+				<scale x="0.7" y="0.7" z="0.7" />  
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="leafText" />
+            <texture id="leafText" />
 			
             <children>
 				<componentref id="treeTrunk3" /> 
@@ -2425,15 +2425,15 @@
 		<component id="tree4">
 		
             <transformation>
-				<TRANSLATION x="-23" y ="3" z="6" />
-				<SCALE sx="0.7" sy="0.7" sz="0.7" />  
+				<translate x="-23" y ="3" z="6" />
+				<scale x="0.7" y="0.7" z="0.7" />  
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="leafText" />
+            <texture id="leafText" />
 			
             <children>              
 				<componentref id="treeTrunk3" /> 
@@ -2447,15 +2447,15 @@
 		<component id="tree5">
 		
             <transformation>
-				<TRANSLATION x="-15" y ="13" z="20" />
-				<SCALE sx="1" sy="1.2" sz="1" />  
+				<translate x="-15" y ="13" z="20" />
+				<scale x="1" y="1.2" z="1" />  
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="leafText" />
+            <texture id="leafText" />
 			
             <children>
                 <componentref id="crown1" />
@@ -2469,15 +2469,15 @@
 	    <component id="treeTop3">      
 	    
 	        <transformation>
-				<TRANSLATION x="0" y="15" z="0" /> 
-				<SCALE sx="10" sy="15" sz="10" />  
+				<translate x="0" y="15" z="0" /> 
+				<scale x="10" y="15" z="10" />  
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
         
-	        <TEXTURE id="null" />      
+	        <texture id="null" />      
                        
 	        <children>
 				<componentref id="pyramidBottom" /> 
@@ -2492,15 +2492,15 @@
 	    <component id="treeTop3_2">      
 	    
 	        <transformation>
-				<TRANSLATION x="0" y="20" z="0" /> 
-				<SCALE sx="6" sy="15" sz="6" />  
+				<translate x="0" y="20" z="0" /> 
+				<scale x="6" y="15" z="6" />  
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
       
-	        <TEXTURE id="null" />      
+	        <texture id="null" />      
                        
 	        <children>
 				<componentref id="pyramidBottom" /> 
@@ -2515,15 +2515,15 @@
 	    <component id="treeTrunk3">      
 	    
 	        <transformation>
-				<ROTATION axis="x" angle="-90" />
-				<SCALE sx="0.8" sy="0.8" sz="20" /> 
+				<rotate axis="x" angle="-90" />
+				<scale x="0.8" y="0.8" z="20" /> 
 			</transformation>
 			
 			<materials>
 				<material id="null" />
 			</materials>
        
-	        <TEXTURE id="woodTree" />      
+	        <texture id="woodTree" />      
 
 	        <children>
 	             <primitiveref id="idCylinder" />  
@@ -2537,14 +2537,14 @@
 		<component id="path">      
 	    
 	        <transformation>
-				<TRANSLATION x="0" y="0.1" z="0" /> 
+				<translate x="0" y="0.1" z="0" /> 
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
       
-	        <TEXTURE id="clear" />      
+	        <texture id="clear" />      
 
 	        <children>
 				<componentref id="p1" />
@@ -2558,16 +2558,16 @@
 		<component id="p1">      
 	    
 	        <transformation>
-				<TRANSLATION x="-6" y="0" z="42" /> 
-				<SCALE sx="4" sy="1" sz="24" /> 
-				<ROTATION axis="x" angle="-90" />
+				<translate x="-6" y="0" z="42" /> 
+				<scale x="4" y="1" z="24" /> 
+				<rotate axis="x" angle="-90" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
        
-	        <TEXTURE id="pathTextZ" />      
+	        <texture id="pathTextZ" />      
 			
 	        <children>
 				<primitiveref id="idSquare" /> 
@@ -2578,16 +2578,16 @@
 		<component id="p2">      
 	    
 	        <transformation>
-				<TRANSLATION x="-6" y="0" z="18" /> 
-				<SCALE sx="22" sy="1" sz="4" /> 
-				<ROTATION axis="x" angle="-90" />
+				<translate x="-6" y="0" z="18" /> 
+				<scale x="22" y="1" z="4" /> 
+				<rotate axis="x" angle="-90" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
      
-	        <TEXTURE id="pathTextX" />      
+	        <texture id="pathTextX" />      
 
 	        <children>
 				<primitiveref id="idSquare" /> 
@@ -2598,16 +2598,16 @@
 		<component id="p3">      
 	    
 	        <transformation>
-				<TRANSLATION x="16" y="0" z="18" /> 
-				<SCALE sx="4" sy="1" sz="16.5" />
-				<ROTATION axis="x" angle="-90" />
+				<translate x="16" y="0" z="18" /> 
+				<scale x="4" y="1" z="16.5" />
+				<rotate axis="x" angle="-90" />
 			</transformation>
 			
 			<materials>
 				<material id="null" />
 			</materials>
          
-	        <TEXTURE id="pathTextZ" />      
+	        <texture id="pathTextZ" />      
 
 	        <children>
 				<primitiveref id="idSquare" /> 
@@ -2619,16 +2619,16 @@
 		<component id="p4">      
 	    
 	        <transformation>
-				<TRANSLATION x="16" y="0" z="-8" /> 
-				<SCALE sx="24" sy="1" sz="4" />
-				<ROTATION axis="x" angle="-90" />
+				<translate x="16" y="0" z="-8" /> 
+				<scale x="24" y="1" z="4" />
+				<rotate axis="x" angle="-90" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
 			
-    	    <TEXTURE id="pathTextX" />        
+    	    <texture id="pathTextX" />        
 
 	        <children>
 				<primitiveref id="idSquare" /> 
@@ -2641,14 +2641,14 @@
 		<component id="bridge">
 		
             <transformation>
-				<TRANSLATION x="16" y="2" z="-6" />
+				<translate x="16" y="2" z="-6" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="bridgeText" />	
+            <texture id="bridgeText" />	
 		
             <children>
                 <componentref id="baseBridge" />
@@ -2661,15 +2661,15 @@
 		<component id="baseBridge">
 		
             <transformation>
-				<TRANSLATION x="0" y="0.3" z="0" />
-				<SCALE sx="4" sy="1" sz="6.5" />
+				<translate x="0" y="0.3" z="0" />
+				<scale x="4" y="1" z="6.5" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="null" />	
+            <texture id="null" />	
 
             <children>
 				<componentref id="plataform1" />
@@ -2685,17 +2685,17 @@
 		<component id="entranceBridge1">
 		
             <transformation>
-				<TRANSLATION x="4" y="0.3" z="0" />
-				<ROTATION axis="y" angle="180" />
-				<ROTATION axis="x" angle="45" />
-				<SCALE sx="4" sy="1" sz="3" />
+				<translate x="4" y="0.3" z="0" />
+				<rotate axis="y" angle="180" />
+				<rotate axis="x" angle="45" />
+				<scale x="4" y="1" z="3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="null" />	
+            <texture id="null" />	
 
             <children>
 				<componentref id="plataform1" />
@@ -2712,16 +2712,16 @@
 		<component id="entranceBridge2">
 		
             <transformation>
-				<TRANSLATION x="0" y="0.3" z="6.5" />
-				<ROTATION axis="x" angle="45" />
-				<SCALE sx="4" sy="1" sz="3" />
+				<translate x="0" y="0.3" z="6.5" />
+				<rotate axis="x" angle="45" />
+				<scale x="4" y="1" z="3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="null" />	
+            <texture id="null" />	
 
             <children>
 				<componentref id="plataform1" />
@@ -2746,7 +2746,7 @@
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="null" />
+            <texture id="null" />
 	
             <children>
                 <componentref id="crown1" />
@@ -2760,14 +2760,14 @@
 		<component id="crown1">
 		
             <transformation>
-				<SCALE sx="4" sy="4" sz="4" />
+				<scale x="4" y="4" z="4" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <primitiveref id="idSphere" />
@@ -2778,15 +2778,15 @@
 		<component id="crown2">
 		
             <transformation>
-				<TRANSLATION x="0" y="3" z="0" />
-				<SCALE sx="3" sy="3" sz="3" />
+				<translate x="0" y="3" z="0" />
+				<scale x="3" y="3" z="3" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <primitiveref id="idSphere" />
@@ -2797,15 +2797,15 @@
 		<component id="crown3">
 		
             <transformation>
-				<TRANSLATION x="0" y="4" z="0" />
-				<SCALE sx="2" sy="3" sz="2" />
+				<translate x="0" y="4" z="0" />
+				<scale x="2" y="3" z="2" />
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <primitiveref id="idSphere" />
@@ -2816,15 +2816,15 @@
 	    <component id="treeTrunk">      
 	    
 	        <transformation>
-				<TRANSLATION x="0" y="-5" z="0" /> 
-				<SCALE sx="2" sy="10" sz="2" />  
+				<translate x="0" y="-5" z="0" /> 
+				<scale x="2" y="10" z="2" />  
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
         
-	        <TEXTURE id="woodTree" />      
+	        <texture id="woodTree" />      
                        
 	        <children>
 				<componentref id="pyramid1" /> 
@@ -2848,7 +2848,7 @@
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="leafText" />
+            <texture id="leafText" />
 			
             <children>
                 <componentref id="bush1" />
@@ -2867,16 +2867,16 @@
 		<component id="bush1">
 		
             <transformation>
-				<TRANSLATION x="-23" y="0" z="12" /> 
-				<ROTATION axis="x" angle="90" />
-				<SCALE sx="0.5" sy="0.5" sz="0.5" /> 
+				<translate x="-23" y="0" z="12" /> 
+				<rotate axis="x" angle="90" />
+				<scale x="0.5" y="0.5" z="0.5" /> 
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="crown1" />
@@ -2889,16 +2889,16 @@
 		<component id="bush2">
 		
             <transformation>
-				<TRANSLATION x="-23" y="0" z="16" />
-				<ROTATION axis="x" angle="90" />
-				<SCALE sx="0.4" sy="0.5" sz="0.3" /> 
+				<translate x="-23" y="0" z="16" />
+				<rotate axis="x" angle="90" />
+				<scale x="0.4" y="0.5" z="0.3" /> 
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="crown1" />
@@ -2911,16 +2911,16 @@
 		<component id="bush3">
 		
             <transformation>
-				<TRANSLATION x="-23" y="0" z="20" />
-				<ROTATION axis="x" angle="90" />
-				<SCALE sx="0.5" sy="0.5" sz="0.5" /> 
+				<translate x="-23" y="0" z="20" />
+				<rotate axis="x" angle="90" />
+				<scale x="0.5" y="0.5" z="0.5" /> 
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="crown1" />
@@ -2933,16 +2933,16 @@
 		<component id="bush4">
 		
             <transformation>
-				<TRANSLATION x="-23" y="0" z="24" />
-				<ROTATION axis="x" angle="90" />
-				<SCALE sx="0.4" sy="0.5" sz="0.3" /> 
+				<translate x="-23" y="0" z="24" />
+				<rotate axis="x" angle="90" />
+				<scale x="0.4" y="0.5" z="0.3" /> 
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="crown1" />
@@ -2955,16 +2955,16 @@
 		<component id="bush5">
 		
             <transformation>
-				<TRANSLATION x="-23" y="0" z="28" />
-				<ROTATION axis="x" angle="90" />
-				<SCALE sx="0.5" sy="0.5" sz="0.5" /> 
+				<translate x="-23" y="0" z="28" />
+				<rotate axis="x" angle="90" />
+				<scale x="0.5" y="0.5" z="0.5" /> 
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="crown1" />
@@ -2977,16 +2977,16 @@
 		<component id="bush6">
 		
             <transformation>
-				<TRANSLATION x="-23" y="0" z="32" />
-				<ROTATION axis="x" angle="90" />
-				<SCALE sx="0.4" sy="0.5" sz="0.3" /> 
+				<translate x="-23" y="0" z="32" />
+				<rotate axis="x" angle="90" />
+				<scale x="0.4" y="0.5" z="0.3" /> 
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="crown1" />
@@ -2999,16 +2999,16 @@
 		<component id="bush7">
 		
             <transformation>
-				<TRANSLATION x="-23" y="0" z="36" />
-				<ROTATION axis="x" angle="90" />
-				<SCALE sx="0.5" sy="0.5" sz="0.5" /> 
+				<translate x="-23" y="0" z="36" />
+				<rotate axis="x" angle="90" />
+				<scale x="0.5" y="0.5" z="0.5" /> 
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="crown1" />
@@ -3021,16 +3021,16 @@
 		<component id="bush8">
 		
             <transformation>
-				<TRANSLATION x="-23" y="0" z="40" />
-				<ROTATION axis="x" angle="90" />
-				<SCALE sx="0.4" sy="0.5" sz="0.3" /> 
+				<translate x="-23" y="0" z="40" />
+				<rotate axis="x" angle="90" />
+				<scale x="0.4" y="0.5" z="0.3" /> 
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="crown1" />
@@ -3043,15 +3043,15 @@
 		<component id="bush9">
 		
             <transformation>
-				<TRANSLATION x="6" y="0" z="2.5" />
-				<SCALE sx="0.5" sy="0.5" sz="0.5" /> 
+				<translate x="6" y="0" z="2.5" />
+				<scale x="0.5" y="0.5" z="0.5" /> 
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="crown1" />
@@ -3064,15 +3064,15 @@
 		<component id="bush10">
 		
             <transformation>
-				<TRANSLATION x="6" y="0" z="-7.5" />
-				<SCALE sx="0.5" sy="0.5" sz="0.5" /> 
+				<translate x="6" y="0" z="-7.5" />
+				<scale x="0.5" y="0.5" z="0.5" /> 
 			</transformation>
 
 			<materials>
 				<material id="null" />
 			</materials>
     
-            <TEXTURE id="null" />
+            <texture id="null" />
 			
             <children>
                 <componentref id="crown1" />
