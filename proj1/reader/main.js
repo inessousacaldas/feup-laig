@@ -18,11 +18,10 @@ serialInclude(['../lib/CGF.js',
 'primitives/MyCircle.js',
 'primitives/MyCylinder.js',
 'primitives/MySphere.js',
-'LSXSceneGraph.js',
-'LSXReader.js', 
-'LSXScene.js', 
-'MyInterface.js',
-'Initials.js', 
+'DSXSceneGraph.js',
+'DSXReader.js', 
+'DSXScene.js', 
+'MyInterface.js', 
 'Illumination.js',
 'Light.js', 
 'Texture.js', 
@@ -40,7 +39,7 @@ main=function()
 {
 	// Standard application, scene and interface setup
     var app = new CGFapplication(document.body);
-    var myScene = new LSXScene();
+    var myScene = new DSXScene();
     var myInterface = new MyInterface();
 
     app.init();
@@ -55,10 +54,10 @@ main=function()
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
 	
-	var filename=getUrlVars()['file'] || "worldScene.lsx";
+	var filename=getUrlVars()['file'] || "worldScene.DSX";
 
-	//Loads the graph from lsx filename
-	var myGraph = new LSXSceneGraph(filename, myScene);
+	//Loads the graph from DSX filename
+	var myGraph = new DSXSceneGraph(filename, myScene);
 	
 	// start
     app.run();

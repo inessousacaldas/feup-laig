@@ -21,7 +21,7 @@ Views.prototype.constructor = Views;
  */
 Views.prototype.addView = function(scene, id, near, far, angle, fromX, fromY, fromZ, toX, toY, toZ) {
 	
-
+	
 	
 	var view = {
 		near:near,
@@ -47,7 +47,7 @@ Views.prototype.setDefault = function(id){
 	this.idDefault = id;
 };
 
-Views.prototype.repetedId = function(id){
+Views.prototype.repeatedId = function(id){
 	return (id in this.views);
 };
 

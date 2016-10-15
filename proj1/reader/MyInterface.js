@@ -82,7 +82,10 @@ MyInterface.prototype.processKeyboard = function(event)
 			
 			//m or M 
 			case(109): //fall through
-			case(77): 	console.log(event.charCode + " I'm changing materials"); break;
+			case(77):
+				console.log(event.charCode + " I'm changing materials"); 
+				//this.scene	
+			break;
 			
 			
 		}

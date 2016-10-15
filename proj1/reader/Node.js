@@ -5,9 +5,9 @@
  */
 function Node(id) {
     this.id = id;
-    this.material = "null";
+    this.material = "inherit";
 	this.materials = [];
-    this.texture = "clear";
+    this.texture = "none";
     this.localTransformations = mat4.create();
     mat4.identity(this.localTransformations);
     this.children = [];
@@ -27,6 +27,12 @@ Node.prototype.setMaterial = function(material) {
 
 Node.prototype.addMaterial = function(material) {
     this.materials.push(material);
+	
+}
+
+Node.prototype.changeMaterial = function() {
+    console.log("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+	//console.log("i: " + indexOfId(this.material) + " - " + this.material;
 	
 }
 
@@ -100,3 +106,5 @@ Node.prototype.multMatrix = function(matrix){
 	//this.localTransformations = mat4.multiply(this.localTransformations, matrix);
 	mat4.multiply(this.localTransformations, matrix, this.localTransformations);
 }
+
+
