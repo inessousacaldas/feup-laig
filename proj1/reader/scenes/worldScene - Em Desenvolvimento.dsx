@@ -2,20 +2,20 @@
 
 <scene root="WorldScene" axis_length = "0" />     <!-- identifier of root node of the scene graph; this node     -->
    
-   <views default="main_view" >
+   <views default="view1" >
     
         <!-- declaracao obrigatoria de pelo menos uma vista; -->
         <!-- se varias vistas declaradas, o default e' a -->
         <!-- primeira vista; de cada vez que se pressione a tecla v/V, -->
         <!-- a vista muda para a proxima da lista; da --> 
         <!-- ultima vista da lista volta 'a primeira -->
-        <perspective id="main_view" near="0.1" far="500" angle="0.4">
+        <perspective id="main_view" near="0.1" far="500" angle="23">
             <from x="200" y="80" z="130" />
             <to x="0" y="0" z="0" />
         </perspective>
-		 <perspective id="view1" near="0.1" far="500" angle="0.4">
-            <from x="170" y="100" z="40" />
-            <to x="0" y="0" z="-40" />
+		 <perspective id="view1" near="0.1" far="500" angle="25">
+            <from x="163" y="53" z="201" />
+            <to x="-22" y="73" z="33" />
         </perspective>
         
     </views>
@@ -111,6 +111,16 @@
 	
 	<texture id="iceBlock" file="textures/iceBlock.jpg" length_s="1" length_t="1" />
 	
+	<texture id="water" file="textures/waterIce.jpg" length_s="1" length_t="1" />
+	
+	<texture id="fish" file="textures/fish.jpg" length_s="1" length_t="1" />
+	
+	<texture id="fishEye" file="textures/fishEye.jpg" length_s="1" length_t="1" />
+	
+	<texture id="carrot" file="textures/carrot.jpg" length_s="1" length_t="1" />
+	
+	<texture id="bear" file="textures/polar2.jpg" length_s="1" length_t="1" />
+	
 </textures>
 
 
@@ -155,6 +165,30 @@
 		<shininess value="1" />
 	</material>
 	
+	<material id="snowMat">
+		<emission r="0" g="0" b="0" a="0" />
+		<ambient  r="1.0" g="0.98" b="0.94" a="1.0" />
+		<diffuse  r="1.0" g="0.98" b="0.94" a="1.0" />
+		<specular r="1.0" g="1.0" b="0.2" a="1.0" />
+		<shininess value="1" />
+	</material>
+	
+	<material id="baseHatMat">
+		<emission r="0" g="0" b="0" a="0" />
+		<ambient  r="0" g="0" b="0" a="1.0" />
+		<diffuse  r="0" g="0" b="0" a="1.0" />
+		<specular r="0" g="0" b="0" a="1.0" />
+		<shininess value="1" />
+	</material>
+	
+	<material id="baseStripeMat">
+		<emission r="0" g="0" b="0" a="0" />
+		<ambient  r="0.81" g="0.1" b="0.1" a="1.0" />
+		<diffuse  r="0.81" g="0.1" b="0.1" a="1.0" />
+		<specular r="0.2" g="0.2" b="0.2" a="1.0" />
+		<shininess value="1" />
+	</material>
+	
 	
 
     <!-- NOTE: the "material" block may be repeated as required. Each defined material requires a distinct "id" -->
@@ -163,26 +197,9 @@
 
 <transformations>
 
-	<transformation id = "t1">
-		<translate x="1" y="2" z="3" />
-	</transformation>
-	
-	<transformation id = "t2">
-		<translate x="2" y="1" z="1.5" />
-		<rotate axis="x" angle="30" />
-	</transformation>
-	
-	<transformation id = "t3">
-		<rotate axis="Y" angle="50" />
-		<translate x="3" y="0" z="0" />
-		<rotate axis="y" angle="90" />
-		<scale x="1" y="1" z="2" />
-	</transformation>
-	
-	<transformation id = "t4">
-		<scale x="1" y="2" z="1" />
-		<translate x="2" y="0.5" z="1.5" />
-		<scale x="0.5" y="1" z="2" />
+	<transformation id = "iceWorld">
+		<rotate axis="z" angle="-90" />
+		<translate x="-100" y="-50" z="-40" />
 	</transformation>
 	
 </transformations>
@@ -249,7 +266,7 @@
         <!-- declaring descendents, ate least one node or one leaf must be present -->
         <children>
 			 
-			<componentref id="plataform" />
+			<componentref id="platform" />
 			<componentref id="hill" />
 			<componentref id="river"/>
 			<componentref id="waterHouse" />
@@ -267,6 +284,9 @@
 			
 			<componentref id="platformIce" />
 			<componentref id="igloo" />
+			<componentref id="snowman" />
+			<componentref id="pond" />
+			<componentref id="clouds" />
 			
 
         </children>
@@ -274,8 +294,8 @@
     </component>
 
 
- <!-- DEFINIR PLATAFORMA -->	
-       <component id="plataform">
+ <!-- DEFINIR platformA -->	
+       <component id="platform">
 	   
 			<transformation>
 				<translate x="-25" y="0" z="-25" />
@@ -289,16 +309,16 @@
             <texture id="forest" />	
 
             <children>
-                <componentref id="plataform1" />  <!-- bottom -->
-				<componentref id="plataform2" />  <!-- front -->
-				<componentref id="plataform3" />  <!-- left -->
-				<componentref id="plataform4" />  <!-- back -->
-				<componentref id="plataform5" />  <!-- right -->
-				<componentref id="plataform6" />  <!-- top -->
+                <componentref id="platform1" />  <!-- bottom -->
+				<componentref id="platform2" />  <!-- front -->
+				<componentref id="platform3" />  <!-- left -->
+				<componentref id="platform4" />  <!-- back -->
+				<componentref id="platform5" />  <!-- right -->
+				<componentref id="platform6" />  <!-- top -->
             </children>
         </component>
 		
-		<component id="plataform1">
+		<component id="platform1">
 		
 			<transformation>
 				<translate x="0" y="-1" z="0" />
@@ -318,7 +338,7 @@
         </component>
 		
 
-		<component id="plataform2">
+		<component id="platform2">
 		
 			<transformation>
 				<translate x="0" y="-1" z="1" />
@@ -336,7 +356,7 @@
 
         </component>
 
-        <component id="plataform3">
+        <component id="platform3">
 			
 			<transformation>
 				<translate x="0" y="-1" z="0" />
@@ -356,7 +376,7 @@
         </component>
 		
 		
-		<component id="plataform4">
+		<component id="platform4">
 		
 			<transformation>
 				<translate x="1" y="-1" z="0" />
@@ -375,7 +395,7 @@
 
         </component>
 
-        <component id="plataform5">
+        <component id="platform5">
 		
 			<transformation>
 				<translate x="1" y="-1" z="1" />
@@ -395,7 +415,7 @@
 
         </component>
 		
-        <component id="plataform6">
+        <component id="platform6">
 		
 			<transformation>
 				<translate x="0" y="0" z="1" />
@@ -451,8 +471,8 @@
             <texture id="inherit" />
 			
             <children>
-                <componentref id="plataform1" />
-                <componentref id="plataform6" />
+                <componentref id="platform1" />
+                <componentref id="platform6" />
 				<componentref id="hillWall" />
 				
             </children>
@@ -472,8 +492,8 @@
             <texture id="inherit" />
 			
             <children>
-                <componentref id="plataform1" />
-                <componentref id="plataform6" />
+                <componentref id="platform1" />
+                <componentref id="platform6" />
 				<componentref id="hillWall" />
 				
             </children>
@@ -493,8 +513,8 @@
             <texture id="inherit" />
 			
             <children>
-                <componentref id="plataform1" />
-                <componentref id="plataform6" />
+                <componentref id="platform1" />
+                <componentref id="platform6" />
 				<componentref id="hillWall" />
 				
             </children>
@@ -514,10 +534,10 @@
 			
             <children>
 			
-                <componentref id="plataform3" />	
-                <componentref id="plataform2" />
-			    <componentref id="plataform4" />
-                <componentref id="plataform5" />
+                <componentref id="platform3" />	
+                <componentref id="platform2" />
+			    <componentref id="platform4" />
+                <componentref id="platform5" />
 
             </children>
         </component>
@@ -743,12 +763,12 @@
 			<texture id="inherit" />
 
             <children>
-                <componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+                <componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
             </children>
         </component>
 		
@@ -913,12 +933,12 @@
             <texture id="inherit" />
 			
             <children>
-				<componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+				<componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
             </children>
         
 		</component>
@@ -939,12 +959,12 @@
             <texture id="inherit" />
 			
             <children>
-				<componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+				<componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
 				
             </children>
         
@@ -966,12 +986,12 @@
             <texture id="inherit" />
 			
             <children>
-				<componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+				<componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
             </children>
         
 		</component>
@@ -992,12 +1012,12 @@
             <texture id="inherit" />
 			
             <children>
-				<componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+				<componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
 				
             </children>
         
@@ -1019,12 +1039,12 @@
             <texture id="inherit" />
 		
             <children>
-				<componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+				<componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
 				
             </children>
         
@@ -1046,12 +1066,12 @@
             <texture id="inherit" />
 			
             <children>
-				<componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+				<componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
 				
             </children>
         
@@ -1074,12 +1094,12 @@
 			
 
             <children>
-				 <componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+				 <componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
 				
             </children>
         
@@ -1101,12 +1121,12 @@
             <texture id="inherit" />
 			
             <children>
-				 <componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+				 <componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
 				
             </children>
         
@@ -1128,12 +1148,12 @@
             <texture id="inherit" />
 
             <children>
-				 <componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+				 <componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
             </children>
         
 		</component>		
@@ -1154,12 +1174,12 @@
             <texture id="inherit" />
 			
             <children>
-				 <componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />	
+				 <componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />	
             </children>
         
 		</component>		
@@ -1180,12 +1200,12 @@
             <texture id="inherit" />
 			
             <children>
-				<componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+				<componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
             </children>
         
 		</component>	
@@ -1206,12 +1226,12 @@
             <texture id="inherit" />
 			
             <children>
-				 <componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />	
+				 <componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />	
             </children>
         
 		</component>
@@ -1326,11 +1346,11 @@
 
             <children>
                 <componentref id="floorTowerWood" />
-				<componentref id="plataform1" />
-				<componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
+				<componentref id="platform1" />
+				<componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
 
             </children>
         </component>
@@ -1348,7 +1368,7 @@
             <texture id="woodFloor" />
 
             <children>
-					<componentref id="plataform6" />    
+					<componentref id="platform6" />    
             </children>
 			
         </component>
@@ -1446,12 +1466,12 @@
             <texture id="inherit" />
 			
             <children>
-                <componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+                <componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
             </children>
         </component>
 		
@@ -1468,12 +1488,12 @@
             <texture id="inherit" />
 			
             <children>
-                <componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+                <componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
             </children>
 			
         </component>
@@ -1491,12 +1511,12 @@
             <texture id="inherit" />
 
             <children>
-                <componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+                <componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
             </children>
         </component>
 		
@@ -1513,12 +1533,12 @@
             <texture id="inherit" />
 			
             <children>
-                <componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+                <componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
             </children>
 			
         </component>
@@ -1557,12 +1577,12 @@
             <texture id="inherit" />
 			
             <children>
-                <componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+                <componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
             </children>
 			
         </component>
@@ -1580,12 +1600,12 @@
             <texture id="inherit" />
 			
             <children>
-                <componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+                <componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
             </children>
 			
         </component>
@@ -1603,12 +1623,12 @@
             <texture id="inherit" />
 
             <children>
-                <componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+                <componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
             </children>
 			
         </component>
@@ -1626,12 +1646,12 @@
             <texture id="inherit" />
 			
             <children>
-                <componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+                <componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
             </children>
         </component>
 		
@@ -2244,12 +2264,12 @@
 	        <texture id="sailText" />      
 			
 	        <children>
-				<componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+				<componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
 				<componentref id="sail1" />
 				<componentref id="sail2" />
 				<componentref id="sail3" />
@@ -2690,12 +2710,12 @@
             <texture id="inherit" />	
 
             <children>
-				<componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+				<componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
             </children>
 			
         </component>
@@ -2716,12 +2736,12 @@
             <texture id="inherit" />	
 
             <children>
-				<componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+				<componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
             </children>
 			
         </component>
@@ -2742,12 +2762,12 @@
             <texture id="inherit" />	
 
             <children>
-				<componentref id="plataform1" />
-                <componentref id="plataform2" />
-                <componentref id="plataform3" />
-                <componentref id="plataform4" />
-                <componentref id="plataform5" />
-                <componentref id="plataform6" />
+				<componentref id="platform1" />
+                <componentref id="platform2" />
+                <componentref id="platform3" />
+                <componentref id="platform4" />
+                <componentref id="platform5" />
+                <componentref id="platform6" />
             </children>
 			
         </component>
@@ -3100,13 +3120,15 @@
 			
 		</component>
 		
+<!-- ********************** ICE WORLD ************************* -->
+<!-- PLATFORM -->
+<!-- ********************************************************** -->
+		
 		<component id="platformIce">
 	   
 			<transformation>
-				<rotate axis="z" angle="90" />
-				<translate x="25" y="40" z="-55" />
+				<transformationref id="iceWorld" />
 				<scale x="70" y="2" z="70" />
-				
 			</transformation>
 
 			<materials>
@@ -3116,138 +3138,24 @@
             <texture id="snow" />	
 
             <children>
-                <componentref id="platformIce1" />  <!-- bottom -->
-				<componentref id="platformIce2" />  <!-- front -->
-				<componentref id="platformIce3" />  <!-- left -->
-				<componentref id="platformIce4" />  <!-- back -->
-				<componentref id="platformIce5" />  <!-- right -->
-				<componentref id="platformIce6" />  <!-- top -->
+                <componentref id="platform1" />  <!-- bottom -->
+				<componentref id="platform2" />  <!-- front -->
+				<componentref id="platform3" />  <!-- left -->
+				<componentref id="platform4" />  <!-- back -->
+				<componentref id="platform5" />  <!-- right -->
+				<componentref id="platform6" />  <!-- top -->
 				
-				
             </children>
         </component>
 		
-		<component id="platformIce1">
 		
-			<transformation>
-				<translate x="0" y="-1" z="0" />
-				<rotate axis="x" angle="90" />
-			</transformation>
-
-			<materials>
-				<material id="inherit" />
-			</materials>
-			
-            <texture id="inherit" />
-
-            <children>
-                <primitiveref id="idSquare" />
-            </children>
-
-        </component>
-		
-
-		<component id="platformIce2">
-		
-			<transformation>
-				<translate x="0" y="-1" z="1" />
-			</transformation>
-
-			<materials>
-				<material id="inherit" />
-			</materials>
-			
-            <texture id="inherit" />
-
-            <children>
-                <primitiveref id="idSquare" />
-            </children>
-
-        </component>
-
-        <component id="platformIce3">
-			
-			<transformation>
-				<translate x="0" y="-1" z="0" />
-				<rotate axis="y" angle="-90" />
-			</transformation>
-
-			<materials>
-				<material id="inherit" />
-			</materials>
-			
-            <texture id="inherit" />
-			
-            <children>
-                <primitiveref id="idSquare" />
-            </children>
-
-        </component>
-		
-		
-		<component id="platformIce4">
-		
-			<transformation>
-				<translate x="1" y="-1" z="0" />
-				<rotate axis="y" angle="180" />
-			</transformation>
-
-			<materials>
-				<material id="inherit" />
-			</materials>
-			
-            <texture id="inherit" />
-			
-            <children>
-                <primitiveref id="idSquare" />
-            </children>
-
-        </component>
-
-        <component id="platformIce5">
-		
-			<transformation>
-				<translate x="1" y="-1" z="1" />
-				<rotate axis="y" angle="90" />
-			</transformation>
-
-			<materials>
-				<material id="inherit" />
-			</materials>
-			
-            <texture id="inherit" />
-		
-
-            <children>
-                <primitiveref id="idSquare" />
-            </children>
-
-        </component>
-		
-        <component id="platformIce6">
-		
-			<transformation>
-				<translate x="0" y="0" z="1" />
-				<rotate axis="x" angle="-90" />
-			</transformation>
-
-			<materials>
-				<material id="inherit" />
-			</materials>
-			
-            <texture id="inherit" />
-			
-            <children>
-                <primitiveref id="idSquare" />
-            </children>
-
-        </component>
 		
 		<component id="igloo">
 		
 			<transformation>
-				<translate x="10" y="30" z="25" />
-				<scale x="5" y="5" z="5" />
+				<transformationref id="iceWorld" />
+				<translate x="12" y="1" z="12" />
+				<scale x="6" y="6" z="6" />
 				
 			</transformation>
 
@@ -3258,7 +3166,7 @@
             <texture id="iceBlock" />
 			
             <children>
-				
+				<componentref id="iglooHouse" /> 
 				<componentref id="iglooDoor" /> 
             </children>
 
@@ -3267,7 +3175,8 @@
 		<component id="iglooHouse">
 		
 			<transformation>
-				<rotate axis="x" angle="-90" />
+				<rotate axis="z" angle="90" />
+				<scale x="2" y="2" z="2" />
 			</transformation>
 
 			<materials>
@@ -3285,6 +3194,302 @@
 		<component id="iglooDoor">
 		
 			<transformation>
+				<translate x="-0.5" y="0.7" z="1.3" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<componentref id="platform1" /> 
+				<componentref id="platform2" /> 
+				<componentref id="platform3" /> 
+				<componentref id="platform4" /> 
+				<componentref id="platform5" /> 
+				<componentref id="platform6" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowman">
+		
+			<transformation>
+				<transformationref id="iceWorld" />
+				<translate x="30" y="0.9" z="30" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<componentref id="snowmanBase" /> 
+				<componentref id="snowmanBody" /> 
+				<componentref id="snowmanArm1" /> 
+				<componentref id="snowmanArm2" /> 
+				<componentref id="snowmanHead" /> 
+				<componentref id="snowmanRod" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowmanBase">
+		
+			<transformation>
+				<scale x="4" y="4" z="3" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowmanBody">
+		
+			<transformation>
+				
+				<scale x="3.2" y="3.2" z="2.8" />
+				<translate x="0" y="1.6" z="0" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowmanArm1">
+		
+			<transformation>
+				<translate x="7" y="7" z="-0.5" />
+				<rotate axis="y" angle="110" />
+				<rotate axis="x" angle="170" />
+				<scale x="0.7" y="0.7" z="6" />
+				
+			</transformation>
+
+			<materials>
+				<material id="logMat" />
+				<material id="snowMat" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idCylinder" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowmanArm2">
+		
+			<transformation>
+				<translate x="7" y="7" z="-1.5" />
+				<rotate axis="y" angle="80" />
+				<rotate axis="x" angle="170" />
+				<scale x="0.7" y="0.7" z="6" />
+			</transformation>
+
+			<materials>
+				<material id="logMat" />
+				<material id="snowMat" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idCylinder" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowmanRod">
+		
+			<transformation>
+				
+			</transformation>
+
+			<materials>
+				<material id="logMat" />
+				<material id="snowMat" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<componentref id="snowmanRodGrip" /> 
+				<componentref id="snowmanRodLine" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowmanRodGrip">
+		
+			<transformation>
+				<rotate axis="y" angle="90" />
+				<rotate axis="x" angle="-45" />
+				<scale x="0.4" y="0.4" z="17" />
+				<translate x="0" y="0" z="0.4" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idCylinder" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowmanRodLine">
+		
+			<transformation>
+				<rotate axis="x" angle="90" />
+				<scale x="0.1" y="0.1" z="17" />
+				<translate x="167" y="0" z="-1" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idCylinder" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowmanHead">
+		
+			<transformation>
+				<scale x="2" y="2" z="1.6" />
+				<translate x="0" y="4.5" z="0" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idSphere" />
+				<componentref id="snowmanHeadNose" />
+				<componentref id="snowmanHeadHatBase" /> 
+				<componentref id="snowmanHeadHatTop1" /> 
+				<componentref id="snowmanHeadHatTop2" /> 				
+            </children>
+
+        </component>
+		
+		<component id="snowmanHeadNose">
+		
+			<transformation>
+				<scale x="2" y="0.3" z="0.3" />
+				<rotate axis="y" angle="90" />
+				<translate x="0" y="1" z="0.3" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="carrot" />
+			
+            <children>
+				<primitiveref id="idCone" />
+            </children>
+
+        </component>
+		
+		<component id="snowmanHeadHatBase">
+		
+			<transformation>
+				<scale x="1.5" y="0.1" z="1.5" />
+				<rotate axis="x" angle="90" />
+				<translate x="0" y="0" z="-11" />
+			</transformation>
+
+			<materials>
+				<material id="baseHatMat" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idCylinder" />
+            </children>
+
+        </component>
+		
+		<component id="snowmanHeadHatTop1">
+		
+			<transformation>
+				<scale x="0.7" y="0.2" z="0.7" />
+				<rotate axis="x" angle="90" />
+				<translate x="0" y="0" z="-6.5" />
+			</transformation>
+
+			<materials>
+				<material id="baseStripeMat" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idCylinder" />
+            </children>
+
+        </component>
+		
+		<component id="snowmanHeadHatTop2">
+		
+			<transformation>
+				<scale x="0.7" y="1.4" z="0.7" />
+				<rotate axis="x" angle="90" />
+				<translate x="0" y="0" z="-1.9" />
+			</transformation>
+
+			<materials>
+				<material id="baseHatMat" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idCylinder" />
+            </children>
+
+        </component>
+		
+		<component id="pond">
+		
+			<transformation>
+				<transformationref id="iceWorld" />
+				<translate x="50" y="0.1" z="30" />
 				
 			</transformation>
 
@@ -3295,17 +3500,113 @@
             <texture id="inherit" />
 			
             <children>
-				<componentref id="iglooDoor1" /> 
-				<componentref id="iglooDoor2" /> 
-				<componentref id="iglooDoor3" /> 
-				<componentref id="iglooDoor4" /> 
-				<componentref id="iglooDoor5" /> 
-				<componentref id="iglooDoor6" /> 
+				<componentref id="pondWater" /> 
+				<componentref id="pondFish1" /> 
+				<componentref id="pondFish2" />
+				<componentref id="pondFish3" /> 
+				<componentref id="pondFish4" />
             </children>
 
         </component>
 		
-		<component id="iglooDoor1">
+		<component id="pondWater">
+		
+			<transformation>
+				
+				<rotate axis="x" angle="90" />
+				<scale x="10" y="10" z="1" />
+				
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="water" />
+			
+            <children>
+				<primitiveref id="idCylinder" /> 
+            </children>
+
+        </component>
+		
+		<component id="pondFish1">
+		
+			<transformation>
+				<translate x="-15" y="0.5" z="12" />
+				
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="fish" />
+			
+            <children>
+				<componentref id="fish" /> 
+            </children>
+
+        </component>
+		
+		<component id="pondFish2">
+		
+			<transformation>
+				<translate x="-17" y="0.5" z="12" />
+				<rotate axis="y" angle="30" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="fish" />
+			
+            <children>
+				<componentref id="fish" /> 
+            </children>
+
+        </component>
+		
+		<component id="pondFish3">
+		
+			<transformation>
+				<translate x="-21" y="0.5" z="12" />
+				<rotate axis="y" angle="70" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="fish" />
+			
+            <children>
+				<componentref id="fish" /> 
+            </children>
+
+        </component>
+		
+		<component id="pondFish4">
+		
+			<transformation>
+				<translate x="-17" y="0.5" z="5" />
+				<rotate axis="y" angle="-70" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="fish" />
+			
+            <children>
+				<componentref id="fish" /> 
+            </children>
+
+        </component>
+		
+		<component id="fish">
 		
 			<transformation>
 				
@@ -3318,16 +3619,17 @@
             <texture id="inherit" />
 			
             <children>
-                <primitiveref id="idSquare" />
+				<componentref id="fishBody" /> 
+				<componentref id="fishTail" /> 
+				<componentref id="fishEye" /> 
             </children>
 
         </component>
 		
-		<component id="iglooDoor2">
+		<component id="fishBody">
 		
 			<transformation>
-				<rotate axis="y" angle="270" />
-				<translate x="-1" y="0" z="0" />
+				<scale x="0.8" y="0.5" z="2.5" />
 			</transformation>
 
 			<materials>
@@ -3337,15 +3639,16 @@
             <texture id="inherit" />
 			
             <children>
-                <primitiveref id="idSquare" />
+				<primitiveref id="idSphere" /> 
             </children>
 
         </component>
 		
-		<component id="iglooDoor3">
+		<component id="fishTail">
 		
 			<transformation>
-				<rotate axis="x" angle="-90" />
+				<scale x="0.8" y="0.2" z="3" />
+				<translate x="0" y="0" z="-1.5" />
 			</transformation>
 
 			<materials>
@@ -3355,15 +3658,35 @@
             <texture id="inherit" />
 			
             <children>
-                <primitiveref id="idSquare" />
+				<primitiveref id="idCone" /> 
             </children>
 
         </component>
 		
-		<component id="iglooDoor4">
+		<component id="fishEye">
 		
 			<transformation>
-				<rotate axis="x" angle="-90" />
+				<scale x="0.2" y="0.2" z="0.2" />
+				<translate x="0" y="1" z="10.5" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="fishEye" />
+			
+            <children>
+				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		<component id="clouds">
+		
+			<transformation>
+				<transformationref id="iceWorld" />
+				<translate x="0" y="8" z="0" />
 			</transformation>
 
 			<materials>
@@ -3373,15 +3696,18 @@
             <texture id="inherit" />
 			
             <children>
-                <primitiveref id="idSquare" />
+				<componentref id="cloud1" /> 
+				<componentref id="cloud2" /> 
+				<componentref id="cloud3" /> 
+				<componentref id="cloud4" /> 
             </children>
 
         </component>
 		
-		<component id="iglooDoor5">
+		<component id="cloud1">
 		
 			<transformation>
-				<rotate axis="x" angle="-90" />
+				
 			</transformation>
 
 			<materials>
@@ -3391,15 +3717,18 @@
             <texture id="inherit" />
 			
             <children>
-                <primitiveref id="idSquare" />
+				<componentref id="cloudAux1" /> 
+				<componentref id="cloudAux2" /> 
+				<componentref id="snow1" /> 
+				<componentref id="snow2" /> 
             </children>
 
         </component>
 		
-		<component id="iglooDoor6">
+		<component id="cloud2">
 		
 			<transformation>
-				<rotate axis="x" angle="-90" />
+				<translate x="10" y="0" z="15" />
 			</transformation>
 
 			<materials>
@@ -3409,11 +3738,406 @@
             <texture id="inherit" />
 			
             <children>
-                <primitiveref id="idSquare" />
+				<componentref id="cloudAux1" /> 
+				<componentref id="cloudAux2" /> 
+				<componentref id="snow1" /> 
+				<componentref id="snow2" /> 
             </children>
 
         </component>
+		
+		<component id="cloud3">
+		
+			<transformation>
+				<rotate axis="y" angle="30" />
+				<translate x="8" y="0" z="-4" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<componentref id="cloudAux3" /> 
+				<componentref id="cloudAux2" /> 
+				<componentref id="snow1" /> 
+				<componentref id="snow2" /> 
+            </children>
+
+        </component>
+		
+		<component id="cloud4">
+		
+			<transformation>
+				<rotate axis="y" angle="140" />
+				<translate x="-75" y="0" z="-75" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<componentref id="cloudAux1" /> 
+				<componentref id="cloudAux2" /> 
+				<componentref id="cloudAux3" /> 
+				<componentref id="snow1" /> 
+				<componentref id="snow2" /> 
+            </children>
+
+        </component>
+		
+		<component id="cloudAux1">
+		
+			<transformation>
+				<scale x="9" y="1.5" z="6" />
+				<translate x="3" y="12" z="5" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		<component id="cloudAux2">
+		
+			<transformation>
+				<scale x="7.5" y="1.5" z="4.5" />
+				<translate x="3" y="12" z="8" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		<component id="cloudAux3">
+		
+			<transformation>
+				<scale x="4" y="1.5" z="6" />
+				<translate x="3" y="12" z="5" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		<component id="snow1">
+		
+			<transformation>
+				<scale x="2" y="2" z="2" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<componentref id="snowFlake1" /> 
+				<componentref id="snowFlake2" />
+				<componentref id="snowFlake3" />
+				<componentref id="snowFlake4" /> 
+				<componentref id="snowFlake5" />
+				<componentref id="snowFlake6" />
+				<componentref id="snowFlake7" /> 
+				<componentref id="snowFlake8" />
+				<componentref id="snowFlake9" />
+				<componentref id="snowFlake10" /> 
+				<componentref id="snowFlake11" />
+				<componentref id="snowFlake12" />
+            </children>
+
+        </component>
+		
+		<component id="snow2">
+		
+			<transformation>
+				<scale x="2" y="2" z="2" />
+				<translate x="-1" y="0" z="2" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<componentref id="snowFlake1" /> 
+				<componentref id="snowFlake2" />
+				<componentref id="snowFlake3" />
+				<componentref id="snowFlake4" /> 
+				<componentref id="snowFlake5" />
+				<componentref id="snowFlake6" />
+				<componentref id="snowFlake7" /> 
+				<componentref id="snowFlake8" />
+				<componentref id="snowFlake9" />
+				<componentref id="snowFlake10" /> 
+				<componentref id="snowFlake11" />
+				<componentref id="snowFlake12" />
+            </children>
+
+        </component>
+		
+		<component id="snowFlake1">
+		
+			<transformation>
+				<translate x="9" y="7" z="16" />
+				<scale x="0.2" y="0.2" z="0.2" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowFlake2">
+		
+			<transformation>
+				<translate x="13" y="7" z="16" />
+				<scale x="0.2" y="0.2" z="0.2" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowFlake3">
+		
+			<transformation>
+				<translate x="17" y="7" z="16" />
+				<scale x="0.2" y="0.2" z="0.2" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowFlake4">
+		
+			<transformation>
+				<translate x="11" y="4" z="16" />
+				<scale x="0.2" y="0.2" z="0.2" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowFlake5">
+		
+			<transformation>
+				<translate x="15" y="4" z="16" />
+				<scale x="0.2" y="0.2" z="0.2" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowFlake6">
+		
+			<transformation>
+				<translate x="19" y="4" z="16" />
+				<scale x="0.2" y="0.2" z="0.2" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowFlake7">
+		
+			<transformation>
+				<translate x="8" y="1" z="16" />
+				<scale x="0.2" y="0.2" z="0.2" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowFlake8">
+		
+			<transformation>
+				<translate x="12" y="1" z="16" />
+				<scale x="0.2" y="0.2" z="0.2" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowFlake9">
+		
+			<transformation>
+				<translate x="16" y="1" z="16" />
+				<scale x="0.2" y="0.2" z="0.2" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowFlake10">
+		
+			<transformation>
+				<translate x="10" y="-2" z="16" />
+				<scale x="0.2" y="0.2" z="0.2" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowFlake11">
+		
+			<transformation>
+				<translate x="14" y="-2" z="16" />
+				<scale x="0.2" y="0.2" z="0.2" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		<component id="snowFlake12">
+		
+			<transformation>
+				<translate x="18" y="-2" z="16" />
+				<scale x="0.2" y="0.2" z="0.2" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="inherit" />
+			
+            <children>
+				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		
 		
 </components>
+
 
 </dsx>

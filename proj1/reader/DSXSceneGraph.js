@@ -201,7 +201,7 @@ DSXSceneGraph.prototype.parseViews = function(rootElement) {
 		
 		//ar newPerspective = new Views(id,angle,near,far,x_from,y_from,z_from,x_to,y_to,z_to);
 		
-		this.views.addView(this.scene, i,near,far,angle,x_from,y_from,z_from,x_to,y_to,z_to);
+		this.views.addView(this.scene, i,near,far,angle*deg2rad,x_from,y_from,z_from,x_to,y_to,z_to);
 		
 		if (id == def)
 			this.views.setDefault(i);
@@ -718,8 +718,11 @@ DSXSceneGraph.prototype.parsePrimitives = function(rootElement) {
 				data.push(this.reader.getInteger(leaf.children[0], "slices"));
 				data.push(this.reader.getInteger(leaf.children[0], "loops"));
 			
-				//TODO
-				console.log("Falta fazer\n");
+				if (data == null)
+					return "torus with error" + id;
+				//ativar quando houver torus
+				//this.leaves[id] = new LeafTorus(id, data[0], data[1], data[2], data[3]);
+				break;
 				break;
 			default:
 				return "Leaf type unknown: " + type;

@@ -130,6 +130,10 @@ DSXScene.prototype.onGraphLoaded = function ()
 			case "sphere":
 				this.primitives[key] = new MySphere(this, leaf.radius, leaf.stacks, leaf.sections);
 				break;
+			case "torus":
+				//descomentar qd torus estiver pronto
+				//this.primitives[key] = new MyTorus(this, leaf.inner, leaf.outer, leaf.slices, leaf.loops);
+				break;
     	}
     }
 };
