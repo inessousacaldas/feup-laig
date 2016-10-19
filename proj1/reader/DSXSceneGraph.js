@@ -721,7 +721,7 @@ DSXSceneGraph.prototype.parsePrimitives = function(rootElement) {
 				if (data == null)
 					return "torus with error" + id;
 				//ativar quando houver torus
-				//this.leaves[id] = new LeafTorus(id, data[0], data[1], data[2], data[3]);
+				this.leaves[id] = new LeafTorus(id, data[0], data[1], data[2], data[3]);
 				break;
 				break;
 			default:

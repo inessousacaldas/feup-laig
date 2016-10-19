@@ -132,7 +132,7 @@ DSXScene.prototype.onGraphLoaded = function ()
 				break;
 			case "torus":
 				//descomentar qd torus estiver pronto
-				//this.primitives[key] = new MyTorus(this, leaf.inner, leaf.outer, leaf.slices, leaf.loops);
+				this.primitives[key] = new MyTorus(this, leaf.inner, leaf.outer, leaf.slices, leaf.loops);
 				break;
     	}
     }

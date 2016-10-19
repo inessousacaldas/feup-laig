@@ -121,6 +121,8 @@
 	
 	<texture id="bear" file="textures/polar2.jpg" length_s="1" length_t="1" />
 	
+	<texture id="soil" file="textures/soil.jpg" length_s="1" length_t="1" />
+	
 </textures>
 
 
@@ -232,6 +234,10 @@
 		
 		<primitive id="idTriangle">
             <triangle x1="-0.5" y1="-0.5" z1="0" x2="0.5" y2="-0.5" z2="0" x3="0" y3="0.5" z3="0" />
+        </primitive>
+		
+		<primitive id="idTorus">
+           <torus inner="1.5" outer="2.5" slices="16" loops="10" />
         </primitive>
 
 
@@ -3505,6 +3511,7 @@
 				<componentref id="pondFish2" />
 				<componentref id="pondFish3" /> 
 				<componentref id="pondFish4" />
+				<componentref id="pondLand" />
             </children>
 
         </component>
@@ -3514,7 +3521,7 @@
 			<transformation>
 				
 				<rotate axis="x" angle="90" />
-				<scale x="10" y="10" z="1" />
+				<scale x="8" y="8" z="1" />
 				
 			</transformation>
 
@@ -3678,6 +3685,26 @@
 			
             <children>
 				<primitiveref id="idSphere" /> 
+            </children>
+
+        </component>
+		
+		<component id="pondLand">
+		
+			<transformation>
+				<scale x="4" y="0.1" z="4" />
+				<rotate axis="x" angle="90" />
+				<translate x="0" y="0" z="0" />
+			</transformation>
+
+			<materials>
+				<material id="inherit" />
+			</materials>
+			
+            <texture id="soil" />
+			
+            <children>
+				<primitiveref id="idTorus" /> 
             </children>
 
         </component>
