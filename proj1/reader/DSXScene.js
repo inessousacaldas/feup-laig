@@ -95,7 +95,7 @@ DSXScene.prototype.onGraphLoaded = function ()
 	//All lights are invisible, enabled or not depends from the DSX
     for (var i = 0; i < this.graph.lights.length; ++i) {
     	this.lights.push(this.graph.lights[i]);
-    	this.lights[i].setVisible(true);
+    	this.lights[i].setVisible(false);
     	this.lightsEnabled[this.lights[i].name] = this.lights[i].enabled;
 		this.lights[i].update();
     }
