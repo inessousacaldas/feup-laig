@@ -3329,7 +3329,7 @@
 
 			<materials>
 				<material id="logMat" />
-				<material id="snowMat" />
+				<material id="fireMat" />
 			</materials>
 			
             <texture id="inherit" />

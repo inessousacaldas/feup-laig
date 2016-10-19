@@ -267,8 +267,9 @@ DSXScene.prototype.updateLight = function(lightId, enable) {
 	}
 }
 
-DSXScene.prototype.changeMaterial = function() {
-	
-	
-	
-}
+DSXScene.prototype.changeMaterials=function () {
+	var id;
+	for (id in this.graph.components) {
+		this.graph.components[id].changeMaterial();
+	}
+};

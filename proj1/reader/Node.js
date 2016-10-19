@@ -7,6 +7,7 @@ function Node(id) {
     this.id = id;
     this.material = "inherit";
 	this.materials = [];
+	this.materialIter = 0;
     this.texture = "none";
     this.localTransformations = mat4.create();
     mat4.identity(this.localTransformations);
@@ -31,8 +32,10 @@ Node.prototype.addMaterial = function(material) {
 }
 
 Node.prototype.changeMaterial = function() {
-    console.log("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
-	//console.log("i: " + indexOfId(this.material) + " - " + this.material;
+	this.materialIter++;
+	if (this.materialIter >= this.materials.length)
+		this.materialIter = 0;
+	this.material = this.materials[this.materialIter];
 	
 }
 

@@ -75,16 +75,17 @@ MyInterface.prototype.processKeyboard = function(event)
 			
 			//v or V
 			case(118): //fall through
-			case(86): 	console.log(event.charCode + " I'm changing view");
-						this.scene.updateCamera();
+			case(86):
+				console.log("<--- I'm changing view --->");
+				this.scene.updateCamera();
 			
 			break;
 			
 			//m or M 
 			case(109): //fall through
 			case(77):
-				console.log(event.charCode + " I'm changing materials"); 
-				//this.scene	
+				console.log("<--- I'm changing materials --->"); 
+				this.scene.changeMaterials();
 			break;
 			
 			
