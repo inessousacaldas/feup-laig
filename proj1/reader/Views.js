@@ -24,6 +24,7 @@ Views.prototype.addView = function(scene, id, near, far, angle, fromX, fromY, fr
 	
 	
 	var view = {
+		id:id,
 		near:near,
 		far:far,
 		angle:angle,

@@ -93,8 +93,9 @@ DSXSceneGraph.prototype.parseSceneGraph = function(rootElement) {
 		return "axis length is missing."
 	}
 	
-	
-	/* TODO: Faltam fazer a parte das vistas */
+	var validated = validateOrder(rootElement);
+	if (validated != 1)
+		return validated;
 	
 
 	console.log("*******VIEWS*******");
@@ -153,7 +154,7 @@ DSXSceneGraph.prototype.parseSceneGraph = function(rootElement) {
 
 /*
  *@param rootElement SCENE tag from DSX
- * Parse tag INITIALS from DSX
+ * Parse tag VIEWS from DSX
  */
 DSXSceneGraph.prototype.parseViews = function(rootElement) {
 	var tempViews =  rootElement.getElementsByTagName("views");
@@ -170,6 +171,9 @@ DSXSceneGraph.prototype.parseViews = function(rootElement) {
 	
 	var def = this.reader.getString(perspectives, "default");
 	
+	if (def == null)
+		return "default element is missing";
+	
 	//testa se existe pelo menos uma perspetiva
 	if (perspectives.children == null || perspectives.children.length < 1)
 		return "There should be at least one perspective"
@@ -181,9 +185,26 @@ DSXSceneGraph.prototype.parseViews = function(rootElement) {
 		if (id == null)
 			return "perspective without id.";
 		
+		for (var j = 0;j<this.views.views.length;j++){
+			if (id == this.views.views[j].id)
+				return "View with id " + id + " repeated";
+		}
+		
 		var near = this.reader.getFloat(perspective, "near");
+		
+		if (near == null)
+			return "near element missing in view " + id;
+		
 		var far = this.reader.getFloat(perspective, "far");
+		
+		if (far == null)
+			return "far element missing in view " + id;
+		
 		var angle = this.reader.getFloat(perspective, "angle");
+		
+		if (angle == null)
+			return "angle element missing in view " + id;
+		
 		
 		if (perspective.children.length != 2)
 			return "Wrong perspective type found in view " + id;
@@ -195,21 +216,31 @@ DSXSceneGraph.prototype.parseViews = function(rootElement) {
 		var y_from = this.reader.getFloat(from_child, "y");
 		var z_from = this.reader.getFloat(from_child, "z");
 		
+		if (x_from == null || y_from == null || z_from == null)
+			return "From elements missing in view " + id;
+		
 		var x_to = this.reader.getFloat(to_child, "x");
 		var y_to = this.reader.getFloat(to_child, "y");
 		var z_to = this.reader.getFloat(to_child, "z");
 		
-		//ar newPerspective = new Views(id,angle,near,far,x_from,y_from,z_from,x_to,y_to,z_to);
+		if (x_to == null || y_to == null || z_to == null)
+			return "To elements missing in view " + id;
 		
-		this.views.addView(this.scene, i,near,far,angle*deg2rad,x_from,y_from,z_from,x_to,y_to,z_to);
+		this.views.addView(this.scene,id,near,far,angle*deg2rad,x_from,y_from,z_from,x_to,y_to,z_to);
 		
 		if (id == def)
 			this.views.setDefault(i);
 		console.log("Added view " + id);
 		
 	}
+	var foundDefault = false;
 	
-	if (this.views.getDefault == null)
+	for (var j = 0;j<this.views.views.length;j++){
+		if (def == this.views.views[j].id)
+			foundDefault = true;
+	}
+	
+	if (!foundDefault)
 		return "No default view detected";
 	
 };
@@ -232,7 +263,6 @@ DSXSceneGraph.prototype.parseIllumination = function(rootElement) {
 
 	var illumination = tempIllum[0];
 	
-	/* TODO: Ver o que faz doublesided e local */
 	var doublesided = this.reader.getInteger(illumination, "doublesided");
 	
 	if(doublesided == null){
@@ -301,7 +331,7 @@ DSXSceneGraph.prototype.parseLights = function(rootElement) {
 	
 	//testa se existe pelo menos uma luz
 	if (lights.children == null || lights.children.length < 1)
-		return "There should be at least one light"
+		return "There should be at least one light";
 
 	//divide as luzes pelas 2 categorias
 	var omniLights = lights.getElementsByTagName("omni");
@@ -317,6 +347,13 @@ DSXSceneGraph.prototype.parseLights = function(rootElement) {
 		var id = this.reader.getString(omniLight, "id");
 		if (id == null)
 			return "LIGHT without id.";
+		
+		for (var j = 0;j<this.lights.length;j++){
+			if (id == this.lights[j].name)
+				return "Light with id " + id + " repeated";
+		}
+		
+		
 		
 		//TODO: falta verificar se existem ids repetidos
 		this.lights.push(new Light(this.scene, i, id));
@@ -334,13 +371,17 @@ DSXSceneGraph.prototype.parseLights = function(rootElement) {
 		data.push(this.reader.getFloat(omniLight.children[0], "y"));
 		data.push(this.reader.getFloat(omniLight.children[0], "z"));
 		data.push(this.reader.getFloat(omniLight.children[0], "w"));
+		
+		if (data[0] == null || data[1] == null || data[2] == null || data[3] == null)
+			return "Light position elements missing in id " + id;
+		
 		this.lights[i].setPosition(data[0], data[1], data[2], data[3]);
 
 		//components of omniLight
-		//data = [];
+		
 		data = this.reader.getRGBA(omniLight.children[1]);
 		this.lights[i].setAmbient(data[0], data[1], data[2], data[3]);
-
+		
 		data = this.reader.getRGBA(omniLight.children[2]);
 		this.lights[i].setDiffuse(data[0], data[1], data[2], data[3]);
 
@@ -351,13 +392,15 @@ DSXSceneGraph.prototype.parseLights = function(rootElement) {
 	
 	//adicionar todas as spot lights
 	for (; i < spotLights.length + omniLights.length; i++){
-		console.log('-------> id AAAAAA' + i);
 		var spotlight = spotLights[i - omniLights.length];
 		var id = this.reader.getString(spotlight, "id");
 		if (id == null)
 			return "LIGHT without id.";
 		
-		//TODO: falta verificar se existem ids repetidos
+		for (var j = 0;j<this.lights.length;j++){
+			if (id == this.lights[j].name)
+				return "Light with id " + id + " repeated";
+		}
 		
 		this.lights.push(new Light(this.scene, i, id));
 		
@@ -379,13 +422,21 @@ DSXSceneGraph.prototype.parseLights = function(rootElement) {
 		data.push(this.reader.getFloat(spotlight.children[0], "x"));
 		data.push(this.reader.getFloat(spotlight.children[0], "y"));
 		data.push(this.reader.getFloat(spotlight.children[0], "z"));
-		this.lights[i].setSpotDirection(data[0], data[1], data[2]); //target é diferente de direction?
+		if (data[0] == null || data[1] == null || data[2] == null)
+			return "SpotLight target elements missing in id " + id;
+		
+		this.lights[i].setSpotDirection(data[0], data[1], data[2]);
+		
+		
 		
 		//position of spotlight
 		data = [];
 		data.push(this.reader.getFloat(spotlight.children[1], "x"));
 		data.push(this.reader.getFloat(spotlight.children[1], "y"));
 		data.push(this.reader.getFloat(spotlight.children[1], "z"));
+		if (data[0] == null || data[1] == null || data[2] == null)
+			return "SpotLight position elements missing in id " + id;
+		
 		this.lights[i].setPosition(data[0], data[1], data[2], 1); //value of w = 1
 
 		//components of spotlight
@@ -435,12 +486,18 @@ DSXSceneGraph.prototype.parseTextures = function(rootElement) {
 		var NewTexture = texture[i];
 		var id = this.reader.getString(NewTexture, "id");
 
+		if (id == null)
+			return "Id missing in textures";
+		
 		if (id in this.textures)
 			return "Duplicate texture id: " + id;
 		
 		var path = pathRel + '/' + this.reader.getString(NewTexture, "file");
 		var s = this.reader.getFloat(NewTexture, "length_s");
 		var t = this.reader.getFloat(NewTexture, "length_t");
+		
+		if (pathRel == null || path == null || s == null || t == null)
+			return "Missing elements in texture id ";
 		this.textures[id] = new Texture(this.scene, path, id);
 		this.textures[id].setAmplifyFactor(s,t);
 	}
@@ -474,6 +531,9 @@ DSXSceneGraph.prototype.parseMaterials = function(rootElement) {
 		var id = this.reader.getString(material,"id");
 		if (id in this.materials)
 			return "Duplicate material id: " + id;
+		
+		if (id == null)
+			return "Id missing in materials";
 
 		this.materials[id] = new Material(this.scene,id);
 				
@@ -551,6 +611,9 @@ DSXSceneGraph.prototype.parseTransformations = function(rootElement) {
 					var ty = this.reader.getFloat(transformation, "y");
 					var tz = this.reader.getFloat(transformation, "z");
 					
+					if (tx == null || ty == null || tz == null)
+						return "Missing elements in translate transformation " + id;
+					
 					mat4.translate(trans, trans, vec3.fromValues(tx, ty, tz));
 					
 					console.log(id + " - Added translate transformation");
@@ -558,6 +621,9 @@ DSXSceneGraph.prototype.parseTransformations = function(rootElement) {
 				case "rotate":
 					var axis = this.reader.getString(transformation, "axis");
 					var angle = this.reader.getFloat(transformation, "angle");
+					
+					if (axis == null || angle == null)
+						return "Missing elements in rotate transformation " + id;
 					
 					switch (axis){
 						case "x":
@@ -582,9 +648,13 @@ DSXSceneGraph.prototype.parseTransformations = function(rootElement) {
 					break;
 				case "scale":
 				
+				
 					var sx = this.reader.getFloat(transformation, "x");
 					var sy = this.reader.getFloat(transformation, "y");
 					var sz = this.reader.getFloat(transformation, "z");
+					
+					if (sx == null || sy == null || sz == null)
+						return "Missing elements in scale transformation " + id;
 					
 					mat4.scale(trans, trans, vec3.fromValues(sx,sy,sz));
 					console.log(id + " - Added scale transformation");
@@ -785,6 +855,7 @@ DSXSceneGraph.prototype.parseComponents = function(rootElement) {
 DSXSceneGraph.prototype.parseComponent = function(component) {
 	//Id of component
 	var id = this.reader.getString(component, "id");
+
 	console.log("Found component " + id);
 	
 	if (id in this.components)
@@ -901,30 +972,38 @@ DSXSceneGraph.prototype.onXMLError=function (message) {
 	this.loadedOk=false;
 };
 
-function multiplyMatrix(list) {
-	var result = list[0];
-	if (list.length < 2)
-		return result;
+function validateOrder(rootElement) {
+	for (var i=0;i<rootElement.children.length;i++)
+		console.log(rootElement.children[i]);
+	if (rootElement.children.length != 9)
+		return "The order of elements is: scene - views - illumination - lights - textures - materials - transformations - primitives - components";
 	
-	for(var k=1;k<list.length;k++){
-		var matrix = result;
-		result = [];
-		var matrixToMultiply = list[k];
-		var temp = [];
-		for (var i=0;i<matrix.length;i=i+4){
-			for (var j=0;j<4;j++){
-				var element = matrix[i] * matrixToMultiply[j] +
-						matrix[i+1] * matrixToMultiply[j+4] +
-						matrix[i+2] * matrixToMultiply[j+8] + 
-						matrix[i+3] * matrixToMultiply[j+12];
-				temp.push(element);
-			}
-		}	
-		result = result.concat(temp);
-	}
+	if (rootElement.children[0].nodeName != "scene")
+		return "The first element should be 'scene'";
 	
-	/*for (var k=0;k<result.length;k++){
-		console.log("k " + k + " = " + result[k]);
-	}*/
-	return result;
+	if (rootElement.children[1].nodeName != "views")
+		return "The second element should be 'views'";
+	
+	if (rootElement.children[2].nodeName != "illumination")
+		return "The third element should be 'illumination'";
+	
+	if (rootElement.children[3].nodeName != "lights")
+		return "The fourth element should be 'lights'";
+	
+	if (rootElement.children[4].nodeName != "textures")
+		return "The fifth element should be 'textures'";
+	
+	if (rootElement.children[5].nodeName != "materials")
+		return "The sixth element should be 'materials'";
+	
+	if (rootElement.children[6].nodeName != "transformations")
+		return "The seventh element should be 'transformations'";
+	
+	if (rootElement.children[7].nodeName != "primitives")
+		return "The eighth element should be 'primitives'";
+	
+	if (rootElement.children[8].nodeName != "components")
+		return "The ninth element should be 'components'";
+	
+	return 1;
 }

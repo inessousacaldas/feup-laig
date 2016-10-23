@@ -20,7 +20,7 @@
             <to x="56" y="53" z="-5" />
         </perspective>
 		
-		<perspective id="dark_world_view" near="0.1" far="500" angle="25">
+		<perspective id="darkWorldView" near="0.1" far="500" angle="25">
             <from x="180" y="50" z="150" />
             <to x="100" y="-10" z="10" />
         </perspective>
@@ -371,7 +371,7 @@
         </primitive>
 		
 		<primitive id="idCone">
-            <cylinder base="1.0" top="1.0" height="0.01" slices="16" stacks="200" />    
+            <cylinder base="1.0" top="0.01" height="1.0" slices="16" stacks="200" />    
         </primitive>
 		
 		<primitive id="idSphere">
@@ -379,7 +379,7 @@
         </primitive>
 		
 		<primitive id="idTower">
-            <cylinder base="1.0" top="1.5" height="1.0" slices="16" stacks="200" />      
+            <cylinder base="1.5" top="1.0" height="1.0" slices="16" stacks="200" />      
         </primitive>
 		
 		<primitive id="idTriangle">
@@ -399,7 +399,7 @@
         </primitive>
 	
 		<primitive id="idJack">
-            <cylinder base="1.0" top="2.5" height="1.0" slices="16" stacks="200" />      
+            <cylinder base="2.5" top="1.0" height="1.0" slices="16" stacks="200" />      
         </primitive>
 		
 		<primitive id="idCoffinHandle">
