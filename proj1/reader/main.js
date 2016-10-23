@@ -56,7 +56,7 @@ main=function()
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
 	
-	var filename=getUrlVars()['file'] || "worldScene - Em Desenvolvimento.dsx";
+	var filename=getUrlVars()['file'] || "worldScene.dsx";
 
 	//Loads the graph from DSX filename
 	var myGraph = new DSXSceneGraph(filename, myScene);
