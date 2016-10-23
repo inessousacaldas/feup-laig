@@ -786,8 +786,7 @@ DSXSceneGraph.prototype.parseComponent = function(component) {
 	//Id of component
 	var id = this.reader.getString(component, "id");
 	console.log("Found component " + id);
-	if (id in this.leaves)
-		return "Duplicate primitive id " + id;
+	
 	if (id in this.components)
 		return "Duplicate component id " + id;
 	
