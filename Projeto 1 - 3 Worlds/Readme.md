@@ -55,4 +55,9 @@ A cena consiste em 3 "mundos":
 
 Existe também uma ponte a ligar o Grass World e o Dark World e uma escadaria a ligar o Grass World e o Ice World.
 
-![Vista geral dos 3 mundos](img1.jpg)
+<p align="center">
+  <img src="https://github.com/inessousacaldas/laig16/tree/master/Projeto%201%20-%203%20Worlds/img1.jpg">
+  <span class="caption">
+        <p align="center">Vista geral dos 3 mundos</p>
+        </span>
+</p>
