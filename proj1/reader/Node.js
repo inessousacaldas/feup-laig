@@ -26,11 +26,18 @@ Node.prototype.setMaterial = function(material) {
     this.material = material;
 }
 
+/*
+ * Adds a material to the node
+ * @param material 
+ */
 Node.prototype.addMaterial = function(material) {
     this.materials.push(material);
 	
 }
 
+/*
+ * Changes the current material of the node
+ */
 Node.prototype.changeMaterial = function() {
 	this.materialIter++;
 	if (this.materialIter >= this.materials.length)

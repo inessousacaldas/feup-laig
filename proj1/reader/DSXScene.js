@@ -59,6 +59,10 @@ DSXScene.prototype.initCameras = function () {
 	this.camera.setTarget(vec3.fromValues(camera.toX, camera.toY, camera.toZ));
 
 };
+
+/*
+ * Changes the current camera
+ */
 DSXScene.prototype.updateCamera = function () {
 	this.graph.views.changeView();
 	this.initCameras();
@@ -268,6 +272,9 @@ DSXScene.prototype.updateLight = function(lightId, enable) {
 	}
 }
 
+/*
+ * Changes the current material in all components
+ */
 DSXScene.prototype.changeMaterials=function () {
 	var id;
 	for (id in this.graph.components) {

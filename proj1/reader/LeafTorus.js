@@ -1,16 +1,11 @@
 /**
- * LeafTriangle
+ * LeafTorus
  * @constructor
- * @param id of rectangle
- * @param x0 x-coord of first vertice
- * @param y0 y-coord of first vertice
- * @param z0 z-coord of first vertice
- * @param x1 x-coord of second vertice
- * @param y1 y-coord of second vertice
- * @param z1 y-coord of second vertice
- * @param x2 x-coord of third vertice
- * @param y2 y-coord of third vertice
- * @param z2 z-coord of third vertice
+ * @param id of torus
+ * @param inner radius of inner circle
+ * @param outer radius of outer circle
+ * @param slices number of slices
+ * @param loops number of loops
  */
 function LeafTorus(id, inner, outer, slices, loops) {
     Leaf.call(this, id, "torus");

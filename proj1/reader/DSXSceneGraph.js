@@ -226,7 +226,7 @@ DSXSceneGraph.prototype.parseViews = function(rootElement) {
 		if (x_to == null || y_to == null || z_to == null)
 			return "To elements missing in view " + id;
 		
-		this.views.addView(this.scene,id,near,far,angle*deg2rad,x_from,y_from,z_from,x_to,y_to,z_to);
+		this.views.addView(id,near,far,angle*deg2rad,x_from,y_from,z_from,x_to,y_to,z_to);
 		
 		if (id == def)
 			this.views.setDefault(i);
@@ -1132,9 +1132,13 @@ DSXSceneGraph.prototype.onXMLError=function (message) {
 	this.loadedOk=false;
 };
 
+
+/*
+ * Validates if DSX file has all elements in correct order
+ * @param rootElement root element of DSX file
+ */
 function validateOrder(rootElement) {
-	for (var i=0;i<rootElement.children.length;i++)
-		console.log(rootElement.children[i]);
+	
 	if (rootElement.children.length != 9)
 		return "The order of elements is: scene - views - illumination - lights - textures - materials - transformations - primitives - components";
 	

@@ -1,9 +1,16 @@
 /**
  * Views
  * @constructor
- * @param scene CFGscene
- * @param path to file of texture
- * @param id identification of the texture
+ * @param id identification of the view
+ * @param near value near of CGFcamera
+ * @param far value far of CGFcamera
+ * @param angle value angle of CGFcamera
+ * @param fromX x value of position of CGFcamera
+ * @param fromY y value of position of CGFcamera
+ * @param fromZ z value of position of CGFcamera
+ * @param toX x value of target of CGFcamera
+ * @param toY y value of target of CGFcamera
+ * @param toZ z value of target of CGFcamera
  */
 function Views(id, near, far, angle, fromX, fromY, fromZ, toX, toY, toZ) {
 	
@@ -15,11 +22,19 @@ Views.prototype = Object.create(Object.prototype);
 Views.prototype.constructor = Views;
 
 /**
- * Texture amplify factors
- * @param s 
- * @param t
+ * Adds a view to the array
+ * @param id identification of the view
+ * @param near value near of CGFcamera
+ * @param far value far of CGFcamera
+ * @param angle value angle of CGFcamera
+ * @param fromX x value of position of CGFcamera
+ * @param fromY y value of position of CGFcamera
+ * @param fromZ z value of position of CGFcamera
+ * @param toX x value of target of CGFcamera
+ * @param toY y value of target of CGFcamera
+ * @param toZ z value of target of CGFcamera
  */
-Views.prototype.addView = function(scene, id, near, far, angle, fromX, fromY, fromZ, toX, toY, toZ) {
+Views.prototype.addView = function(id, near, far, angle, fromX, fromY, fromZ, toX, toY, toZ) {
 	
 	
 	
@@ -40,23 +55,33 @@ Views.prototype.addView = function(scene, id, near, far, angle, fromX, fromY, fr
 	
 };
 
+
+/**
+ * Gets the current active id
+ */
 Views.prototype.getDefault = function(){
 	return this.idDefault;
 };
 
+/**
+ * Sets the active id
+ * @param id identification of the view
+ */
 Views.prototype.setDefault = function(id){
 	this.idDefault = id;
 };
 
-Views.prototype.repeatedId = function(id){
-	return (id in this.views);
-};
-
+/**
+ * Gets the active view
+ */
 Views.prototype.getCurrentView = function() {
 	
 	return this.views[this.idDefault];
 };
 
+/**
+ * Changes the current active view
+ */
 Views.prototype.changeView = function(){
 	
 	if(this.idDefault == this.views.length - 1)

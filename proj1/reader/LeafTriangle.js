@@ -1,7 +1,7 @@
 /**
  * LeafTriangle
  * @constructor
- * @param id of rectangle
+ * @param id of triangle
  * @param x0 x-coord of first vertice
  * @param y0 y-coord of first vertice
  * @param z0 z-coord of first vertice

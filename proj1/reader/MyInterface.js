@@ -47,10 +47,10 @@ MyInterface.prototype.onGraphLoaded = function(){
 MyInterface.prototype.processKeyboard = function(event)
 {
 		CGFinterface.prototype.processKeyboard.call(this,event);
-		console.log('Key presssed: ', event);
+
 		var speed=0.05;
 		var zoom = 1;
-		console.log(event.charCode);
+		
 		switch (event.charCode)
 		{
 			//'a'
