@@ -180,7 +180,8 @@ DSXScene.prototype.display = function () {
  * Process graph starting from root
  */
 DSXScene.prototype.processScene = function() {
-	this.processNode(this.graph.root, "none", "inherit");
+	var root = { type:"componentref", id:this.graph.root };
+	this.processNode(root, "none", "inherit");
 	this.setDefaultAppearance();
 }
 
@@ -191,7 +192,7 @@ DSXScene.prototype.processScene = function() {
  */
 DSXScene.prototype.processNode = function(node, parentTexture, parentMaterial) {
 	//Node is leaf
-	if (node in this.primitives) {
+	if (node.type == "primitiveref") {
 		//set materials
 		if (parentMaterial != "inherit")
 			this.graph.materials[parentMaterial].apply();
@@ -204,11 +205,11 @@ DSXScene.prototype.processNode = function(node, parentTexture, parentMaterial) {
 		if (parentTexture != "none")
 		{
 			texture = this.graph.textures[parentTexture];
-			this.primitives[node].scaleTexCoords(texture.amplifyFactor.s, texture.amplifyFactor.t);
+			this.primitives[node.id].scaleTexCoords(texture.amplifyFactor.s, texture.amplifyFactor.t);
 			texture.bind();
 		}
 		//get primitive to draw
-		this.primitives[node].display();
+		this.primitives[node.id].display();
 
 		if (texture)
 			texture.unbind();
@@ -218,19 +219,19 @@ DSXScene.prototype.processNode = function(node, parentTexture, parentMaterial) {
 	//Applies transformations
 	this.pushMatrix();
 	
-	this.multMatrix(this.graph.components[node].localTransformations);
+	this.multMatrix(this.graph.components[node.id].localTransformations);
 
 	//Receives material and texture from parent?
-	var material = this.graph.components[node].material;
+	var material = this.graph.components[node.id].material;
 	if (material == "inherit")
 		material = parentMaterial;
 
-	var texture = this.graph.components[node].texture;
+	var texture = this.graph.components[node.id].texture;
 	if (texture == "inherit")
 		texture = parentTexture;
 
 	//Process the node's children
-	var children = this.graph.components[node].children;
+	var children = this.graph.components[node.id].children;
 	for (var i = 0; i < children.length; ++i) {
 		this.processNode(children[i], texture, material);
 	}

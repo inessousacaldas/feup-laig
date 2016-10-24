@@ -354,8 +354,6 @@ DSXSceneGraph.prototype.parseLights = function(rootElement) {
 		}
 		
 		
-		
-		//TODO: falta verificar se existem ids repetidos
 		this.lights.push(new Light(this.scene, i, id));
 		
 		var enable = this.reader.getBoolean(omniLight, "enabled");
@@ -367,10 +365,19 @@ DSXSceneGraph.prototype.parseLights = function(rootElement) {
 		var data = [];
 		
 		//position of omniLight
-		data.push(this.reader.getFloat(omniLight.children[0], "x"));
-		data.push(this.reader.getFloat(omniLight.children[0], "y"));
-		data.push(this.reader.getFloat(omniLight.children[0], "z"));
-		data.push(this.reader.getFloat(omniLight.children[0], "w"));
+		var position = omniLight.getElementsByTagName('position');
+		
+		if (position == null || position.length == 0)
+			return "Position missing in omnilight id: " + id;
+		
+		if (position.length != 1)
+			return "Duplicate position in omnilight id: " + id;
+		
+		
+		data.push(this.reader.getFloat(position[0], "x"));
+		data.push(this.reader.getFloat(position[0], "y"));
+		data.push(this.reader.getFloat(position[0], "z"));
+		data.push(this.reader.getFloat(position[0], "w"));
 		
 		if (data[0] == null || data[1] == null || data[2] == null || data[3] == null)
 			return "Light position elements missing in id " + id;
@@ -379,13 +386,43 @@ DSXSceneGraph.prototype.parseLights = function(rootElement) {
 
 		//components of omniLight
 		
-		data = this.reader.getRGBA(omniLight.children[1]);
-		this.lights[i].setAmbient(data[0], data[1], data[2], data[3]);
+		//Ambient
+		var ambient = omniLight.getElementsByTagName('ambient');
 		
-		data = this.reader.getRGBA(omniLight.children[2]);
+		if (ambient == null || ambient.length == 0)
+			return "Ambient missing in omnilight id: " + id;
+		
+		if (ambient.length != 1)
+			return "Duplicate ambient in omniling id: " + id;
+		
+		
+		var data = this.reader.getRGBA(ambient[0]);
+		this.lights[i].setAmbient(data[0], data[1], data[2], data[3]);
+	
+		//Diffuse
+		var diffuse = omniLight.getElementsByTagName('diffuse');
+		
+		if (diffuse == null || diffuse.length == 0)
+			return "Diffuse missing in omnilight id: " + id;
+		
+		if (diffuse.length != 1)
+			return "Duplicate diffuse in omniling id: " + id;
+		
+		
+		var data = this.reader.getRGBA(diffuse[0]);
 		this.lights[i].setDiffuse(data[0], data[1], data[2], data[3]);
-
-		data = this.reader.getRGBA(omniLight.children[3]);
+		
+		//Specular
+		var specular = omniLight.getElementsByTagName('specular');
+		
+		if (specular == null || specular.length == 0)
+			return "Specular missing in omnilight id: " + id;
+		
+		if (specular.length != 1)
+			return "Duplicate specular in omniling id: " + id;
+		
+		
+		var data = this.reader.getRGBA(specular[0]);
 		this.lights[i].setSpecular(data[0], data[1], data[2], data[3]);
 		
 	}
@@ -419,35 +456,86 @@ DSXSceneGraph.prototype.parseLights = function(rootElement) {
 		var data = [];
 		
 		//target of spotlight
-		data.push(this.reader.getFloat(spotlight.children[0], "x"));
-		data.push(this.reader.getFloat(spotlight.children[0], "y"));
-		data.push(this.reader.getFloat(spotlight.children[0], "z"));
-		if (data[0] == null || data[1] == null || data[2] == null)
-			return "SpotLight target elements missing in id " + id;
+		
+		
+		//target of spotlight
+		var target = spotlight.getElementsByTagName('target');
+		
+		if (target == null || target.length == 0)
+			return "Target missing in spotlight id: " + id;
+		
+		if (target.length != 1)
+			return "Duplicate target in spotlight id: " + id;
+		
+		data = [];
+		data.push(this.reader.getFloat(target[0], "x"));
+		data.push(this.reader.getFloat(target[0], "y"));
+		data.push(this.reader.getFloat(target[0], "z"));
+		
+
+		
 		
 		this.lights[i].setSpotDirection(data[0], data[1], data[2]);
 		
+	
 		
+		//location of spotlight
+		var location = spotlight.getElementsByTagName('location');
 		
-		//position of spotlight
+		if (location == null || location.length == 0)
+			return "Location missing in spotlight id: " + id;
+		
+		if (location.length != 1)
+			return "Duplicate location in spotlight id: " + id;
+		
 		data = [];
-		data.push(this.reader.getFloat(spotlight.children[1], "x"));
-		data.push(this.reader.getFloat(spotlight.children[1], "y"));
-		data.push(this.reader.getFloat(spotlight.children[1], "z"));
+		data.push(this.reader.getFloat(location[0], "x"));
+		data.push(this.reader.getFloat(location[0], "y"));
+		data.push(this.reader.getFloat(location[0], "z"));
+	
 		if (data[0] == null || data[1] == null || data[2] == null)
-			return "SpotLight position elements missing in id " + id;
+			return "SpotLight location elements missing in id " + id;
 		
 		this.lights[i].setPosition(data[0], data[1], data[2], 1); //value of w = 1
 
-		//components of spotlight
-		data = [];
-		data = this.reader.getRGBA(spotlight.children[2]);
+		
+		//Ambient
+		var ambient = spotlight.getElementsByTagName('ambient');
+		
+		if (ambient == null || ambient.length == 0)
+			return "Ambient missing in omnilight id: " + id;
+		
+		if (ambient.length != 1)
+			return "Duplicate ambient in spotlight id: " + id;
+		
+		
+		var data = this.reader.getRGBA(ambient[0]);
 		this.lights[i].setAmbient(data[0], data[1], data[2], data[3]);
-
-		data = this.reader.getRGBA(spotlight.children[3]);
+	
+		//Diffuse
+		var diffuse = spotlight.getElementsByTagName('diffuse');
+		
+		if (diffuse == null || diffuse.length == 0)
+			return "Diffuse missing in spotlight id: " + id;
+		
+		if (diffuse.length != 1)
+			return "Duplicate diffuse in spotlight id: " + id;
+		
+		
+		var data = this.reader.getRGBA(diffuse[0]);
 		this.lights[i].setDiffuse(data[0], data[1], data[2], data[3]);
-
-		data = this.reader.getRGBA(spotlight.children[4]);
+		
+		//Specular
+		var specular = spotlight.getElementsByTagName('specular');
+		
+		if (specular == null || specular.length == 0)
+			return "Specular missing in spotlight id: " + id;
+		
+		if (specular.length != 1)
+			return "Duplicate specular in spotlight id: " + id;
+		
+		
+		var data = this.reader.getRGBA(specular[0]);
 		this.lights[i].setSpecular(data[0], data[1], data[2], data[3]);
 		
 	}
@@ -536,17 +624,75 @@ DSXSceneGraph.prototype.parseMaterials = function(rootElement) {
 			return "Id missing in materials";
 
 		this.materials[id] = new Material(this.scene,id);
-				
-		var data = this.reader.getRGBA(material.children[0]);
+		material.getElementsByTagName('emission')
+		
+		//Emission
+		var emission = material.getElementsByTagName('emission');
+		
+		if (emission == null || emission.length == 0)
+			return "Emission missing in material id: " + id;
+		
+		if (emission.length != 1)
+			return "Duplicate emission in material id: " + id;
+		
+		
+		var data = this.reader.getRGBA(emission[0]);
+		
 		this.materials[id].setEmission(data[0],data[1],data[2],data[3]);
-		data = this.reader.getRGBA(material.children[1]);
+		
+		//Ambient
+		var ambient = material.getElementsByTagName('ambient');
+		
+		if (ambient == null || ambient.length == 0)
+			return "Ambient missing in material id: " + id;
+		
+		if (ambient.length != 1)
+			return "Duplicate ambient in material id: " + id;
+			
+		data = this.reader.getRGBA(ambient[0]);
+		
 		this.materials[id].setAmbient(data[0],data[1],data[2],data[3]);
-		data = this.reader.getRGBA(material.children[2]);
+		
+		//Diffuse
+		var diffuse = material.getElementsByTagName('diffuse');
+		
+		if (diffuse == null || diffuse.length == 0)
+			return "Diffuse missing in material id: " + id;
+		
+		if (diffuse.length != 1)
+			return "Duplicate diffuse in material id: " + id;
+		
+		data = this.reader.getRGBA(diffuse[0]);
+		
 		this.materials[id].setDiffuse(data[0],data[1],data[2],data[3]);
-		data = this.reader.getRGBA(material.children[3]);
+		
+		//Specular
+		var specular = material.getElementsByTagName('specular');
+		
+		if (specular == null || specular.length == 0)
+			return "Specular missing in material id: " + id;
+		
+		if (specular.length != 1)
+			return "Duplicate sepular in material id: " + id;
+		
+		
+		data = this.reader.getRGBA(specular[0]);
+		
 		this.materials[id].setSpecular(data[0],data[1],data[2],data[3]);
-		var shininess = this.reader.getFloat(material.children[4],"value");
-		this.materials[id].setShininess(shininess);
+		
+		//Shininess
+		var shininess = material.getElementsByTagName('shininess');
+		
+		if (shininess.length != 1)
+			return "Duplicate diffuse in material id: " + id;
+		
+		if (shininess == null)
+			return "Specular missing in material id: " + id;
+		
+		
+		var shininessVal = this.reader.getFloat(shininess[0],"value");
+
+		this.materials[id].setShininess(shininessVal);
 	}
 	
 }
@@ -838,11 +984,13 @@ DSXSceneGraph.prototype.parseComponents = function(rootElement) {
 	if (!(this.root in this.components))
 		return "component with root id missing";
 
+	//Checks if all components exist
 	for (key in this.components) {
 		for (var i = 0; i < this.components[key].children.length; ++i) {
 			var child = this.components[key].children[i];
-			if (!((child in this.components) || (child in this.leaves)))
-				return "Child " + child + " is missing";
+			if (child.type == "componentref" && !(child.id in this.components))
+				return "Child " + child.id + " is missing from components";
+		
 		}
 	}
 }
@@ -955,10 +1103,22 @@ DSXSceneGraph.prototype.parseComponent = function(component) {
 	for (var i = 0; i < new_children.children.length; ++i) {
 		var new_child = new_children.children[i];
 		
-		if (new_child.nodeName != "componentref" && new_child.nodeName != "primitiveref" )
+		var typeChild = new_child.nodeName;
+		if (typeChild != "componentref" && typeChild != "primitiveref" )
 			return "Wrong children type found for component " + id;
+		
 		var new_childId = this.reader.getString(new_child, "id");
-		this.components[id].addChild(new_childId);
+		
+		//Primitives already all declared
+		if(typeChild == "primitiveref"){
+			
+			if (!(new_childId in this.leaves))
+				return "Child " + new_childId + " is not a primitve";
+			
+		}
+		var child = { type:typeChild, id:new_childId };
+
+		this.components[id].addChild(child);
 	}
 	
 }

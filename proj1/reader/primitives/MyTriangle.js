@@ -77,7 +77,7 @@ MyTriangle.prototype.initBuffers = function() {
 	
 
 	this.baseTexCoords = [
-	  (this.c - this.a * Math.cos(this.beta)), 0.0,
+	  (this.c - this.a * Math.cos(this.beta)), 1 - this.a * Math.sin(this.beta),
 	  0.0, 1,
 	  this.c , 1.0 
     ];

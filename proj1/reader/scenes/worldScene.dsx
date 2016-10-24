@@ -6842,7 +6842,7 @@
 			<texture id="inherit" />
 
 			<children>
-				<primitiveref id="lampBoxPost3" />
+				<componentref id="lampBoxPost3" />
 			</children>
 			
 		</component>
@@ -6861,7 +6861,7 @@
 			<texture id="inherit" />
 
 			<children>
-				<primitiveref id="lampBoxPost" />
+				<componentref id="lampBoxPost" />
 			</children>
 			
 		</component>
@@ -6880,7 +6880,7 @@
 			<texture id="inherit" />
 
 			<children>
-				<primitiveref id="lampBoxPost2" />
+				<componentref id="lampBoxPost2" />
 			</children>
 			
 		</component>
@@ -6899,7 +6899,7 @@
 			<texture id="inherit" />
 
 			<children>
-				<primitiveref id="lampBoxPost3" />
+				<componentref id="lampBoxPost3" />
 			</children>
 			
 		</component>
@@ -8062,7 +8062,7 @@
             <texture id="goldHandle" />	
 
             <children>
-				<componentref id="idCoffinHandle" /> 
+				<primitiveref id="idCoffinHandle" /> 
             </children>
         </component>
 		
@@ -8081,7 +8081,7 @@
             <texture id="goldHandle" />	
 
             <children>
-				<componentref id="idCoffinHandle" /> 
+				<primitiveref id="idCoffinHandle" /> 
             </children>
         </component>
 		 
@@ -8380,7 +8380,7 @@
 			<texture id="inherit" />
 
 			<children>
-				<primitiveref id="fingerJack" />
+				<componentref id="fingerJack" />
 	
 			</children>
         </component>
@@ -8399,7 +8399,7 @@
 			<texture id="inherit" />
 
 			<children>
-				<primitiveref id="fingerJack" />
+				<componentref id="fingerJack" />
 	
 			</children>
         </component>
@@ -8525,7 +8525,7 @@
 			<texture id="woodTree2" />
 
 			<children>
-				<componentref id="idTower" />  
+				<primitiveref id="idTower" />  
 			</children>
 		</component>
 				
