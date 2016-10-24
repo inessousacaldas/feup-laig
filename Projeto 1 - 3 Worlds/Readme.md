@@ -58,6 +58,33 @@ Existe também uma ponte a ligar o Grass World e o Dark World e uma escadaria a 
 <p align="center">
   <img src="https://github.com/inessousacaldas/laig16/blob/master/Projeto%201%20-%203%20Worlds/img1.jpg">
   <span class="caption">
-        <p align="center">Vista geral dos 3 mundos</p>
+  <p align="center"><b>Fig. 1</b> - Vista geral dos 3 mundos</p>
         </span>
 </p>
+
+<p align="center">
+  <img src="https://github.com/inessousacaldas/laig16/blob/master/Projeto%201%20-%203%20Worlds/img2.jpg">
+  <span class="caption">
+  <p align="center"><b>Fig. 2</b> - Vista do Grass World</p>
+        </span>
+</p>
+
+<p align="center">
+  <img src="https://github.com/inessousacaldas/laig16/blob/master/Projeto%201%20-%203%20Worlds/img3.jpg">
+  <span class="caption">
+  <p align="center"><b>Fig. 3</b> - Vista do Ice World</p>
+        </span>
+</p>
+
+<p align="center">
+  <img src="https://github.com/inessousacaldas/laig16/blob/master/Projeto%201%20-%203%20Worlds/img4.jpg">
+  <span class="caption">
+  <p align="center"><b>Fig. 4</b> - Vista do Dark World</p>
+        </span>
+</p>
+
+**Autores**
+
+* *Inês de Sousa Caldas*
+
+* *Miguel Lucas*
