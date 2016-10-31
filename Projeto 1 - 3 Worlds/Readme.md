@@ -1,39 +1,40 @@
 #3 Worlds
 
 
-A cena consiste em 3 "mundos":
+The scene consists in 3 "worlds":
 
-####O 1º (Grass World) é uma pequena vila que contém:
+####The 1st (Grass World) is a small village that contains:
 
-- uma torre com uma fogueira (com emissão de luz);
+- a tower with a fireplace (with light emission);
 
-- uma colina de onde nasce um rio que percorre a vila;
+- a hill, from which a river that runs through the village is born;
 
-- num moinho;
+- a mill;
 
-- num caminho que liga a vila;
+- a pathway that connects the village
 
-- num cata-vento;
+- a wind vane:
 
-- num conjunto de árvores e arbustos.
+- a collection of trees and bushes.
 
-####O 2º (Ice World) é um cenário na neve que contém:
+####The 2nd (Ice World) is a snow scenario that contains: 
 
-- um igloo;
+- an igloo;
 
-- um boneco de neve com um chapéu e uma cana de pesca;
+- a snowman with a hat and a fishing pole;
 
-- um pequeno lago, com alguns peixes por perto;
+- a small lake, with some fishes around;
 
-- uma montanha de neve;
+- a snow mountain;
 
-- um homem a esquiar (com vários materiais, podendo alternando carregando na tecla 'm');
+- a man skiing (with various materials, which can change by pressing 'M' or 'm');
 
-- algumas nuvens com flocos de neve a cair;
+- some clouds with snow flakes falling;
 
-- um pinguim.
+- a penguin.
 
 ####O 3º (Dark World) é um cenário mais macabro que contém:
+####The 3rd (Dark World) is a darker and gruesome scenario that contains:
 
 - uma vedação frontal gradeada, com um muro e uma pequena escadaria;
 
