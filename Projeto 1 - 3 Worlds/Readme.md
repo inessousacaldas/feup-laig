@@ -33,58 +33,56 @@ The scene consists in 3 "worlds":
 
 - a penguin.
 
-####O 3º (Dark World) é um cenário mais macabro que contém:
 ####The 3rd (Dark World) is a darker and gruesome scenario that contains:
 
-- uma vedação frontal gradeada, com um muro e uma pequena escadaria;
+- a frontal barred fence, with a wall and a small stairway;
 
-- uma cripta, com um caixão lá dentro;
+- a crypt, with a coffin inside;
 
-- duas abóboras (com vários materiais, podendo alternando carregando na tecla 'm');
+- two pumpkins ((with various materials, which can change by pressing 'M' or 'm');
 
-- várias sepulturas;
+- several graves;
 
-- quatro candeeiros pelo mundo;
+- four lamps;
 
-- um "reaper" (chamado Jack) com uma faca espetada na cabeça;
+- a reaper (called Jack) with a knife stuck in his head;
 
-- várias pedras a fazer um caminho até à cripta;
+- several stones making a pathway to the crypt;
 
-- uma vedação traseira, semelhante à frontal.
+- a rear fence, similar to the frontal one.
 
 
-
-Existe também uma ponte a ligar o Grass World e o Dark World e uma escadaria a ligar o Grass World e o Ice World.
+There is also a bridge connecting the Grass and Dark World and a stairway connecting the Grass and the Ice World.
 
 <p align="center">
   <img src="https://github.com/inessousacaldas/laig16/blob/master/Projeto%201%20-%203%20Worlds/img1.jpg">
   <span class="caption">
-  <p align="center"><b>Fig. 1</b> - Vista geral dos 3 mundos</p>
+  <p align="center"><b>Fig. 1</b> - General view of the 3 worlds</p>
         </span>
 </p>
 
 <p align="center">
   <img src="https://github.com/inessousacaldas/laig16/blob/master/Projeto%201%20-%203%20Worlds/img2.jpg">
   <span class="caption">
-  <p align="center"><b>Fig. 2</b> - Vista do Grass World</p>
+  <p align="center"><b>Fig. 2</b> - Grass World view</p>
         </span>
 </p>
 
 <p align="center">
   <img src="https://github.com/inessousacaldas/laig16/blob/master/Projeto%201%20-%203%20Worlds/img3.jpg">
   <span class="caption">
-  <p align="center"><b>Fig. 3</b> - Vista do Ice World</p>
+  <p align="center"><b>Fig. 3</b> - Ice World view</p>
         </span>
 </p>
 
 <p align="center">
   <img src="https://github.com/inessousacaldas/laig16/blob/master/Projeto%201%20-%203%20Worlds/img4.jpg">
   <span class="caption">
-  <p align="center"><b>Fig. 4</b> - Vista do Dark World</p>
+  <p align="center"><b>Fig. 4</b> - Dark World view</p>
         </span>
 </p>
 
-**Autores**
+**Authors**
 
 * *Inês de Sousa Caldas*
 
