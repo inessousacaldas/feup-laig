@@ -1,0 +1,274 @@
+<SCENE>
+
+<INITIALS>
+        <frustum near="1.5" far="500" />
+        <translation x="0" y="0" z="0" />
+        <rotation axis="x" angle="0" />
+        <rotation axis="y" angle="0" />
+        <rotation axis="z" angle="0" />
+        <scale sx="1" sy="1" sz="1" />
+        <reference length="0" />
+    </INITIALS>
+
+    <ILLUMINATION>
+        <ambient r="0.1" g="0.5" b="0.7" a="1" />
+		<background r="0.1" g="0.4" b="0.5" a="1" />
+    </ILLUMINATION>
+
+    <LIGHTS>
+        <LIGHT id="Red">
+            <enable value="1" />
+            <position x="-20" y="30" z="40" w="1" />
+            <ambient r="0" g="0" b="0" a="1" />
+            <diffuse r="1" g="0.3" b="0.2" a="1" />
+            <specular r="1" g="0.3" b="0.2" a="1" />
+        </LIGHT>
+		
+		<LIGHT id="Blue">
+            <enable value="1" />
+            <position x="0" y="50" z="0" w="1" />
+			<ambient r="0.3" g="0.7" b="0.9" a="1" />
+            <diffuse r="0.3" g="0.7" b="0.9" a="1" />
+            <specular r="0.3" g="0.7" b="0.9" a="1" />
+        </LIGHT>
+		
+	<LIGHT id="Yellow">
+            <enable value="1" />
+            <position x="20" y="5" z="20" w="1" />    
+			<ambient r="0" g="0" b="0" a="0" />			
+            <diffuse r="1" g="1" b="0.4" a="1" />
+            <specular r="1" g="1" b="0.4" a="1" />
+        </LIGHT>
+		
+	
+    </LIGHTS>
+
+
+<TEXTURES>
+
+     <TEXTURE id="post">
+        <file path="textures/post.png" />                             <!-- path to file -->
+        <amplif_factor s="1" t="1" />                <!-- x/s, y/t -->
+    </TEXTURE>
+
+
+	
+
+
+    <!-- NOTE: this block "TEXTURE" must be repeated as necessary with different "id" -->
+    
+</TEXTURES>
+
+
+<MATERIALS>
+	<MATERIAL id="default">
+		<shininess value="10" />
+		<specular r="0.0" g="0.0" b="0.0" a="0.0" />
+		<diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
+		<ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+		<emission r="0" g="0" b="0" a="0" />
+	</MATERIAL>
+	<MATERIAL id="matWater">
+		<shininess value="1" />
+		<specular r="0.0" g="0.0" b="0.0" a="0.0" />
+		<diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
+		<ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+		<emission r="0" g="0" b="0" a="0" />
+	</MATERIAL>
+
+	<MATERIAL id="fireMat">
+		<shininess value="100" />
+		<specular r="1.0" g="0.0" b="0.0" a="0.0" />
+		<diffuse r="0.5" g="0.5" b="0.0" a="1.0" />
+		<ambient r="0.5" g="0.5" b="0.0" a="1.0" />
+		<emission r="1.0" g="0.5" b="0" a="1.0" />
+	</MATERIAL>
+	
+	<MATERIAL id="logMat">
+		<shininess value="1" />
+		<specular r="1" g="0.5" b="0.0" a="1" />
+		<diffuse r="0.5" g="0.0" b="0.0" a="1.0" />
+		<ambient r="0.5" g="0.5" b="0.0" a="1.0" />
+		<emission r="0.5" g="0" b="0" a="0" />
+	</MATERIAL>
+	
+	<MATERIAL id="trunkMat">
+		<shininess value="1" />
+		<specular r="1.0" g="1.0" b="0.2" a="1.0" />
+		<diffuse  r="1.0" g="0.4" b="0.0" a="1.0" />
+		<ambient  r="1.0" g="0.4" b="0.0" a="1.0" />
+		<emission r="0" g="0" b="0" a="0" />
+	</MATERIAL>
+	
+	
+
+    <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material requires a distinct "id" -->
+
+</MATERIALS>
+
+
+<LEAVES>
+        <!-- Are drawn along the X axis  -->
+		<LEAF id="idSquare" type = "rectangle" args="0 1 1 0" />
+        <LEAF id="idCube" type="rectangle" args="0 0 1 1" />
+        <LEAF id="idCylinder" type="cylinder" args="1.0 1.0 1.0 16 200" />
+        <LEAF id="idCone" type="cylinder" args="1.0 1.0 0.01 16 200" />
+        <LEAF id="idSphere" type="sphere" args="1.0 16 16" />
+		<LEAF id = "idTower" type="cylinder" args="1.0 1.5 1.0 16 200" />
+        <LEAF id="idTriangle" type="triangle" args="-0.5 -0.5 0  0.5 -0.5 0  0 0.5 0"/>
+		<LEAF id="idPlane" type="plane" parts="10"/>
+		 <LEAF id="patch1" type="patch" order="3" partsU="20" partsV="20">
+            <controlpoint x="-0.65" y="0" z="0.6"/>
+            <controlpoint x="-0.9" y="0" z="0.25"/>
+            <controlpoint x="-0.9" y="0" z="-0.25"/>
+            <controlpoint x="-0.65" y="0" z="-0.6"/>
+
+            <controlpoint x="-0.25" y="0" z="0.9"/>
+            <controlpoint x="-9" y="10" z="9"/>
+            <controlpoint x="-9" y="10" z="-9"/>
+            <controlpoint x="-0.25" y="0" z="-0.9"/>
+
+            <controlpoint x="0.25" y="0" z="0.9"/>
+            <controlpoint x="9" y="10" z="9"/>
+            <controlpoint x="9" y="10" z="-9"/>
+            <controlpoint x="0.25" y="0" z="-0.9"/>
+
+            <controlpoint x="0.65" y="0" z="0.6"/>
+            <controlpoint x="0.9" y="0" z="0.25"/>
+            <controlpoint x="0.9" y="0" z="-0.25"/>
+            <controlpoint x="0.65" y="0" z="-0.6"/>
+        </LEAF>
+		<LEAF id="idSurf2" type="patch" order="3" partsU="10" partsV= "10">
+			<CONTROLPOINT x="3"        y="3"         z="0" />
+			<CONTROLPOINT x="6"        y="3"         z="1" />
+			<CONTROLPOINT x="9"        y="3"         z="8" />
+			<CONTROLPOINT x="12"        y="3"         z="2" />
+
+			<CONTROLPOINT x="3"        y="6"         z="1" />
+			<CONTROLPOINT x="6"        y="6"          z="1.5" />
+			<CONTROLPOINT x="9"        y="6"         z="1.6" />
+			<CONTROLPOINT x="12"        y="6"         z="0.7" />
+
+			<CONTROLPOINT x="3"        y="9"         z="0.8" />
+			<CONTROLPOINT x="6"        y="9"         z="1.8" />
+			<CONTROLPOINT x="9"        y="9"          z="1.5" />
+			<CONTROLPOINT x="12"        y="9"         z="0.5" />
+			
+			<CONTROLPOINT x="3"        y="12"         z="0" />
+			<CONTROLPOINT x="6"        y="12"         z="0.5" />
+			<CONTROLPOINT x="9"        y="12"         z="0.3" />
+			<CONTROLPOINT x="12"        y="12"         z="1" />
+			
+		</LEAF>
+		<LEAF id="idSurf" type="patch" order="2" partsU="1" partsV= "10">
+			<CONTROLPOINT x="3"        y="3"         z="0" />
+			<CONTROLPOINT x="6"        y="3"         z="1" />
+			<CONTROLPOINT x="9"        y="3"         z="0" />
+			<CONTROLPOINT x="3"        y="6"         z="1" />
+			
+			<CONTROLPOINT x="6"        y="6"         z="1.5" />
+			<CONTROLPOINT x="9"        y="6"          z="1" />
+			<CONTROLPOINT x="3"        y="9"         z="0" />
+			<CONTROLPOINT x="6"        y="9"         z="1" />
+			<CONTROLPOINT x="9"        y="9"         z="0" />
+			
+		</LEAF>
+		 <LEAF id="patchTest" type="patch" order="2" partsU="20" partsV="20">
+            <CONTROLPOINT x="0" y="0" z="0" />
+            <CONTROLPOINT x="0" y="0.5" z="0.5" />
+            <CONTROLPOINT x="0" y="1" z="0" />
+
+            <CONTROLPOINT x="0.5" y="0" z="0" />
+            <CONTROLPOINT x="0.5" y="0.5" z="0.5" />
+            <CONTROLPOINT x="0.5" y="1" z="0" />
+
+            <CONTROLPOINT x="1" y="0" z="0" />
+            <CONTROLPOINT x="1" y="0.5" z="0.5" />
+            <CONTROLPOINT x="1" y="1" z="0" />
+        </LEAF>
+		<LEAF id="myPlane" type="vehicle"/>
+
+
+</LEAVES>
+
+<ANIMATIONS>
+
+	  <ANIMATION id="Balloon1" span="5" type="linear">
+	  	<CONTROLPOINT xx="10" yy="6" zz="-40" />
+	  	<CONTROLPOINT xx="10" yy="6" zz="-40" />
+	  	<CONTROLPOINT xx="10" yy="6" zz="-40" />
+	  	<CONTROLPOINT xx="0" yy="30" zz="-40" />
+	  	<CONTROLPOINT xx="-20" yy="30" zz="-40" />
+	  	<CONTROLPOINT xx="-30" yy="30" zz="-30" />
+
+    </ANIMATION>
+
+    <ANIMATION id="Balloon3" span="10" type="linear">
+	  	<CONTROLPOINT xx="-30" yy="30" zz="30" />
+	  	<CONTROLPOINT xx="-35" yy="30" zz="40" />
+	
+
+     
+      
+    </ANIMATION>
+	
+	<ANIMATION id="Balloon2" span="5" type="circular" center="0 30 0" radius="42.43" startang="-135" rotang="90" />
+	<ANIMATION id="rotationMove" span="-1" type="rotation" dw="1" />
+
+</ANIMATIONS>
+
+
+<NODES>
+
+    <ROOT id="WorldScene" />     <!-- identifier of root node of the scene graph; this node     -->
+                         <!--   must be defined in one of the following NODE declarations -->
+
+						 
+	<NODE id="WorldScene">       <!--   defines one intermediate node; may be repeated as necessary -->
+
+        <!-- next two lines are mandatory -->
+        <MATERIAL id="default" />      <!-- declared material superimposes the material received from parent node -->
+                                  <!-- id="null" maintains material from parent node        -->
+        <TEXTURE id="clear" />       <!-- declared texture superimposes the texture received from parent node -->
+                                  <!-- id="null" maintains texture from parent node       -->
+                                  <!-- id="clear" clears texture declaration received from parent node      -->
+
+		
+        <!-- declaring descendents, ate least one node or one leaf must be present -->
+        <DESCENDANTS>
+			 
+			<DESCENDANT id="testeSurface" />
+		
+
+        </DESCENDANTS>
+
+    </NODE>
+
+
+
+		
+<!-- TESTE SURFACE -->		
+
+		<NODE id="testeSurface">
+			<MATERIAL id="null" />
+			<TEXTURE id="clear" />
+				<ANIMATIONREF id="Balloon1" />
+	        <ANIMATIONREF id="Balloon2" />
+	        <ANIMATIONREF id="Balloon1" />
+	        <ANIMATIONREF id="Balloon2" />
+			<DESCENDANTS>
+				<DESCENDANT id="myPlane" />
+
+				
+			</DESCENDANTS>
+			
+			
+
+        </NODE>
+
+        
+		
+		
+</NODES>
+
+</SCENE>

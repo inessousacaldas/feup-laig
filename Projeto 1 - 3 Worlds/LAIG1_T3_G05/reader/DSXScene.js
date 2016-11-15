@@ -57,6 +57,10 @@ DSXScene.prototype.initCameras = function () {
 	this.camera.far = camera.far;
 	this.camera.setPosition(vec3.fromValues(camera.fromX, camera.fromY, camera.fromZ));
 	this.camera.setTarget(vec3.fromValues(camera.toX, camera.toY, camera.toZ));
+	this.camera.direction = this.camera.calculateDirection();
+	this.camera._up = vec3.fromValues(0.0, 1.0, 0.0);
+    this.camera._viewMatrix = mat4.create();
+    this.camera._projectionMatrix = mat4.create();
 
 };
 DSXScene.prototype.updateCamera = function () {
