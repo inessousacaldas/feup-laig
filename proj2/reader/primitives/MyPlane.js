@@ -19,14 +19,31 @@ function MyPlane(scene, dimX, dimY, partsX, partsY) {
 };
 
 MyPlane.prototype = Object.create(CGFobject.prototype);
-MyPlane.prototype.constructor=MyPlane;
+MyPlane.prototype.constructor = MyPlane;
 
 MyPlane.prototype.initBuffers = function () {
 	
 	var controlPoints = [];
-	
+
+
+    var temp = [
+        [this.dimX/2, -this.dimY/2, 0, 1],
+        [this.dimX/2, this.dimY/2, 0, 1]
+    ];
+
+    controlPoints.push(temp);
+
+
+  	temp =  [
+        [-this.dimX/2, -this.dimY/2, 0, 1],
+        [-this.dimX/2, this.dimY/2, 0,  1]
+    ];
+
+    controlPoints.push(temp);
+
+
 	//To center in origin
-	var temp =  [
+	/*var temp =  [
 					[-this.dimX/2, -this.dimY/2, 0, 1], 
 					[-this.dimX/2, 0, 0, 1],
 					[-this.dimX/2, this.dimY/2, 0, 1]
@@ -49,8 +66,9 @@ MyPlane.prototype.initBuffers = function () {
 			];
 	
 	controlPoints.push(temp);
+	*/
 	
-	this.plane = this.makeSurface(2,2, controlPoints);	
+	this.plane = this.makeSurface(1,1, controlPoints);
 };
 
 MyPlane.prototype.getKnotsVector = function(degree) { 
@@ -71,7 +89,7 @@ MyPlane.prototype.makeSurface = function (degree1, degree2, controlPoints) {
 	var knots2 = this.getKnotsVector(degree2); 
 		
 	var nurbsSurface = new CGFnurbsSurface(degree1, degree2, knots1, knots2, controlPoints); 
-	getSurfacePoint = function(u, v) {
+	var getSurfacePoint = function(u, v) {
 		return nurbsSurface.getPoint(u, v);
 	};
 
@@ -79,6 +97,11 @@ MyPlane.prototype.makeSurface = function (degree1, degree2, controlPoints) {
 }
 
 
+MyPlane.prototype.display = function () {
+
+    this.plane.display();
+
+}
 
 /**
  * Texture amplify factors - no effect

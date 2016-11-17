@@ -37,6 +37,9 @@ DSXScene.prototype.init = function (application) {
 	this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
 
     this.enableTextures(true);
+
+    this.timer = 0;
+    this.setUpdatePeriod(100/6);
 };
 /*
  * Sets the interface of the scene
@@ -233,11 +236,14 @@ DSXScene.prototype.processNode = function(node, parentTexture, parentMaterial) {
 			texture.unbind();
 		return;
 	}
-	
-	//Applies transformations
-	this.pushMatrix();
-	
-	this.multMatrix(this.graph.components[node.id].localTransformations);
+
+    //Applies transformations
+    animation = this.graph.components[node.id].update(this.timer);
+    this.pushMatrix();
+    if(animation != 'null')
+        this.multMatrix(animation);
+    this.multMatrix(this.graph.components[node.id].localTransformations);
+
 
 	//Receives material and texture from parent?
 	var material = this.graph.components[node.id].material;
@@ -292,3 +298,12 @@ DSXScene.prototype.changeMaterials=function () {
 		this.graph.components[id].changeMaterial();
 	}
 };
+
+/*
+ * Updates timer of scene
+ * @param {Float} currTime current time
+ */
+DSXScene.prototype.update = function(currTime) {
+    if (this.lastUpdate != 0)
+        this.timer += (currTime - this.lastUpdate) / 1000;
+}

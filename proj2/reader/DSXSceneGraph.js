@@ -76,7 +76,7 @@ DSXSceneGraph.prototype.parseSceneGraph = function(rootElement) {
 		return "scene element is missing."
 	}
 	
-	if(sceneInfo.length =! 1){
+	if(sceneInfo.length != 1){
 		return "only one scene element is required."
 	}
 	

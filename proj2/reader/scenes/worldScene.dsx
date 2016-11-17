@@ -91,120 +91,53 @@
 <textures>
 
 	<texture id="dirt" file="textures/dirt.jpg" length_s="1" length_t="1" />
-	
+
 	<texture id="ice" file="textures/ice.jpg" length_s="1" length_t="1" />
 
 	<texture id="forest" file="textures/hillGreen.png" length_s="0.2" length_t="0.33333" />
 
 	<texture id="stoneHouse" file="textures/wallStone.png" length_s="1" length_t="1" />
-	
+
 	<texture id="wallHouse" file="textures/wallHouse.png" length_s="1" length_t="1" />
-	
-	<texture id="towerStone" file="textures/stoneWall.png" length_s="1" length_t="1" /> 
-	
+
+	<texture id="towerStone" file="textures/stoneWall.png" length_s="1" length_t="1" />
+
 	<texture id="towerWall" file="textures/stoneWall.png" length_s="1" length_t="4" />
-	
+
 	<texture id="roofHouse" file="textures/roof.png" length_s="1" length_t="1" />
-	
-	<texture id="wood" file="textures/wood.png" length_s="1" length_t="1" />   
-	
+
+	<texture id="wood" file="textures/wood.png" length_s="1" length_t="1" />
+
 	<texture id="texWater" file="textures/water.png" length_s="0.5" length_t="10" />
-	
+
 	<texture id="hillGreen" file="textures/hillGreen.png" length_s="1" length_t="1" />
 
 	<texture id="hillStep" file="textures/hillStep.png" length_s="0.4" length_t="1" />
-	
+
 	<texture id="leafText" file="textures/Leaf_Floor_texture.png" length_s="1" length_t="1" />
-	
+
 	<texture id="woodTree" file="textures/wood_texture.png" length_s="1" length_t="1" />
 
 	<texture id="woodTree2" file="textures/treeWood.png" length_s="1" length_t="1" />
-		
+
 	<texture id="fireText" file="textures/fire.png" length_s="1" length_t="1" />
-	
+
 	<texture id="woodFloor" file="textures/woodFloor.png" length_s="0.2" length_t="0.2" />
-	
+
 	<texture id="doorText" file="textures/door.png" length_s="1" length_t="1" />
 
 	<texture id="windowText" file="textures/window.png" length_s="1" length_t="1" />
-	
+
 	<texture id="pathTextX" file="textures/path.png" length_s="0.16667" length_t="1" />
-	
+
 	<texture id="pathTextZ" file="textures/path.png" length_s="1" length_t="0.16667" />
-	
+
 	<texture id="vaneText" file="textures/post.png" length_s="1" length_t="1" />
 
 	<texture id="sailText" file="textures/sail.png" length_s="1" length_t="1" />
-	
+
 	<texture id="bridgeText" file="textures/brick.jpg" length_s="1" length_t="1" />
-	
-	<texture id="snow" file="textures/snow.jpg" length_s="1" length_t="1" />
-	
-	<texture id="iceBlock" file="textures/iceBlock.jpg" length_s="1" length_t="1" />
-	
-	<texture id="water" file="textures/waterIce.jpg" length_s="1" length_t="1" />
-	
-	<texture id="fish" file="textures/fish.jpg" length_s="1" length_t="1" />
-	
-	<texture id="fishEye" file="textures/fishEye.jpg" length_s="1" length_t="1" />
-	
-	<texture id="carrot" file="textures/carrot.jpg" length_s="1" length_t="1" />
-	
-	<texture id="log" file="textures/log.jpg" length_s="1" length_t="1" />
-	
-	<texture id="soil" file="textures/soil.jpg" length_s="1" length_t="1" />
-	
-	<texture id="penguinEye" file="textures/penguin_eye.png" length_s="1" length_t="1" />
-	
-	<texture id="penguinBelly" file="textures/belly.png" length_s="1" length_t="1" />
-	
-	<texture id="flames" file="textures/flames.jpg" length_s="1" length_t="1" />
-	
-	<texture id="cloud" file="textures/cloud.jpg" length_s="1" length_t="1" />
-	
-	<!-- DARK WORLD -->
-	
-	<texture id="darkFloorTop" file="textures/dark_world/dirt.jpg" length_s="0.5" length_t="0.5" />
-	
-	<texture id="darkFloorSides" file="textures/dark_world/dirt.jpg" length_s="0.4" length_t="2" />
-	
-	<texture id="darkWallTop" file="textures/dark_world/dark_floor.jpg" length_s="5" length_t="1" />
-	
-	<texture id="darkWallSides" file="textures/dark_world/dark_floor.jpg" length_s="1" length_t="5" />
-	
-	<texture id="ironGate" file="textures/dark_world/metal.png" length_s="1" length_t="1" />
-		
-	<texture id="pumpkin" file="textures/dark_world/pumpkin.jpg" length_s="1" length_t="1" />
-	
-	<texture id="rockPath" file="textures/dark_world/stoneGrave.jpg" length_s="1" length_t="1" />
-	
-	<texture id="sand" file="textures/dark_world/sand.jpg" length_s="1" length_t="1" />
-	
-	<texture id="lamp" file="textures/dark_world/metal.jpg" length_s="1" length_t="1" />
-	
-	<texture id="stoneCrypt" file="textures/dark_world/cryptRock.png" length_s="1" length_t="1" />
-	
-	<texture id="stoneGrave" file="textures/dark_world/rock3.png" length_s="1" length_t="1" />
-	
-	<texture id="stoneGraveTop" file="textures/dark_world/dark_floor.jpg" length_s="1" length_t="0.5" />
-	
-	<texture id="stoneGraveSides" file="textures/dark_world/dark_floor.jpg" length_s="0.3" length_t="5" />
-	
-	<texture id="stoneGraveFloor" file="textures/dark_world/dark_floor.jpg" length_s="0.8" length_t="0.8" />
-	
-	<texture id="stoneFloorLamp" file="textures/dark_world/dark_floor.jpg" length_s="4" length_t="4" />
-	
-	<texture id="jackClothes" file="textures/dark_world/robe.jpg" length_s="4" length_t="4" />
-	
-	<texture id="jackShade" file="textures/dark_world/dirtShade.jpg" length_s="1" length_t="1" />
-	
-	<texture id="goldHandle" file="textures/dark_world/gold.jpg" length_s="1" length_t="1" />
-	
-	<texture id="coffinText" file="textures/dark_world/coffin2.jpg" length_s="1" length_t="1" />
-	
-	<texture id="rope" file="textures/rope.jpg" length_s="1" length_t="1" />
-	
-	
+
 </textures>
 
 
@@ -518,7 +451,8 @@
 		<component id="testeSurface">
 		
 			<transformation>
-				<scale x="250" y="1" z="250" />
+                <rotate axis="x" angle="90" />
+				<scale x="250" y="250" z="1" />
 			</transformation>
 			
 			<materials>
