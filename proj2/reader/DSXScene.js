@@ -135,9 +135,23 @@ DSXScene.prototype.onGraphLoaded = function ()
 				this.primitives[key] = new MySphere(this, leaf.radius, leaf.stacks, leaf.sections);
 				break;
 			case "torus":
-				//descomentar qd torus estiver pronto
 				this.primitives[key] = new MyTorus(this, leaf.inner, leaf.outer, leaf.slices, leaf.loops);
 				break;
+            case "plane":
+                this.primitives[key] = new MyPlane(this, leaf.dimX, leaf.dimY, leaf.partsX, leaf.partsY);
+                break;
+            case "patch":
+                this.primitives[key] = new MyPatch(this, leaf.degree, leaf.partsU, leaf.partsV, leaf.controlPoints);
+                break;
+            case "terrain":
+                this.primitives[key] = new MyTerrain(this, leaf.texture, leaf.heightMap, leaf.height, leaf.maxHeight);
+                break;
+            case "vehicle":
+                this.primitives[key] = new MyVehicle(this);
+                break;
+            /*case "boat":
+                this.primitives[key] = new MyBoat(this);
+                break;*/
     	}
     }
 };

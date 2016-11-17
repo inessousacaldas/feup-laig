@@ -423,7 +423,7 @@
 			<terrain texture = "mapWorld.png" heightmap = "heightMap.png" height = "10" dheight = "10"/>
 		</primitive>
 
-		<primitive id="idTerrain">
+		<primitive id="idRiver">
 			<terrain texture = "waterWorld.png" heightmap = "waterMap.png" height = "0.2" dheight = "0.5"/>
 		</primitive>
 
@@ -1700,31 +1700,6 @@
 	        <children>
 	             <primitiveref id="myBalloon" /> 
 	        </children>
-
-	    </component>
-
-<!-- **********DEFINIR BARCO********** -->	
-
-	    <component id="boatNode">   
-
-			<transformation>
-				<scale x="2" y="2" z="2" />
-				<translate x="0" y="0" z="0" /> 
-			</transformation>
-			
-			<animation>
-				<animationref id="Boat1" />
-			</animation>
-
-			<materials>
-				<material id="inherit"/>
-			</materials> 
-			
-			<texture id="none" />   
-
-			<children>
-				 <primitiveref id="myBoat" /> 
-			</children>
 
 	    </component>
 

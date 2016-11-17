@@ -933,20 +933,80 @@ DSXSceneGraph.prototype.parsePrimitives = function(rootElement) {
 				break;
 			
 			case "torus":
-			
+
 				var data = [];
-		
+
 				data.push(this.reader.getFloat(leaf.children[0], "inner"));
 				data.push(this.reader.getFloat(leaf.children[0], "outer"));
 				data.push(this.reader.getInteger(leaf.children[0], "slices"));
 				data.push(this.reader.getInteger(leaf.children[0], "loops"));
-			
+
 				if (data == null)
 					return "torus with error" + id;
 				//ativar quando houver torus
 				this.leaves[id] = new LeafTorus(id, data[0], data[1], data[2], data[3]);
 				break;
+
+            case "plane":
+
+                var data = [];
+
+                data.push(this.reader.getFloat(leaf.children[0], "dimX"));
+                data.push(this.reader.getFloat(leaf.children[0], "dimY"));
+                data.push(this.reader.getInteger(leaf.children[0], "partsX"));
+                data.push(this.reader.getInteger(leaf.children[0], "partsY"));
+				console.log(data);
+                if (data == null)
+                    return "plane with error" + id;
+                //ativar quando houver plane
+                this.leaves[id] = new LeafPlane(id, data[0], data[1], data[2], data[3]);
+                break;
+
+            case "terrain":
+
+                var pathRel = this.filename.substring(0, this.filename.lastIndexOf("/"));
+                var texture= pathRel + '/textures/' + this.reader.getString(leaf.children[0], "texture");
+                var heightMap = pathRel + '/textures/' + this.reader.getString(leaf.children[0], "heightmap");
+
+                if(texture == null)
+                    return "missing texture in terrain " + id;
+
+                if(heightMap == null)
+                    return "missing heightmap in terrain " + id;
+
+                //optional
+                var height = this.reader.getFloat(leaf.children[0], 'height');
+                var dheight = this.reader.getFloat(leaf.children[0], 'dheight');
+
+                if(isNaN(height))
+                    return "error height in terrain " + id;
+
+                if(isNaN(dheight))
+                    return "error height in terrain " + id;
+
+                this.leaves[id] = new LeafTerrain(id, texture, heightMap, height, dheight);
+
+
+                break;
+
+            case "vehicle":
+
+                var typeVehicle = this.reader.getString(leaf.children[0], "type");
+
+				console.log("aaa" + typeVehicle);
+                if(typeVehicle == null)
+                    return "missing type in vehicle " + id;
+				switch (typeVehicle){
+                    case "balloon":
+                        this.leaves[id] = new LeafVehicle(id);
+                        break;
+                    default:
+                        return "Vehicle type unknown: " + typeVehicle;
+                        break;
+
+				}
 				break;
+
 			default:
 				return "Leaf type unknown: " + type;
 		}
