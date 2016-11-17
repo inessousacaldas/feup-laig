@@ -451,8 +451,8 @@
 		<component id="testeSurface">
 		
 			<transformation>
-                <rotate axis="x" angle="90" />
-				<scale x="250" y="250" z="1" />
+				<rotate axis="x" angle="90" />
+				<scale x="1" y="1" z="1" />
 			</transformation>
 			
 			<materials>
@@ -471,7 +471,7 @@
         <component id="river">
 		
 			<transformation>
-				<translate x="0" y="0.05" z="0" />		
+				<translate x="0" y="0" z="-5" />
 			</transformation>
 			
 			<materials>

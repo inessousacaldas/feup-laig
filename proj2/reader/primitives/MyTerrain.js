@@ -9,7 +9,7 @@
  */
 function MyTerrain(scene, textureUrl, heightMapUrl, height, maxHeight){
     CGFobject.call(this,scene);
-	this.plane = new MyPlane(this.scene, 1, 1, 200, 200);
+	this.plane = new MyPlane(this.scene, 250, 250, 200, 200);
 	this.texture = new CGFtexture(this.scene, textureUrl);
 	this.heightMap = new CGFtexture(this.scene, heightMapUrl);
 	this.height = height;
@@ -34,9 +34,8 @@ MyTerrain.prototype.display = function() {
 	if(this.scale > this.maxHeight || this.scale < this.height){
 		this.dheight = -this.dheight;
 	}
-		
-	this.scale = this.scale + this.dheight;	
-	
+
+	this.scale = this.scale + this.dheight;
 	this.shader.setUniformsValues({scale: this.scale});
 
     this.scene.setActiveShader(this.shader);
