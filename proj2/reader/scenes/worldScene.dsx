@@ -414,8 +414,22 @@
 		<primitive id="idCoffinHandle">
            <torus inner="1.0" outer="1.5" slices="16" loops="10" />
         </primitive>
-		
-		
+
+		<primitive id="idPlane">
+			<plane dimX="10" dimY="10" partsX="10" partsY="10"/>
+		</primitive>
+
+		<primitive id="idTerrain">
+			<terrain texture = "mapWorld.png" heightmap = "heightMap.png" height = "10" dheight = "10"/>
+		</primitive>
+
+		<primitive id="idTerrain">
+			<terrain texture = "waterWorld.png" heightmap = "waterMap.png" height = "0.2" dheight = "0.5"/>
+		</primitive>
+
+		<primitive id="myBalloon">
+			<vehicle type="balloon"/>
+		</primitive>
 
 		<!-- Parameters of the above primitives:                                                   -->
         <!--rectangle: 2D coordinates for left-top and right-bottom vertices.                        -->
@@ -473,11 +487,6 @@
 		<transformation>
 
 		</transformation>
-
-        <animation>
-            <animationref id="a" />
-            <animationref id="b" />
-        </animation>
 
         <!-- next two lines are mandatory -->
 		
