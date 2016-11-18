@@ -4,7 +4,7 @@
  * @param {CGFscene} scene
  * @param {Integer} parts number of parts
  */
-function MyPlane(scene, parts){
+function MyPlane(scene, dimX, dimY, partsX, partsY){
 
 
 	var nurbsSurface = new CGFnurbsSurface(1, 1, [0,0,1,1], [0,0,1,1],
@@ -22,7 +22,7 @@ function MyPlane(scene, parts){
 		return nurbsSurface.getPoint(u, v);
 	};		
 	
-    CGFnurbsObject.call(this,scene, getSurfacePoint, parts, parts);
+    CGFnurbsObject.call(this, scene, getSurfacePoint, partsX, partsY);
 }
 
 MyPlane.prototype = Object.create(CGFnurbsObject.prototype);

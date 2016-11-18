@@ -90,10 +90,6 @@
 
 <textures>
 
-	<texture id="dirt" file="textures/dirt.jpg" length_s="1" length_t="1" />
-
-	<texture id="ice" file="textures/ice.jpg" length_s="1" length_t="1" />
-
 	<texture id="forest" file="textures/hillGreen.png" length_s="0.2" length_t="0.33333" />
 
 	<texture id="stoneHouse" file="textures/wallStone.png" length_s="1" length_t="1" />
@@ -471,7 +467,7 @@
         <component id="river">
 		
 			<transformation>
-				<translate x="0" y="0" z="-5" />
+				<translate x="0" y="0" z="-0.05" />
 			</transformation>
 			
 			<materials>
