@@ -1,6 +1,6 @@
 <dsx>
 
-<scene root="WorldScene" axis_length = "0" />     <!-- identifier of root component of the scene graph; this component     -->
+<scene root="WorldScene" axis_length = "100" />     <!-- identifier of root component of the scene graph; this component     -->
    
    <views default="allView" >
     
@@ -432,12 +432,7 @@
         <children>
 			
 			<componentref id="testeSurface" />
-			<componentref id="waterHouse" />
-			<componentref id="bridge" />
-			<componentref id="bridge2" />
-			<componentref id="trees" />
-			<componentref id="Balloon" />
-
+	
         </children>
 
     </component>
@@ -447,8 +442,6 @@
 		<component id="testeSurface">
 		
 			<transformation>
-				<rotate axis="y" angle="180" />
-				<rotate axis="x" angle="-90" />
 				
 				<scale x="1" y="1" z="1" />
 			</transformation>
@@ -461,7 +454,7 @@
 	
 			<children>
 				<primitiveref id="idTerrain" />
-				<componentref id="river" />
+				
 			</children>
 			
         </component>
@@ -469,7 +462,7 @@
         <component id="river">
 		
 			<transformation>
-				<translate x="0" y="0" z="0.05" />
+				<translate x="0" y="0" z="-0.05" />
 			</transformation>
 			
 			<materials>
