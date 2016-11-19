@@ -993,7 +993,6 @@ DSXSceneGraph.prototype.parsePrimitives = function(rootElement) {
 
                 var typeVehicle = this.reader.getString(leaf.children[0], "type");
 
-				console.log("aaa" + typeVehicle);
                 if(typeVehicle == null)
                     return "missing type in vehicle " + id;
 				switch (typeVehicle){
@@ -1006,6 +1005,77 @@ DSXSceneGraph.prototype.parsePrimitives = function(rootElement) {
 
 				}
 				break;
+
+            case "chessboard":
+
+                var du = this.reader.getInteger(leaf.children[0], "du");
+
+				if(isNaN(du))
+					return "Error du in chessboard id: " + id;
+
+                var dv = this.reader.getInteger(leaf.children[0], "dv");
+
+                if(isNaN(dv))
+                    return "Error dv in chessboard id: " + id;
+
+                var textureRef = this.reader.getString(leaf.children[0], "textureref");
+
+                if(textureRef == null)
+                    return "Error textureref in chessboard id: " + id;
+
+                if(!(textureRef in this.textures))
+                    return "Unknown textureref=" + textureRef + " in chessboard id: " + id;
+
+                var su = this.reader.getInteger(leaf.children[0], "su");
+
+                if(isNaN(su))
+                    return "Error su in chessboard id: " + id;
+
+                var sv = this.reader.getInteger(leaf.children[0], "sv");
+
+                if(isNaN(sv))
+                    return "Error sv in chessboard id: " + id;
+
+				var tempChess = leaf.children[0];
+
+				if(tempChess.children.length != 3)
+                    return "The number of colors must be 3 in chessboard id: " + id;
+
+				//Color c1
+				var colorTemp = tempChess.getElementsByTagName("c1");
+
+				if(colorTemp == null)
+					return "No color c1 in chessboard id: " + id;
+
+                if(colorTemp.length != 1)
+                    return "Only one color c1 allowed in chessboard id: " + id;
+
+				var c1 = this.reader.getRGBA(colorTemp[0]);
+
+				//Color c2
+                colorTemp = tempChess.getElementsByTagName("c2");
+
+                if(colorTemp == null)
+                    return "No color c1 in chessboard id: " + id;
+
+                if(colorTemp.length != 1)
+                    return "Only one color c2 allowed in chessboard id: " + id;
+
+                var c2 = this.reader.getRGBA(colorTemp[0]);
+
+                //Color c3
+                colorTemp = tempChess.getElementsByTagName("cs");
+
+                if(colorTemp == null)
+                    return "No color cs in chessboard id: " + id;
+
+                if(colorTemp.length != 1)
+                    return "Only one color cs allowed in chessboard id: " + id;
+
+                var cs = this.reader.getRGBA(colorTemp[0]);
+
+                this.leaves[id] = new LeafChessboard(id, du, dv, this.textures[textureRef], su, sv, c1, c2, cs);
+                break;
 
 			default:
 				return "Leaf type unknown: " + type;

@@ -11,8 +11,8 @@
         <!-- ultima vista da lista volta 'a primeira -->
 		
 		<perspective id="allView" near="0.1" far="800" angle="100">
-            <from x="50" y="100" z="300" />
-            <to x="50" y="0" z="0" />
+            <from x="0" y="0" z="20" />
+            <to x="0" y="0" z="0" />
         </perspective>
 		
         <perspective id="grassWorldView" near="0.1" far="500" angle="23">
@@ -360,6 +360,15 @@
 			<vehicle type="balloon"/>
 		</primitive>
 
+
+		<primitive id="myChessBoard">
+			<chessboard du="10" dv="10" textureref="wallHouse" su="0" sv="0">
+				<c1 r="0" g="0" b="0" a="1" />
+				<c2 r="1" g="1" b="1" a="1" />
+				<cs r="0.5" g="0.5" b="0.5" a="1" />
+			</chessboard>
+		</primitive>
+
 		<!-- Parameters of the above primitives:                                                   -->
         <!--rectangle: 2D coordinates for left-top and right-bottom vertices.                        -->
         <!-- cylinder:  height, bottom radius, top radius, sections along height, parts per section  -->
@@ -453,7 +462,7 @@
 			<texture id="none" />
 	
 			<children>
-				<primitiveref id="idTerrain" />
+				<primitiveref id="myChessBoard" />
 				
 			</children>
 			

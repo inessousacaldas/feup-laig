@@ -24,6 +24,7 @@ serialInclude(['../lib/CGF.js',
 'primitives/MyTerrain.js',
 'primitives/MyVehicle.js',
 'primitives/MyCube.js',
+'primitives/MyChessboard.js',
 'DSXSceneGraph.js',
 'DSXReader.js', 
 'DSXScene.js', 
@@ -41,6 +42,7 @@ serialInclude(['../lib/CGF.js',
 'leafs/LeafPlane.js',
 'leafs/LeafTerrain.js',
 'leafs/LeafVehicle.js',
+'leafs/LeafChessboard.js',
 'Material.js',
 'Node.js',
 'Views.js',
@@ -69,7 +71,7 @@ main=function()
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
 	
-	var filename=getUrlVars()['file'] || "worldScene.dsx";
+	var filename=getUrlVars()['file'] || "teste.dsx";
 
 	//Loads the graph from DSX filename
 	var myGraph = new DSXSceneGraph(filename, myScene);

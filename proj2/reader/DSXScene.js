@@ -152,6 +152,10 @@ DSXScene.prototype.onGraphLoaded = function ()
             case "vehicle":
                 this.primitives[key] = new MyVehicle(this);
                 break;
+            case "chessboard":
+                this.primitives[key] = new MyChessboard(this, leaf.du, leaf.dv,
+						leaf.texture, leaf.su, leaf.sv, leaf.c1, leaf.c2, leaf.cs);
+                break;
             /*case "boat":
                 this.primitives[key] = new MyBoat(this);
                 break;*/
