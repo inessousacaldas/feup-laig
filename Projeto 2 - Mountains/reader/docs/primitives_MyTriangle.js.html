@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: primitives/MyTriangle.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: primitives/MyTriangle.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * MyTriangle
+ * @constructor
+ * @param scene CGFscene
+ * @param x1 x-coord of vertice v1
+ * @param y1 y-coord of vertice v1
+ * @param z1 z-coord of vertice v1
+ * @param x2 x-coord of vertice v2
+ * @param y2 y-coord of vertice v2
+ * @param z2 z-coord of vertice v2
+ * @param x3 x-coord of vertice v3
+ * @param y3 y-coord of vertice v3
+ * @param z3 xzcoord of vertice v3
+ */
+function MyTriangle(scene, x1,y1,z1,x2,y2,z2,x3,y3,z3) {
+    CGFobject.call(this, scene);
+
+    this.v1 = vec3.fromValues(x1, y1, z1);
+	this.v2 = vec3.fromValues(x2, y2, z2);
+	this.v3 = vec3.fromValues(x3, y3, z3);
+
+    this.initBuffers();
+};
+
+MyTriangle.prototype = Object.create(CGFobject.prototype);
+MyTriangle.prototype.constructor = MyTriangle;
+
+MyTriangle.prototype.initBuffers = function() {
+
+    this.vertices = [
+    	this.v1[0], this.v1[1], this.v1[2],
+    	this.v2[0], this.v2[1], this.v2[2],
+    	this.v3[0], this.v3[1], this.v3[2]
+    ];
+
+    this.indices = [
+        0, 1, 2,
+    ];
+
+	// Get normals
+    var AB = vec3.create();
+    vec3.sub(AB, this.v2, this.v1);
+    var AC = vec3.create();
+    vec3.sub(AC, this.v3, this.v1);
+
+	var N = vec3.create();
+	vec3.cross(N, AB, AC);
+	vec3.normalize(N, N);
+
+	  this.normals = [
+		    N[0], N[1], N[2],
+		    N[0], N[1], N[2],
+		    N[0], N[1], N[2],
+    ];
+
+	this.a = Math.sqrt((this.v1[0] - this.v3[0]) * (this.v1[0] - this.v3[0]) + 
+			 		   (this.v1[1] - this.v3[1]) * (this.v1[1] - this.v3[1]) +
+			 		   (this.v1[2] - this.v3[2]) * (this.v1[2] - this.v3[2]));
+
+	this.b = Math.sqrt((this.v2[0] - this.v1[0]) * (this.v2[0] - this.v1[0]) + 
+			 		   (this.v2[1] - this.v1[1]) * (this.v2[1] - this.v1[1]) +
+			 		   (this.v2[2] - this.v1[2]) * (this.v2[2] - this.v1[2]));
+
+	this.c = Math.sqrt((this.v3[0] - this.v2[0]) * (this.v3[0] - this.v2[0]) + 
+			 		   (this.v3[1] - this.v2[1]) * (this.v3[1] - this.v2[1]) +
+			 		   (this.v3[2] - this.v2[2]) * (this.v3[2] - this.v2[2]));
+					   
+					   
+	this.cosAlpha = (-this.a*this.a + this.b*this.b + this.c * this.c) / (2 * this.b * this.c);
+	this.cosBeta =  ( this.a*this.a - this.b*this.b + this.c * this.c) / (2 * this.a * this.c);
+	this.cosGamma = ( this.a*this.a + this.b*this.b - this.c * this.c) / (2 * this.a * this.b);
+				
+	this.beta = Math.acos(this.cosBeta);
+	this.alpha = Math.acos(this.cosAlpha);
+	this.gamma = Math.acos(this.cosGamma);
+	this.sum = this.beta + this.alpha + this.gamma;
+	
+
+	this.baseTexCoords = [
+	  (this.c - this.a * Math.cos(this.beta)), 1 - this.a * Math.sin(this.beta),
+	  0.0, 1,
+	  this.c , 1.0 
+    ];
+	
+	this.texCoords = this.baseTexCoords.slice();
+
+
+ 
+    this.primitiveType = this.scene.gl.TRIANGLES;
+    this.initGLBuffers();
+};
+
+MyTriangle.prototype.scaleTexCoords = function(ampS, ampT) {
+    for (var i = 0; i &lt; this.texCoords.length; i+=2) {
+        this.texCoords[i] = this.baseTexCoords[i]/ampS;
+        this.texCoords[i+1] = this.baseTexCoords[i+1]/ampT;
+    }
+
+    this.updateTexCoordsGLBuffers();
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Animation.html">Animation</a></li><li><a href="CircularAnimation.html">CircularAnimation</a></li><li><a href="DSXReader.html">DSXReader</a></li><li><a href="DSXScene.html">DSXScene</a></li><li><a href="DSXSceneGraph.html">DSXSceneGraph</a></li><li><a href="Illumination.html">Illumination</a></li><li><a href="Leaf.html">Leaf</a></li><li><a href="LeafChessboard.html">LeafChessboard</a></li><li><a href="LeafCylinder.html">LeafCylinder</a></li><li><a href="LeafPatch.html">LeafPatch</a></li><li><a href="LeafPlane.html">LeafPlane</a></li><li><a href="LeafRectangle.html">LeafRectangle</a></li><li><a href="LeafSphere.html">LeafSphere</a></li><li><a href="LeafTerrain.html">LeafTerrain</a></li><li><a href="LeafTorus.html">LeafTorus</a></li><li><a href="LeafTriangle.html">LeafTriangle</a></li><li><a href="LeafVehicle.html">LeafVehicle</a></li><li><a href="Light.html">Light</a></li><li><a href="LinearAnimation.html">LinearAnimation</a></li><li><a href="Material.html">Material</a></li><li><a href="MyChessboard.html">MyChessboard</a></li><li><a href="MyCircle.html">MyCircle</a></li><li><a href="MyCube.html">MyCube</a></li><li><a href="MyCylinder.html">MyCylinder</a></li><li><a href="MyFullCylinder.html">MyFullCylinder</a></li><li><a href="MyInterface.html">MyInterface</a></li><li><a href="MyPatch.html">MyPatch</a></li><li><a href="MyPlane.html">MyPlane</a></li><li><a href="MySphere.html">MySphere</a></li><li><a href="MyTerrain.html">MyTerrain</a></li><li><a href="MyTorus.html">MyTorus</a></li><li><a href="MyTriangle.html">MyTriangle</a></li><li><a href="MyVehicle.html">MyVehicle</a></li><li><a href="Node.html">Node</a></li><li><a href="RotationAnimation.html">RotationAnimation</a></li><li><a href="Texture.html">Texture</a></li><li><a href="Views.html">Views</a></li></ul><h3>Global</h3><ul><li><a href="global.html#MyRectangle">MyRectangle</a></li><li><a href="global.html#validateOrder">validateOrder</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Nov 20 2016 17:06:14 GMT+0000 (Hora padrão de GMT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
