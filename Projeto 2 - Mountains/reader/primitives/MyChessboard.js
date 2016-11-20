@@ -23,18 +23,12 @@ function MyChessboard(scene, du, dv, texture, su, sv, c1, c2, cs){
     this.c2 = c2;
     this.cs = cs;
 
-    var dimension = 5; //board dimension
-    var dx = dimension/this.du; //dimension x of chess piece
-    var dy = dimension/this.dv; //dimension y of chess piece
-
 
     this.shader = new CGFshader(this.scene.gl,"shaders/chess.vert", "shaders/chess.frag");
 
     this.shader.setUniformsValues({uSampler: 1});
     this.shader.setUniformsValues({du: this.du});
     this.shader.setUniformsValues({dv: this.dv});
-    this.shader.setUniformsValues({distX: dx});
-    this.shader.setUniformsValues({distY: dy});
     this.shader.setUniformsValues({su: this.su});
     this.shader.setUniformsValues({sv: this.sv});
     this.shader.setUniformsValues({c1: [this.c1[0], this.c1[1], this.c1[2], this.c1[3]]});
@@ -42,7 +36,13 @@ function MyChessboard(scene, du, dv, texture, su, sv, c1, c2, cs){
     this.shader.setUniformsValues({cs: [this.cs[0], this.cs[1], this.cs[2], this.cs[3]]});
 
 
-    this.chessboard = new MyPlane(this.scene, dimension, dimension, this.du * 10 , this.dv * 10);
+	var U_PARTS_PER_DIV = 4;
+	this.partsU = du*U_PARTS_PER_DIV;
+
+	var V_PARTS_PER_DIV = 4;
+	this.partsV = dv*V_PARTS_PER_DIV;
+	
+    this.chessboard = new MyPlane(this.scene, du, dv, this.partsU , this.partsV);
 
 };
 

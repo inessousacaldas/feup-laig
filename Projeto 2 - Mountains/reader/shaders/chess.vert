@@ -1,3 +1,4 @@
+
 attribute vec3 aVertexPosition;
 attribute vec3 aVertexNormal;
 attribute vec2 aTextureCoord;
@@ -9,45 +10,36 @@ uniform mat4 uNMatrix;
 varying vec2 vTextureCoord;
 uniform sampler2D uSampler;
 
-varying vec4 coords;
-
-uniform float distX;
-uniform float distY;
 uniform float du;
 uniform float dv;
 
 uniform float su;
 uniform float sv;
 
-varying float selected;
-
-
-varying vec4 select;
+float getPosition(float numDivisions, float coord)
+{
+	float pos = floor(coord*numDivisions);
+	if(pos == numDivisions)
+	{
+		pos = pos - 1.0;
+	}
+	return pos;
+}
 
 void main() {
-	vec4 vertex = vec4(aVertexPosition, 1.0);
-	coords= vertex;
+	//Pass the texture coordinates to the fragment shader
+	vTextureCoord = aTextureCoord;
 
-	float nsv = dv - sv - 1.0;
-	if(su != -1.0 && sv != -1.0){
-		float minX = su * distX - (distX*du/2.0);
-		float minY = nsv * distY - (distY*dv/2.0);
-		float maxX = minX + distX;
-		float maxY = minY + distY;
+	//Get the fragment's position on the board
+	float posX = getPosition(du,aTextureCoord.s);
+	float posY = getPosition(dv,aTextureCoord.t);
 
-		float x = vertex[0];
-		float y = vertex[1];
-
-		if(x >= minX && x <= maxX && y >= minY && y <= maxY)
-		{
-			vertex = vertex + vec4(0,0,0.1,0); /* Height of selected piece */
-			selected = 1.0;
-		}
-		else
-			selected = 0.0;
+	//Determine the Z offset for the vertex
+	vec3 offset=vec3(0.0,0.0,0.0);
+	if((posX == su) && (posY == sv))
+	{
+		offset.z += 0.1;
 	}
 
-	gl_Position = uPMatrix * uMVMatrix * vertex;
-
-	vTextureCoord = aTextureCoord;
+	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition+offset, 1.0);
 }
