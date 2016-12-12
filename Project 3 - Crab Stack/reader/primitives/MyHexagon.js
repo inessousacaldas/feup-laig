@@ -28,7 +28,6 @@ MyHexagon.prototype.display = function() {
     //top hexagon
     this.scene.pushMatrix();
         this.scene.translate(0,0.5,0);
-        this.scene.scale(4,4,4);
 
         for (var i=0;i<6;i++){
             this.scene.translate(1,0,0);
@@ -42,7 +41,6 @@ MyHexagon.prototype.display = function() {
     //bottom hexagon
     this.scene.pushMatrix();
         this.scene.translate(0,-0.5,0);
-        this.scene.scale(4,4,4);
 
         for (var i=0;i<6;i++){
             this.scene.translate(1,0,0);
@@ -55,7 +53,6 @@ MyHexagon.prototype.display = function() {
 
     this.scene.pushMatrix();
         this.scene.translate(0,-0.5,0);
-        this.scene.scale(4,1,4);
 
         for (var i=0;i<6;i++){
             this.scene.translate(1,0,0);

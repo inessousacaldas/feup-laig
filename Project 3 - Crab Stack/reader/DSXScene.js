@@ -40,6 +40,8 @@ DSXScene.prototype.init = function (application) {
 
     this.timer = 0;
     this.setUpdatePeriod(100/6);
+
+    this.setPickEnabled(true);
 };
 /**
  * Sets the interface of the scene

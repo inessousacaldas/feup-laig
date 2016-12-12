@@ -14,7 +14,7 @@ function MyTile(scene, id, board, piece){
     this.piece = piece;
 
 
-    this.cylinder = new MyFullCylinder(this.scene,1,1,1,20,20);
+    this.hexagon = new MyHexagon(this.scene);
 }
 
 MyTile.prototype = Object.create(CGFobject.prototype);
@@ -35,8 +35,8 @@ MyTile.prototype.setPiece = function(piece) {
 MyTile.prototype.display = function() {
 
     this.scene.pushMatrix();
-        this.scene.translate(0,3,0);
-        this.cylinder.display();
+        this.scene.scale(1,0.5,1)
+        this.hexagon.display();
     this.scene.popMatrix();
 }
 
