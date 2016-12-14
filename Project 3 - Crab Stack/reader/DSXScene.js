@@ -42,6 +42,8 @@ DSXScene.prototype.init = function (application) {
     this.setUpdatePeriod(100/6);
 
     this.setPickEnabled(true);
+
+    this.MyGameboard = new MyGameboard(this);
 };
 /**
  * Sets the interface of the scene
@@ -51,6 +53,20 @@ DSXScene.prototype.setInterface = function(myinterface) {
 	this.myinterface = myinterface;
 }
 
+
+DSXScene.prototype.logPicking = function () {
+    if (this.pickMode == false) {
+        if (this.pickResults != null && this.pickResults.length > 0) {
+            for (var i=0; i< this.pickResults.length; i++) {
+                var obj = this.pickResults[i][0];
+                if (obj) {
+                    this.MyGameboard.processPick(obj);
+                }
+            }
+            this.pickResults.splice(0,this.pickResults.length);
+        }
+    }
+}
 /**
  * Create camera in default position
  */
@@ -184,6 +200,9 @@ DSXScene.prototype.display = function () {
 	// Apply transformations from the camera setup
 	this.applyViewMatrix();
 
+    this.logPicking();
+    this.clearPickRegistration();
+
 
 	//Process scene if DSX read ok
 	if (this.graph != null && this.graph.loadedOk)
@@ -203,6 +222,8 @@ DSXScene.prototype.display = function () {
 
 		//Draws the scene from the graph by processing all nodes starting from the root
 		this.processScene();
+
+        this.setPickEnabled(true);
 	}	
 
 };
