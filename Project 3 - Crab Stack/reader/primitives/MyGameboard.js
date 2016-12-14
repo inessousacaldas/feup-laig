@@ -15,6 +15,15 @@ function MyGameboard(scene){
 
     this.currentTile=0;
 
+    this.material = new Material(this.scene,1);
+    this.material.setEmission(0.5,0.5,0.5,1);
+    this.material.setAmbient(0.1,0.1,0.5,1);
+    this.material.setDiffuse(0.1,0.1,0.5,1);
+    this.material.setSpecular(0.5,0.5,0.5,1);
+    this.material.setShininess(0.2);
+
+    this.applyMaterial = false;
+
 }
 
 MyGameboard.prototype = Object.create(CGFobject.prototype);
@@ -22,6 +31,7 @@ MyGameboard.prototype.constructor = MyGameboard;
 
 MyGameboard.prototype.processPick = function(picked_obj) {
     console.log("APANHEI O TILE " + picked_obj.id);
+    this.applyMaterial = true
 }
 
 /**
@@ -39,6 +49,9 @@ MyGameboard.prototype.display = function() {
             this.scene.pushMatrix();
                 this.scene.translate(0,0,i*1.75);
                 this.scene.registerForPick(this.currentTile+1, this.tiles[this.currentTile]);
+                if (this.applyMaterial)
+                    this.material.apply();
+                //this.applyMaterial = false;
                 this.tiles[this.currentTile++].display();
             this.scene.popMatrix();
         }

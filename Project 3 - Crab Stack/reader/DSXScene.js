@@ -43,7 +43,6 @@ DSXScene.prototype.init = function (application) {
 
     this.setPickEnabled(true);
 
-    this.MyGameboard = new MyGameboard(this);
 };
 /**
  * Sets the interface of the scene
@@ -60,7 +59,7 @@ DSXScene.prototype.logPicking = function () {
             for (var i=0; i< this.pickResults.length; i++) {
                 var obj = this.pickResults[i][0];
                 if (obj) {
-                    this.MyGameboard.processPick(obj);
+                    this.gameboard.processPick(obj);
                 }
             }
             this.pickResults.splice(0,this.pickResults.length);
@@ -177,6 +176,7 @@ DSXScene.prototype.onGraphLoaded = function ()
                 break;
             case "gameboard":
                 this.primitives[key] = new MyGameboard(this);
+                this.gameboard = this.primitives[key];
                 break;
             /**case "boat":
                 this.primitives[key] = new MyBoat(this);
