@@ -13,18 +13,45 @@ function MyGameboard(scene){
     for (var i=0;i<=17;i++)
         this.tiles[i] = new MyTile(this.scene,i+1,this,null);
 
+    this.tileSelected = null;
+
 }
 
 MyGameboard.prototype = Object.create(CGFobject.prototype);
 MyGameboard.prototype.constructor = MyGameboard;
 
 MyGameboard.prototype.processPick = function(picked_obj) {
-    console.log("APANHEI O TILE " + picked_obj.id);
-    for (var i=0;i<=17;i++){
-        if (this.tiles[i].id == picked_obj.id)
-            this.tiles[i].processPick();
+
+    if (this.tileSelected == null){
+        picked_obj.processPick();
+        if (picked_obj.selected){
+            this.tileSelected = picked_obj.id;
+            console.log("Selecionei o tile " + this.tileSelected);
+        } else {
+            console.log("Desselecionei o tile " + this.tileSelected);
+            this.tileSelected = null;
+        }
+    } else {
+        this.movePiece(this.tiles[this.tileSelected-1], picked_obj);
+        this.unselectAllTiles();
     }
-    //picked_obj.processPick();
+
+}
+
+MyGameboard.prototype.movePiece = function(tileFrom, tileTo) {
+    if (tileFrom.pieces.length > 0){
+        tileTo.addPiece(tileFrom.removePiece());
+        console.log("O tile " + tileTo.id + " ficou com " + tileTo.pieces.length + " peças");
+        console.log("O tile " + tileFrom.id + " ficou com " + tileFrom.pieces.length + " peças");
+    }
+
+}
+
+MyGameboard.prototype.unselectAllTiles = function() {
+    for (var i=0;i<this.tiles.length;i++){
+        this.tiles[i].unselect();
+    }
+    this.tileSelected = null;
 }
 
 /**
