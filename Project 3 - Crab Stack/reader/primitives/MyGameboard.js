@@ -11,18 +11,7 @@ function MyGameboard(scene){
     this.currentTile = 0;
 
     for (var i=0;i<=17;i++)
-        this.tiles[i] = new MyTile(this.scene,++this.currentTile,this,null);
-
-    this.currentTile=0;
-
-    this.material = new Material(this.scene,1);
-    this.material.setEmission(0.5,0.5,0.5,1);
-    this.material.setAmbient(0.1,0.1,0.5,1);
-    this.material.setDiffuse(0.1,0.1,0.5,1);
-    this.material.setSpecular(0.5,0.5,0.5,1);
-    this.material.setShininess(0.2);
-
-    this.applyMaterial = false;
+        this.tiles[i] = new MyTile(this.scene,i+1,this,null);
 
 }
 
@@ -31,7 +20,11 @@ MyGameboard.prototype.constructor = MyGameboard;
 
 MyGameboard.prototype.processPick = function(picked_obj) {
     console.log("APANHEI O TILE " + picked_obj.id);
-    this.applyMaterial = true
+    for (var i=0;i<=17;i++){
+        if (this.tiles[i].id == picked_obj.id)
+            this.tiles[i].processPick();
+    }
+    //picked_obj.processPick();
 }
 
 /**
@@ -49,9 +42,6 @@ MyGameboard.prototype.display = function() {
             this.scene.pushMatrix();
                 this.scene.translate(0,0,i*1.75);
                 this.scene.registerForPick(this.currentTile+1, this.tiles[this.currentTile]);
-                if (this.applyMaterial)
-                    this.material.apply();
-                //this.applyMaterial = false;
                 this.tiles[this.currentTile++].display();
             this.scene.popMatrix();
         }
