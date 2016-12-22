@@ -12,32 +12,27 @@ function MyTile(scene, id, board, piece){
     this.id = id;
     this.board = board;
     this.pieces = [];
-    this.pieces.push(new MyPiece(this.scene,1,this.id));
 
     this.hexagon = new MyHexagon(this.scene);
 
     this.selected = false;
 
     this.material = new Material(this.scene,1);
-    this.material.setEmission(1,0,0,1);
-    this.material.setAmbient(1,0,0,1);
-    this.material.setDiffuse(1,0,0,1);
-    this.material.setSpecular(1,0,0,1);
+    this.material.setEmission(0,1,0,1);
+    this.material.setAmbient(0,1,0,1);
+    this.material.setDiffuse(0,1,0,1);
+    this.material.setSpecular(0,1,0,1);
     this.material.setShininess(0.2);
 
+    this.posX = 0;
+    this.posZ = 0;
+
+    this.currentHeight = 0;
 
 }
 
 MyTile.prototype = Object.create(CGFobject.prototype);
 MyTile.prototype.constructor = MyTile;
-
-/**
- * Set the piece on top of this tile.
- * @param {MyPiece} piece The piece that will be on top of this tile.
- */
-MyTile.prototype.setPiece = function(piece) {
-    this.piece = piece;
-}
 
 MyTile.prototype.addPiece = function(piece) {
     this.pieces.push(piece);
@@ -53,6 +48,11 @@ MyTile.prototype.select = function() {
 
 MyTile.prototype.unselect = function() {
     this.selected = false;
+}
+
+MyTile.prototype.setPosition = function(x, z) {
+    this.posX = x;
+    this.posZ = z;
 }
 
 MyTile.prototype.processPick = function() {
@@ -71,10 +71,12 @@ MyTile.prototype.display = function() {
     this.scene.pushMatrix();
         for (var i=0;i<this.pieces.length;i++){
             this.scene.pushMatrix();
-                this.scene.translate(0,-i*2,0);
+                this.scene.translate(0,-this.currentHeight,0);
+                this.currentHeight += this.pieces[i].height;
                 this.pieces[i].display();
             this.scene.popMatrix();
         }
+        this.currentHeight = 0;
 
         this.scene.scale(1,0.5,1);
         if (this.selected)

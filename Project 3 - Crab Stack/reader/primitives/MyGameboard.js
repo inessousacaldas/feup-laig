@@ -15,10 +15,15 @@ function MyGameboard(scene){
 
     this.tileSelected = null;
 
+    this.startBoard();
+
 }
 
 MyGameboard.prototype = Object.create(CGFobject.prototype);
 MyGameboard.prototype.constructor = MyGameboard;
+
+
+
 
 MyGameboard.prototype.processPick = function(picked_obj) {
 
@@ -44,6 +49,28 @@ MyGameboard.prototype.movePiece = function(tileFrom, tileTo) {
         console.log("O tile " + tileTo.id + " ficou com " + tileTo.pieces.length + " peças");
         console.log("O tile " + tileFrom.id + " ficou com " + tileFrom.pieces.length + " peças");
     }
+
+}
+
+MyGameboard.prototype.startBoard = function() {
+    this.tiles[0].addPiece(new MyPiece(this.scene,0,0,"S",1));
+    this.tiles[1].addPiece(new MyPiece(this.scene,1,1,"S",2));
+    this.tiles[2].addPiece(new MyPiece(this.scene,2,2,"S",2));
+    this.tiles[3].addPiece(new MyPiece(this.scene,3,3,"S",2));
+    this.tiles[4].addPiece(new MyPiece(this.scene,4,4,"M",2));
+    this.tiles[5].addPiece(new MyPiece(this.scene,5,5,"M",1));
+    this.tiles[6].addPiece(new MyPiece(this.scene,6,6,"B",1));
+    this.tiles[7].addPiece(new MyPiece(this.scene,7,7,"S",1));
+    this.tiles[8].addPiece(new MyPiece(this.scene,8,8,"M",1));
+    this.tiles[9].addPiece(new MyPiece(this.scene,9,9,"B",2));
+    this.tiles[10].addPiece(new MyPiece(this.scene,10,10,"B",1));
+    this.tiles[11].addPiece(new MyPiece(this.scene,11,11,"M",1));
+    this.tiles[12].addPiece(new MyPiece(this.scene,12,12,"S",1));
+    this.tiles[13].addPiece(new MyPiece(this.scene,13,13,"B",2));
+    this.tiles[14].addPiece(new MyPiece(this.scene,14,14,"M",2));
+    this.tiles[15].addPiece(new MyPiece(this.scene,15,15,"B",2));
+    this.tiles[16].addPiece(new MyPiece(this.scene,16,16,"M",2));
+    this.tiles[17].addPiece(new MyPiece(this.scene,17,17,"B",1));
 
 }
 
