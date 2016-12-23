@@ -22,6 +22,16 @@ function MyGameboard(scene){
 MyGameboard.prototype = Object.create(CGFobject.prototype);
 MyGameboard.prototype.constructor = MyGameboard;
 
+MyGameboard.prototype.sendRequest = function(requestString){
+    var self = this;
+
+    this.scene.prologConnection.getPrologRequest(requestString, function(data){
+
+        //self.initBoard(data.target.response);
+        console.log('AAAA' + data);
+    });
+
+}
 
 
 
