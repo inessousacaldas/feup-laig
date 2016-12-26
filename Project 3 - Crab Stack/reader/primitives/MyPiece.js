@@ -13,6 +13,7 @@ function MyPiece(scene, id, tileId, crab, player){
     this.tileId = tileId;
     this.crabType = crab;
     this.player = player;
+    this.time = 0;
 
     this.height = 0;
     
@@ -69,10 +70,27 @@ MyPiece.prototype.display = function() {
             this.materialRed.apply();
         else
             this.materialBlue.apply();
+
+        if(this.crab.isMoving()){
+            var animation = this.crab.update(this.time);
+            this.scene.multMatrix(animation);
+        }
         this.crab.display();
         this.scene.setDefaultAppearance();
 
     this.scene.popMatrix();
+}
+
+MyPiece.prototype.update = function(currTime) {
+
+    this.time = currTime;
+
+}
+
+
+MyPiece.prototype.move = function() {
+
+    this.crab.makeMove(this.time);
 }
 
 

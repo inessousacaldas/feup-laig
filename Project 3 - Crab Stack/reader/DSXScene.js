@@ -206,7 +206,9 @@ DSXScene.prototype.display = function () {
 
 	//Process scene if DSX read ok
 	if (this.graph != null && this.graph.loadedOk)
-	{	
+	{
+
+	    this.gameboard.update(this.timer);
 		this.multMatrix(this.graph.localTransformations);
 	
 		for (var i = 0; i < this.lights.length; ++i)

@@ -6,6 +6,7 @@
 function MyGameboard(scene){
     CGFobject.call(this,scene);
     this.scene = scene;
+    this.time = 0;
 
     this.tiles = [];
     this.currentTile = 0;
@@ -55,7 +56,9 @@ MyGameboard.prototype.processPick = function(picked_obj) {
 
 MyGameboard.prototype.movePiece = function(tileFrom, tileTo) {
     if (tileFrom.pieces.length > 0){
-        tileTo.addPiece(tileFrom.removePiece());
+        var piece = tileFrom.removePiece();
+        piece.move();
+        tileTo.addPiece(piece);
         console.log("O tile " + tileTo.id + " ficou com " + tileTo.pieces.length + " peças");
         console.log("O tile " + tileFrom.id + " ficou com " + tileFrom.pieces.length + " peças");
     }
@@ -147,6 +150,13 @@ MyGameboard.prototype.display = function() {
     this.scene.popMatrix();
 
     this.currentTile=0
+}
+
+MyGameboard.prototype.update = function(currTime) {
+
+    this.time = currTime;
+    for (var i = 0; i < this.tiles.length; i++)
+        this.tiles[i].update(currTime);
 }
 
 /**

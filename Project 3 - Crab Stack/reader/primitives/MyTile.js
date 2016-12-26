@@ -35,6 +35,7 @@ MyTile.prototype = Object.create(CGFobject.prototype);
 MyTile.prototype.constructor = MyTile;
 
 MyTile.prototype.addPiece = function(piece) {
+
     this.pieces.push(piece);
 }
 
@@ -71,9 +72,10 @@ MyTile.prototype.display = function() {
     this.scene.pushMatrix();
         for (var i=0;i<this.pieces.length;i++){
             this.scene.pushMatrix();
-                this.scene.translate(0,-this.currentHeight,0);
-                this.currentHeight += this.pieces[i].height;
-                this.pieces[i].display();
+            this.scene.translate(0,-this.currentHeight,0);
+            this.currentHeight += this.pieces[i].height;
+            this.pieces[i].display();
+
             this.scene.popMatrix();
         }
         this.currentHeight = 0;
@@ -87,6 +89,14 @@ MyTile.prototype.display = function() {
 
     this.scene.popMatrix();
 }
+
+MyTile.prototype.update = function(currTime) {
+
+    this.time = currTime;
+    for (var i = 0; i < this.pieces.length; i++)
+        this.pieces[i].update(currTime);
+}
+
 
 
 
