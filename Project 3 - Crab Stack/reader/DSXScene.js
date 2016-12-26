@@ -41,6 +41,8 @@ DSXScene.prototype.init = function (application) {
     this.timer = 0;
     this.setUpdatePeriod(100/6);
 
+    this.prologConnection = new PrologConnection();
+
     this.setPickEnabled(true);
 
 };
@@ -183,6 +185,8 @@ DSXScene.prototype.onGraphLoaded = function ()
                 break;*/
     	}
     }
+
+
 };
 
 /**

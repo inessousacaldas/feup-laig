@@ -4,7 +4,7 @@
  * @param {CGFscene} scene The scene to which this gameboard belongs.
  */
 function MyGameboard(scene){
-    CGFobject.call(this,scene);
+    CGFobject.call(this, scene);
     this.scene = scene;
     this.time = 0;
 
@@ -16,7 +16,7 @@ function MyGameboard(scene){
 
     this.tileSelected = null;
 
-    this.startBoard();
+    this.sendRequest('init_board');
 
 }
 
@@ -26,33 +26,86 @@ MyGameboard.prototype.constructor = MyGameboard;
 MyGameboard.prototype.sendRequest = function(requestString){
     var self = this;
 
-    this.scene.prologConnection.getPrologRequest(requestString, function(data){
 
-        //self.initBoard(data.target.response);
-        console.log('AAAA' + data);
-    });
+    if(requestString == 'init_board'){
+
+        this.scene.prologConnection.getPrologRequest(requestString, function(data){
+
+            //self.initBoard(data.target.response);
+            var data = data.target.response;
+            data = data.replace(/\[|\]/g,'');
+            var array = data.split(",").map(String);
+            self.startBoard(array);
+
+        });
+
+
+    }
+    else if(/dist\(\'\w\',\d+\)/g.test(requestString)){
+        this.scene.prologConnection.getPrologRequest(requestString, function(data){
+
+            var data = data.target.response;
+            data = data.replace(/\[|\]/g,'');
+            var array = data.split(',').map(Number)
+            self.highlightMoves(array);
+
+        });
+    }
+    else
+        console.log('Unknown request string');
+
 
 }
-
 
 
 MyGameboard.prototype.processPick = function(picked_obj) {
 
-    if (this.tileSelected == null){
-        picked_obj.processPick();
-        if (picked_obj.selected){
-            this.tileSelected = picked_obj.id;
-            console.log("Selecionei o tile " + this.tileSelected);
-        } else {
+    var piece = picked_obj.topPieceType();
+    picked_obj.processPick();
+    if (this.tileSelected == null && picked_obj.selected){
+
+        var requestMoves = "dist('"+ piece.crabType + "'," + picked_obj.id + ")";
+        this.sendRequest(requestMoves);
+        this.tileSelected = picked_obj.id;
+        console.log("Selecionei o tile " + this.tileSelected);
+    }else if(this.tileSelected == picked_obj.id && !picked_obj.selected){
             console.log("Desselecionei o tile " + this.tileSelected);
+            this.dehighlightMoves();
             this.tileSelected = null;
-        }
-    } else {
+    } else if(this.tileSelected != null) {
         this.movePiece(this.tiles[this.tileSelected-1], picked_obj);
+        this.dehighlightMoves();
         this.unselectAllTiles();
+
     }
 
 }
+
+MyGameboard.prototype.dehighlightMoves = function() {
+
+    for(var i = 0; i < this.tiles.length; i++)
+       if(this.tiles[i].id == this.tileSelected){
+            var moves = this.tiles[i].moves;
+            this.tiles[i].removeMoves();
+       }
+    for(var i = 0; i < moves.length; i++)
+        for(var j = 0; j < this.tiles.length; j++)
+            if(moves[i] == this.tiles[j].id)
+                this.tiles[j].dehighlight();
+
+}
+
+
+MyGameboard.prototype.highlightMoves = function(moves) {
+
+    for(var i = 0; i < moves.length; i++)
+        for(var j = 0; j < this.tiles.length; j++)
+            if(moves[i] == this.tiles[j].id)
+                this.tiles[j].highlight();
+            else if(this.tiles[j].id == this.tileSelected)
+                this.tiles[j].addMoves(moves);
+}
+
 
 MyGameboard.prototype.movePiece = function(tileFrom, tileTo) {
     if (tileFrom.pieces.length > 0){
@@ -65,25 +118,16 @@ MyGameboard.prototype.movePiece = function(tileFrom, tileTo) {
 
 }
 
-MyGameboard.prototype.startBoard = function() {
-    this.tiles[0].addPiece(new MyPiece(this.scene,0,0,"S",1));
-    this.tiles[1].addPiece(new MyPiece(this.scene,1,1,"S",2));
-    this.tiles[2].addPiece(new MyPiece(this.scene,2,2,"S",2));
-    this.tiles[3].addPiece(new MyPiece(this.scene,3,3,"S",2));
-    this.tiles[4].addPiece(new MyPiece(this.scene,4,4,"M",2));
-    this.tiles[5].addPiece(new MyPiece(this.scene,5,5,"M",1));
-    this.tiles[6].addPiece(new MyPiece(this.scene,6,6,"B",1));
-    this.tiles[7].addPiece(new MyPiece(this.scene,7,7,"S",1));
-    this.tiles[8].addPiece(new MyPiece(this.scene,8,8,"M",1));
-    this.tiles[9].addPiece(new MyPiece(this.scene,9,9,"B",2));
-    this.tiles[10].addPiece(new MyPiece(this.scene,10,10,"B",1));
-    this.tiles[11].addPiece(new MyPiece(this.scene,11,11,"M",1));
-    this.tiles[12].addPiece(new MyPiece(this.scene,12,12,"S",1));
-    this.tiles[13].addPiece(new MyPiece(this.scene,13,13,"B",2));
-    this.tiles[14].addPiece(new MyPiece(this.scene,14,14,"M",2));
-    this.tiles[15].addPiece(new MyPiece(this.scene,15,15,"B",2));
-    this.tiles[16].addPiece(new MyPiece(this.scene,16,16,"M",2));
-    this.tiles[17].addPiece(new MyPiece(this.scene,17,17,"B",1));
+MyGameboard.prototype.startBoard = function(data) {
+
+
+   for(var i = 0; i < data.length; i++){
+
+        var size = data[i][0];
+        var player = data[i][1];
+        this.tiles[i].addPiece(new MyPiece(this.scene,i,i,size,player));
+    }
+
 
 }
 

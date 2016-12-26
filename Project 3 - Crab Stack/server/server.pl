@@ -109,6 +109,7 @@ parse_input(quit, goodbye).
 
 % Init Board Game
 parse_input(init_board, Board):- init_board(Board).
+parse_input(dist(Crab_Size,Tile), Moves) :- dist(Crab_Size,Tile,Moves).
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
