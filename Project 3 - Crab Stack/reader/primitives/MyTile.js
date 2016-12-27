@@ -27,10 +27,10 @@ function MyTile(scene, id, board, piece){
     this.material.setShininess(0.2);
 
     this.highlightedMaterial = new Material(this.scene,1);
-    this.highlightedMaterial.setEmission(0,0,1,1);
-    this.highlightedMaterial.setAmbient(0,0,1,1);
-    this.highlightedMaterial.setDiffuse(0,0,1,1);
-    this.highlightedMaterial.setSpecular(0,0,1,1);
+    this.highlightedMaterial.setEmission(1,1,0,1);
+    this.highlightedMaterial.setAmbient(1,1,0,1);
+    this.highlightedMaterial.setDiffuse(1,1,0,1);
+    this.highlightedMaterial.setSpecular(1,1,0,1);
     this.highlightedMaterial.setShininess(0.2);
 
     this.posX = 0;
@@ -106,7 +106,6 @@ MyTile.prototype.display = function() {
             this.scene.pushMatrix();
             this.scene.translate(0,-this.currentHeight,0);
             this.currentHeight += this.pieces[i].height;
-            this.pieces[i].display();
 
             this.scene.popMatrix();
         }

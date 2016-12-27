@@ -11,9 +11,16 @@ function MyCrabBig(scene){
 
     this.cylinder = new MyFullCylinder(this.scene,1.3,0.5,0.5,16,16);
 
-    this.move = false;
+    this.moving = false;
+    this.moveClimbingDown = false;
+    this.moveClimbingUp = false;
+    this.movingPath = false;
+    this.finishedMoving = false;
     this.animation;
     this.init_time = 0;
+
+    this.lastTransformation = mat4.create();
+    mat4.identity(this.lastTransformation);
 
     //Para testar - alterar
     this.moveAnimation();
@@ -25,35 +32,77 @@ MyCrabBig.prototype.constructor = MyCrabBig;
 
 MyCrabBig.prototype.moveAnimation = function (){
 
-     var controlPoints = [];
+    if (this.moving && this.moveClimbingDown){
+        var controlPoints = [];
 
-     var x = 0;
-     var y = 0;
-     var z = 0;
-     controlPoints.push(vec3.fromValues(x,y,z));
+        var x = 0;
+        var y = 0;
+        var z = 0;
+        controlPoints.push(vec3.fromValues(x,y,z));
 
-     z = 1;
+        y = -1;
+        z = -1;
 
-     controlPoints.push(vec3.fromValues(x,y,z));
-     var timeSpan = 4;
-     var id = "BigCrab";
+        controlPoints.push(vec3.fromValues(x,y,z));
+        var timeSpan = 2;
+        var id = "BigCrab";
 
-     this.animation = new LinearAnimation(id, timeSpan, controlPoints);
-     //this.move = true;
+        this.animation = new LinearAnimation(id, timeSpan, controlPoints);
+    }
 
- }
+    else if (this.moving && this.moveClimbingUp){
+        var controlPoints = [];
+
+        var x = 0;
+        var y = 0;
+        var z = 0;
+        controlPoints.push(vec3.fromValues(x,y,z));
+
+        y = 1;
+        z = 1;
+
+        controlPoints.push(vec3.fromValues(x,y,z));
+        var timeSpan = 10;
+        var id = "BigCrab";
+
+        this.animation = new LinearAnimation(id, timeSpan, controlPoints);
+    }
+
+    else if (this.moving && this.movingPath){
+        var controlPoints = [];
+
+        var x = 0;
+        var y = 0;
+        var z = 0;
+        controlPoints.push(vec3.fromValues(x,y,z));
+
+        x = 1;
+        z = 1;
+
+        controlPoints.push(vec3.fromValues(x,y,z));
+        var timeSpan = 7;
+        var id = "BigCrab";
+
+        this.animation = new LinearAnimation(id, timeSpan, controlPoints);
+    }
+
+
+}
 
 
  MyCrabBig.prototype.makeMove = function (init_time){
 
-     this.move = true;
+     this.moving = true;
+     this.moveClimbingDown = true;
      this.init_time = init_time;
+
+     this.moveAnimation();
 
  }
 
  MyCrabBig.prototype.isMoving = function (){
 
-     return this.move;
+     return this.moving;
 
  }
 
@@ -72,10 +121,40 @@ MyCrabBig.prototype.update = function(currTime) {
     var time = currTime;
     time = time - this.init_time;
 
-    if(time > this.animation.timeSpan)
-        this.move = false;
+    //to change from climbing down animation to walking one
+    if (this.moving && this.moveClimbingDown){
+        if(time > this.animation.timeSpan){
+            this.moveClimbingDown = false;
+            this.movingPath = true;
+            //this.moving = false;
 
+            this.moveAnimation();
+        }
+    }
+
+    //to change from walking animation to climbing up one
+    if (this.moving && this.movingPath){
+        if(time > this.animation.timeSpan){
+            this.moveClimbingUp = true;
+            this.movingPath = false;
+            this.moveAnimation();
+        }
+    }
+
+    //to change from climbing up animation to stop
+    if (this.moving && this.moveClimbingUp){
+        if(time > this.animation.timeSpan){
+            this.moveClimbingUp = false;
+            this.moving = false;
+            this.finishedMoving=true;
+        }
+    }
+
+
+    if (this.finishedMoving)
+        this.lastTransformation = this.animationTransformation;
     this.animationTransformation = this.animation.update(time);
+
     return this.animationTransformation;
 }
 

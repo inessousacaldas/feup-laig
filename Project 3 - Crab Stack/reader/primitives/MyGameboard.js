@@ -72,30 +72,39 @@ MyGameboard.prototype.sendRequest = function(requestString){
 
 
 MyGameboard.prototype.processPick = function(picked_obj) {
+    if (picked_obj instanceof MyTile){
+        this.processPickedTile(picked_obj);
+    } else {
+        this.processPickedTile(picked_obj.tile);
+    }
 
-    var piece = picked_obj.topPiece();
-    picked_obj.processPick();
-    if (this.tileSelected == null && picked_obj.selected && piece != null){
+}
 
-        var requestMoves = "dist('"+ piece.crabType + "'," + picked_obj.id + ")";
+MyGameboard.prototype.processPickedTile = function(picked_tile) {
+    var piece = picked_tile.topPiece();
+    picked_tile.processPick();
+
+    if (this.tileSelected == null && picked_tile.selected && piece != null){
+
+        var requestMoves = "dist('"+ piece.crabType + "'," + picked_tile.id + ")";
         this.sendRequest(requestMoves);
-        this.tileSelected = picked_obj.id;
+        this.tileSelected = picked_tile.id;
         console.log("Selecionei o tile " + this.tileSelected);
-    }else if(this.tileSelected == picked_obj.id && !picked_obj.selected){
-            console.log("Desselecionei o tile " + this.tileSelected);
-            this.dehighlightMoves();
-            this.tileSelected = null;
-    } else if(this.tileSelected != null) {
-        this.toTileSelected = picked_obj;
+    } else if (this.tileSelected == picked_tile.id && !picked_tile.selected){
+        console.log("Desselecionei o tile " + this.tileSelected);
+        this.dehighlightMoves();
+        this.tileSelected = null;
+    } else if (this.tileSelected != null) {
+        this.toTileSelected = picked_tile;
         for(var i = 0; i < this.tiles.length; i++)
             if(this.tiles[i].id == this.tileSelected)
-               var crab = this.tiles[i].topPiece().toString();
+                var crab = this.tiles[i].topPiece().toString();
 
-        var string = 'valid_crab_movement(' + this.board + ',' + this.tileSelected + ',' + picked_obj.id + ',' + crab + ',' + crab[0] + ')';
+        var string = 'valid_crab_movement(' + this.board + ',' + this.tileSelected + ',' + picked_tile.id + ',' + crab + ',' + crab[0] + ')';
         this.sendRequest(string);
 
-    }else console.log("Unknown request string.")
-
+    } else
+        console.log("Unknown request string.")
 }
 
 MyGameboard.prototype.dehighlightMoves = function() {
@@ -134,7 +143,7 @@ MyGameboard.prototype.movePiece = function(data) {
 
         if (tileFrom.pieces.length > 0){
             var piece = tileFrom.removePiece();
-            piece.move();
+            piece.move(this.toTileSelected);
             this.toTileSelected.addPiece(piece);
             console.log("O tile " +  this.toTileSelected.id + " ficou com " +  this.toTileSelected.pieces.length + " peças");
             console.log("O tile " + tileFrom.id + " ficou com " + tileFrom.pieces.length + " peças");
@@ -150,12 +159,39 @@ MyGameboard.prototype.movePiece = function(data) {
 
 MyGameboard.prototype.startBoard = function(data) {
 
+    //1st row - 3 hexagons
+    for (var i=0;i<3;i++){
+        this.tiles[this.currentTile++].setPosition(0,i*3+0.5);
+    }
+
+    //2nd row - 4 hexagons
+    for (var i=0;i<4;i++){
+        this.tiles[this.currentTile++].setPosition(2.5,i*3-1);
+    }
+
+    //3rd row - 5 hexagons, but skips middle one
+    for (var i=0;i<5;i++){
+        if (i==2)
+            continue;
+        this.tiles[this.currentTile++].setPosition(5,i*3-2.5);
+    }
+
+    //4th row - 4 hexagons
+    for (var i=0;i<4;i++){
+        this.tiles[this.currentTile++].setPosition(7.5,i*3-1);
+    }
+
+    //5th row - 3 hexagons
+    for (var i=0;i<3;i++){
+        this.tiles[this.currentTile++].setPosition(10,i*3+0.5);
+    }
+    this.currentTile = 0;
 
    for(var i = 0; i < data.length; i++){
 
         var size = data[i][0];
         var player = data[i][1];
-        this.tiles[i].addPiece(new MyPiece(this.scene,i,i,size,player));
+        this.tiles[i].addPiece(new MyPiece(this.scene,i,this.tiles[i],size,player));
     }
 }
 
@@ -177,52 +213,23 @@ MyGameboard.prototype.display = function() {
 
         this.scene.rotate(Math.PI, 1, 0, 0);
 
-        //1st row - 3 hexagons
-        for (var i=0;i<3;i++){
+        for (var i=0;i<=17;i++){
             this.scene.pushMatrix();
-                this.scene.translate(0,0,i*1.75);
-                this.scene.registerForPick(this.currentTile+1, this.tiles[this.currentTile]);
-                this.tiles[this.currentTile++].display();
-            this.scene.popMatrix();
-        }
-        //2nd row - 4 hexagons
-        for (var i=0;i<4;i++){
-            this.scene.pushMatrix();
-            this.scene.translate(1.5,0,i*1.75-0.75);
-            this.scene.registerForPick(this.currentTile+1, this.tiles[this.currentTile]);
-            this.tiles[this.currentTile++].display();
-            this.scene.popMatrix();
-        }
-
-        for (var i=0;i<5;i++){
-            if (i==2)
-                continue;
-            this.scene.pushMatrix();
-            this.scene.translate(3,0,i*1.75-1.5);
-            this.scene.registerForPick(this.currentTile+1, this.tiles[this.currentTile]);
-            this.tiles[this.currentTile++].display();
-            this.scene.popMatrix();
-        }
-
-        for (var i=0;i<4;i++){
-            this.scene.pushMatrix();
-            this.scene.translate(4.5,0,i*1.75-0.75);
-            this.scene.registerForPick(this.currentTile+1, this.tiles[this.currentTile]);
-            this.tiles[this.currentTile++].display();
-            this.scene.popMatrix();
-        }
-
-        for (var i=0;i<3;i++){
-            this.scene.pushMatrix();
-            this.scene.translate(6,0,i*1.75);
-            this.scene.registerForPick(this.currentTile+1, this.tiles[this.currentTile]);
-            this.tiles[this.currentTile++].display();
+                this.scene.registerForPick(i+1, this.tiles[i]);
+                this.scene.translate(this.tiles[i].posX,0,this.tiles[i].posZ);
+                this.tiles[i].display();
             this.scene.popMatrix();
         }
 
     this.scene.popMatrix();
 
-    this.currentTile=0
+    for (var i=0;i<=17;i++){
+        for (var j=0;j<this.tiles[i].pieces.length;j++){
+            this.scene.registerForPick(i+1, this.tiles[i].pieces[j]);
+            this.tiles[i].pieces[j].display();
+        }
+    }
+
 }
 
 MyGameboard.prototype.update = function(currTime) {

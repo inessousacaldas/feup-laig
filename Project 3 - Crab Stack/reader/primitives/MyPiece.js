@@ -6,16 +6,22 @@
  * @param {MyGameboard} board The board this tile belongs to.
  * @param {MyPiece} piece The piece that is on top of this tile.
  */
-function MyPiece(scene, id, tileId, crab, player){
+function MyPiece(scene, id, tile, crab, player){
     CGFobject.call(this,scene);
     this.scene = scene;
     this.id = id;
-    this.tileId = tileId;
+    this.tile = tile;
     this.crabType = crab;
     this.player = player;
     this.time = 0;
 
+    this.posX = this.tile.posX;
+    this.posZ = this.tile.posZ;
+
     this.height = 0;
+
+    this.localTransformations = mat4.create();
+    mat4.identity(this.localTransformations);
     
     this.chooseCrab()
 
@@ -72,16 +78,26 @@ MyPiece.prototype.display = function() {
 
     this.scene.pushMatrix();
         this.scene.rotate(90*deg2rad,1,0,0);
+        this.scene.rotate(180*deg2rad,0,0,1);
+        this.scene.rotate(180*deg2rad,0,1,0);
         this.scene.translate(0.5,0.7,0);
+        this.scene.translate(this.posX,this.posZ,0);
         if (this.player == 1)
             this.materialRed.apply();
         else
             this.materialBlue.apply();
 
         if(this.crab.isMoving()){
-            var animation = this.crab.update(this.time);
-            this.scene.multMatrix(animation);
+            //mat4.multiply(this.localTransformations, this.crab.update(this.time), this.localTransformations);
+            this.scene.multMatrix(this.crab.update(this.time));
+        } else {
+            // this.localTransformations = this.crab.lastTransformation;
+            //this.scene.multMatrix(this.localTransformations);
         }
+        if (this.crab.finishedMoving)
+            this.localTransformations = this.crab.lastTransformation;
+
+        this.scene.multMatrix(this.localTransformations);
         this.crab.display();
         this.scene.setDefaultAppearance();
 
@@ -95,8 +111,13 @@ MyPiece.prototype.update = function(currTime) {
 }
 
 
-MyPiece.prototype.move = function() {
-
+MyPiece.prototype.move = function(tile) {
+    this.tile = tile;
+    //COMENTAR ESTE BLOCO PARA PEÇA NAO IR PARA O DESTINO
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++
+    this.posX = tile.posX;
+    this.posZ = tile.posZ;
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++
     this.crab.makeMove(this.time);
 }
 
