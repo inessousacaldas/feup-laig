@@ -62,7 +62,7 @@ MyCrabBig.prototype.moveAnimation = function (){
         z = 1;
 
         controlPoints.push(vec3.fromValues(x,y,z));
-        var timeSpan = 10;
+        var timeSpan = 2;
         var id = "BigCrab";
 
         this.animation = new LinearAnimation(id, timeSpan, controlPoints);
@@ -80,7 +80,7 @@ MyCrabBig.prototype.moveAnimation = function (){
         z = 1;
 
         controlPoints.push(vec3.fromValues(x,y,z));
-        var timeSpan = 7;
+        var timeSpan = 2;
         var id = "BigCrab";
 
         this.animation = new LinearAnimation(id, timeSpan, controlPoints);
@@ -124,38 +124,47 @@ MyCrabBig.prototype.update = function(currTime) {
     //to change from climbing down animation to walking one
     if (this.moving && this.moveClimbingDown){
         if(time > this.animation.timeSpan){
+            this.init_time = currTime;
             this.moveClimbingDown = false;
             this.movingPath = true;
-            //this.moving = false;
-
+            mat4.identity(this.lastTransformation);
+            mat4.multiply(this.lastTransformation , this.lastTransformation,this.animationTransformation);
             this.moveAnimation();
         }
     }
 
     //to change from walking animation to climbing up one
-    if (this.moving && this.movingPath){
+    else if (this.moving && this.movingPath){
         if(time > this.animation.timeSpan){
+            this.init_time = currTime;
             this.moveClimbingUp = true;
             this.movingPath = false;
+            //mat4.identity(this.lastTransformation);
+            mat4.multiply(this.lastTransformation , this.lastTransformation,this.animationTransformation);
             this.moveAnimation();
         }
     }
 
     //to change from climbing up animation to stop
-    if (this.moving && this.moveClimbingUp){
+    else if (this.moving && this.moveClimbingUp){
         if(time > this.animation.timeSpan){
             this.moveClimbingUp = false;
             this.moving = false;
+            //mat4.identity(this.lastTransformation);
+            mat4.multiply(this.lastTransformation , this.lastTransformation,this.animationTransformation);
             this.finishedMoving=true;
         }
     }
 
 
-    if (this.finishedMoving)
-        this.lastTransformation = this.animationTransformation;
+    //if (this.finishedMoving)
+       //mat4.multiply(this.lastTransformation , this.lastTransformation,this.animationTransformation);
     this.animationTransformation = this.animation.update(time);
 
-    return this.animationTransformation;
+    var anim = mat4.create();
+     mat4.identity(anim);
+     mat4.multiply(anim, this.lastTransformation, this.animationTransformation);
+    return anim;
 }
 
 
