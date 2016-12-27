@@ -6,6 +6,7 @@
 function MyGameboard(scene){
     CGFobject.call(this, scene);
     this.scene = scene;
+    this.board = [];
     this.time = 0;
 
     this.tiles = [];
@@ -15,6 +16,7 @@ function MyGameboard(scene){
         this.tiles[i] = new MyTile(this.scene,i+1,this,null);
 
     this.tileSelected = null;
+    this.toTileSelected = null;
 
     this.sendRequest('init_board');
 
@@ -32,6 +34,7 @@ MyGameboard.prototype.sendRequest = function(requestString){
         this.scene.prologConnection.getPrologRequest(requestString, function(data){
 
             //self.initBoard(data.target.response);
+            self.board = data.target.response;
             var data = data.target.response;
             data = data.replace(/\[|\]/g,'');
             var array = data.split(",").map(String);
@@ -51,8 +54,18 @@ MyGameboard.prototype.sendRequest = function(requestString){
 
         });
     }
+    else if(requestString.startsWith("valid_crab_movement")){
+        this.scene.prologConnection.getPrologRequest(requestString, function(data){
+
+        var data = data.target.response;
+
+        self.movePiece(data);
+
+        });
+    }
     else
         console.log('Unknown request string');
+
 
 
 }
@@ -60,9 +73,9 @@ MyGameboard.prototype.sendRequest = function(requestString){
 
 MyGameboard.prototype.processPick = function(picked_obj) {
 
-    var piece = picked_obj.topPieceType();
+    var piece = picked_obj.topPiece();
     picked_obj.processPick();
-    if (this.tileSelected == null && picked_obj.selected){
+    if (this.tileSelected == null && picked_obj.selected && piece != null){
 
         var requestMoves = "dist('"+ piece.crabType + "'," + picked_obj.id + ")";
         this.sendRequest(requestMoves);
@@ -73,11 +86,15 @@ MyGameboard.prototype.processPick = function(picked_obj) {
             this.dehighlightMoves();
             this.tileSelected = null;
     } else if(this.tileSelected != null) {
-        this.movePiece(this.tiles[this.tileSelected-1], picked_obj);
-        this.dehighlightMoves();
-        this.unselectAllTiles();
+        this.toTileSelected = picked_obj;
+        for(var i = 0; i < this.tiles.length; i++)
+            if(this.tiles[i].id == this.tileSelected)
+               var crab = this.tiles[i].topPiece().toString();
 
-    }
+        var string = 'valid_crab_movement(' + this.board + ',' + this.tileSelected + ',' + picked_obj.id + ',' + crab + ',' + crab[0] + ')';
+        this.sendRequest(string);
+
+    }else console.log("Unknown request string.")
 
 }
 
@@ -107,14 +124,27 @@ MyGameboard.prototype.highlightMoves = function(moves) {
 }
 
 
-MyGameboard.prototype.movePiece = function(tileFrom, tileTo) {
-    if (tileFrom.pieces.length > 0){
-        var piece = tileFrom.removePiece();
-        piece.move();
-        tileTo.addPiece(piece);
-        console.log("O tile " + tileTo.id + " ficou com " + tileTo.pieces.length + " peças");
-        console.log("O tile " + tileFrom.id + " ficou com " + tileFrom.pieces.length + " peças");
+MyGameboard.prototype.movePiece = function(data) {
+
+    if(data != 'Bad Request'){
+
+        this.board = data;
+
+        var tileFrom = this.tiles[this.tileSelected-1];
+
+        if (tileFrom.pieces.length > 0){
+            var piece = tileFrom.removePiece();
+            piece.move();
+            this.toTileSelected.addPiece(piece);
+            console.log("O tile " +  this.toTileSelected.id + " ficou com " +  this.toTileSelected.pieces.length + " peças");
+            console.log("O tile " + tileFrom.id + " ficou com " + tileFrom.pieces.length + " peças");
+
+        }
+
+
     }
+    this.dehighlightMoves();
+    this.unselectAllTiles();
 
 }
 
@@ -127,8 +157,6 @@ MyGameboard.prototype.startBoard = function(data) {
         var player = data[i][1];
         this.tiles[i].addPiece(new MyPiece(this.scene,i,i,size,player));
     }
-
-
 }
 
 MyGameboard.prototype.unselectAllTiles = function() {
@@ -136,6 +164,7 @@ MyGameboard.prototype.unselectAllTiles = function() {
         this.tiles[i].unselect();
     }
     this.tileSelected = null;
+    this.toTileSelected = null;
 }
 
 /**

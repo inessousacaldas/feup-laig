@@ -104,13 +104,11 @@ print_header_line(_).
 % Require your Prolog Files here
 
 parse_input(handshake, handshake).
-parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
 
 % Init Board Game
 parse_input(init_board, Board):- init_board(Board).
 parse_input(dist(Crab_Size,Tile), Moves) :- dist(Crab_Size,Tile,Moves).
+parse_input(valid_crab_movement(Board, Rock_Init, Rock, Crab, Crab_Size), FinalBoard) :- valid_crab_movement(Board, Rock_Init, Rock, Crab, Crab_Size, FinalBoard).
 
-test(_,[],N) :- N =< 0.
-test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
 	

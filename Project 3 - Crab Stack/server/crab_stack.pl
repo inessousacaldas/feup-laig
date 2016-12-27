@@ -29,13 +29,13 @@ crabStack:-
 /* ************************************************ */
 
 playGamePvP :-
-        play('human', g, 'human', b).
+        play('human', g, 'human', r).
         
 playGamePvB :-
-        play('human', g, 'computer', b).   
+        play('human', g, 'computer', r).   
         
 playGameBvB :-
-        play('computer', g, 'computer', b).
+        play('computer', g, 'computer', r).
 
 
 /* ************************************************ */
@@ -340,12 +340,12 @@ remove_crab_board(Board, Rock, FinalBoard):-
 /*                                                  */
 /* ************************************************ */
 
-game_over(Board, b) :-
+game_over(Board, r) :-
         moves_left(Board, g, 0, [], 1, Moves, _List_Moves),
         Moves == 0.
         
 game_over(Board, g) :-
-        moves_left(Board, b, 0, [], 1, Moves, _List_Moves),
+        moves_left(Board, r, 0, [], 1, Moves, _List_Moves),
         Moves == 0.
 
 
@@ -510,77 +510,77 @@ in_range(Tile) :-
 /*                                                  */
 /* ************************************************ */
 
-dist('B', 1, [2, 4, 5]).
-dist('M', 1, [2, 3, 4, 5, 6, 8, 9]).
-dist('S', 1, [2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13]).
+dist(b, 1, [2, 4, 5]).
+dist(m, 1, [2, 3, 4, 5, 6, 8, 9]).
+dist(s, 1, [2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13]).
 
-dist('B', 2, [1, 3, 5, 6]).
-dist('M', 2, [1, 3, 4, 5, 6, 7, 9, 10]).
-dist('S', 2, [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]).
+dist(b, 2, [1, 3, 5, 6]).
+dist(m, 2, [1, 3, 4, 5, 6, 7, 9, 10]).
+dist(s, 2, [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]).
 
-dist('B', 3, [2, 6, 7]).
-dist('M', 3, [1, 2, 5, 6, 7, 10, 11]).
-dist('S', 3, [1, 2, 4, 5, 6, 7, 9, 10, 11, 14, 15]).
+dist(b, 3, [2, 6, 7]).
+dist(m, 3, [1, 2, 5, 6, 7, 10, 11]).
+dist(s, 3, [1, 2, 4, 5, 6, 7, 9, 10, 11, 14, 15]).
 
-dist('B', 4, [1, 5, 8, 9]).
-dist('M', 4, [1, 2, 5, 6, 8, 9, 12, 13]).
-dist('S', 4, [1, 2, 3, 5, 6, 7, 8, 9, 10, 12, 13, 14, 16, 17]).
+dist(b, 4, [1, 5, 8, 9]).
+dist(m, 4, [1, 2, 5, 6, 8, 9, 12, 13]).
+dist(s, 4, [1, 2, 3, 5, 6, 7, 8, 9, 10, 12, 13, 14, 16, 17]).
 
-dist('B', 5, [1, 2, 4, 6, 9]).
-dist('M', 5, [1, 2, 3, 4, 6, 7, 8, 9, 10, 12, 13]).
-dist('S', 5, [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]).
+dist(b, 5, [1, 2, 4, 6, 9]).
+dist(m, 5, [1, 2, 3, 4, 6, 7, 8, 9, 10, 12, 13]).
+dist(s, 5, [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]).
 
-dist('B', 6, [2, 3, 5, 7, 10]).
-dist('M', 6, [1, 2, 3, 4, 5, 7, 9, 10, 11, 14, 15]).
-dist('S', 6, [1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18]).
+dist(b, 6, [2, 3, 5, 7, 10]).
+dist(m, 6, [1, 2, 3, 4, 5, 7, 9, 10, 11, 14, 15]).
+dist(s, 6, [1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18]).
 
-dist('B', 7, [3, 6, 10, 11]).
-dist('M', 7, [2, 3, 5, 6, 10, 11, 14, 15]).
-dist('S', 7, [1, 2, 3, 4, 5, 6, 9, 10, 11, 13, 14, 15, 17, 18]).
+dist(b, 7, [3, 6, 10, 11]).
+dist(m, 7, [2, 3, 5, 6, 10, 11, 14, 15]).
+dist(s, 7, [1, 2, 3, 4, 5, 6, 9, 10, 11, 13, 14, 15, 17, 18]).
 
-dist('B', 8, [4, 9, 12]).
-dist('M', 8, [1, 4, 5, 9, 12, 13, 16]).
-dist('S', 8, [1, 2, 4, 5, 6, 9, 12, 13, 14, 16, 17]). 
+dist(b, 8, [4, 9, 12]).
+dist(m, 8, [1, 4, 5, 9, 12, 13, 16]).
+dist(s, 8, [1, 2, 4, 5, 6, 9, 12, 13, 14, 16, 17]). 
 
-dist('B', 9, [4, 5, 8, 12, 13]).
-dist('M', 9, [1, 2, 4, 5, 6, 8, 12, 13, 14, 16, 17]).
-dist('S', 9, [1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 13, 14, 15, 16, 17, 18]).
+dist(b, 9, [4, 5, 8, 12, 13]).
+dist(m, 9, [1, 2, 4, 5, 6, 8, 12, 13, 14, 16, 17]).
+dist(s, 9, [1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 13, 14, 15, 16, 17, 18]).
 
-dist('B', 10, [6, 7, 11, 14, 15]).
-dist('M', 10, [2, 3, 5, 6, 7, 11, 13, 14, 15, 17, 18]).
-dist('S', 10, [1, 2, 3, 4, 5, 6, 7, 9, 11, 12, 13, 14, 15, 16, 17, 18]).
+dist(b, 10, [6, 7, 11, 14, 15]).
+dist(m, 10, [2, 3, 5, 6, 7, 11, 13, 14, 15, 17, 18]).
+dist(s, 10, [1, 2, 3, 4, 5, 6, 7, 9, 11, 12, 13, 14, 15, 16, 17, 18]).
 
-dist('B', 11,  [7, 10, 15]).
-dist('M', 11,  [3, 6, 7, 10, 14, 15, 17, 18]).
-dist('S', 11,  [2, 3, 5, 6, 7, 10, 13, 14, 15, 17, 18]).
+dist(b, 11,  [7, 10, 15]).
+dist(m, 11,  [3, 6, 7, 10, 14, 15, 17, 18]).
+dist(s, 11,  [2, 3, 5, 6, 7, 10, 13, 14, 15, 17, 18]).
         
-dist('B', 12,  [8, 9, 13, 16]).
-dist('M', 12,  [4, 5, 8, 9, 13, 14, 16, 17]).
-dist('S', 12,  [1, 2, 4, 5, 6, 8, 9, 10, 13, 14, 15, 16, 17, 18]).
+dist(b, 12,  [8, 9, 13, 16]).
+dist(m, 12,  [4, 5, 8, 9, 13, 14, 16, 17]).
+dist(s, 12,  [1, 2, 4, 5, 6, 8, 9, 10, 13, 14, 15, 16, 17, 18]).
 
-dist('B', 13,  [9, 12, 14, 16, 17]).
-dist('M', 13,  [4, 5, 8, 9, 10, 12, 14, 15, 16, 17, 18]).
-dist('S', 13,  [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18]).
+dist(b, 13,  [9, 12, 14, 16, 17]).
+dist(m, 13,  [4, 5, 8, 9, 10, 12, 14, 15, 16, 17, 18]).
+dist(s, 13,  [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18]).
 
-dist('B', 14,  [10, 13, 15, 17, 18]).
-dist('M', 14,  [6, 7, 9, 10, 11, 12, 13, 15, 16, 17, 18]).
-dist('S', 14,  [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18]).
+dist(b, 14,  [10, 13, 15, 17, 18]).
+dist(m, 14,  [6, 7, 9, 10, 11, 12, 13, 15, 16, 17, 18]).
+dist(s, 14,  [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18]).
 
-dist('B', 15,  [10, 11, 14, 18]).
-dist('M', 15,  [6, 7, 10, 11, 13, 14, 17, 18]).
-dist('S', 15,  [2, 3, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18]).
+dist(b, 15,  [10, 11, 14, 18]).
+dist(m, 15,  [6, 7, 10, 11, 13, 14, 17, 18]).
+dist(s, 15,  [2, 3, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18]).
 
-dist('B', 16,  [12, 13, 17]).
-dist('M', 16,  [8, 9, 12, 13, 14, 17, 18]).
-dist('S', 16,  [4, 5, 8, 9, 10, 12, 13, 14, 15, 17, 18]).
+dist(b, 16,  [12, 13, 17]).
+dist(m, 16,  [8, 9, 12, 13, 14, 17, 18]).
+dist(s, 16,  [4, 5, 8, 9, 10, 12, 13, 14, 15, 17, 18]).
 
-dist('B', 17,  [13, 14, 16, 18]).
-dist('M', 17,  [9, 10, 12, 13, 14, 15, 16, 18]).
-dist('S', 17,  [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18]).
+dist(b, 17,  [13, 14, 16, 18]).
+dist(m, 17,  [9, 10, 12, 13, 14, 15, 16, 18]).
+dist(s, 17,  [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18]).
 
-dist('B', 18,  [14, 15, 17]).
-dist('M', 18,  [10, 11, 13, 14, 15, 16, 17]).
-dist('S', 18,  [6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17]).
+dist(b, 18,  [14, 15, 17]).
+dist(m, 18,  [10, 11, 13, 14, 15, 16, 17]).
+dist(s, 18,  [6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17]).
 
 
 /* ************************************************ */
@@ -633,12 +633,12 @@ line([16, 17, 18]).
 /*                                                  */
 /* ************************************************ */
         
-valid_pile_crab('S', 'S').
-valid_pile_crab('M', 'S').
-valid_pile_crab('M', 'M').
-valid_pile_crab('B', 'S').
-valid_pile_crab('B', 'M').
-valid_pile_crab('B', 'B').
+valid_pile_crab(s, s).
+valid_pile_crab(m, s).
+valid_pile_crab(m, m).
+valid_pile_crab(b, s).
+valid_pile_crab(b, m).
+valid_pile_crab(b, b).
 
 
 /* ************************************************ */
@@ -654,7 +654,7 @@ valid_pile_crab('B', 'B').
 /* ************************************************ */
 
 get_empty_board_limits(Board, Position, EmptyLimits):-
-        dist('B', Position, Big_Limits),
+        dist(b, Position, Big_Limits),
         empty_neighbors(Board, Big_Limits, [], Empty_Big_Limits),
         length(Empty_Big_Limits, Num_Empties),
         Num_Empties \= 0,
@@ -675,7 +675,7 @@ get_empty_board_limits(Board, Position, EmptyLimits):-
 /* ************************************************ */
 
 get_empty_water_limits(Board, Position, EmptyLimits):-
-        dist('B', Position, Big_Limits),
+        dist(b, Position, Big_Limits),
         empty_neighbors(Board, Big_Limits, [], Empty_Big_Limits),
         length(Empty_Big_Limits, Num_Empties),
         Num_Empties \= 0,
@@ -801,7 +801,7 @@ get_occupied_rocks(Board, Counter, RocksCounter, OccupiedRocks):-
 all_neighbors([], Neighbors, Neighbors).
 
 all_neighbors([HGroup|TGroup], Neighbors_Counter, Neighbors):-
-        dist('B', HGroup, NeighborsGroup),
+        dist(b, HGroup, NeighborsGroup),
         append(NeighborsGroup, Neighbors_Counter, New_Neighbors_Counter),
         all_neighbors(TGroup, New_Neighbors_Counter, Neighbors),!.
 
@@ -1012,7 +1012,7 @@ empty_neighbors(Board, [HPositions | TPositions], Count, Empties):-
 
 /* ************************************************ */
 /*   color/2                                        */
-/*      +Arg 1: the color (g or b)                  */
+/*      +Arg 1: the color (g or r)                  */
 /*      -Arg 2: text representation                 */
 /*   Summary: Returns a string representation of    */
 /*            the color.                            */
@@ -1020,7 +1020,7 @@ empty_neighbors(Board, [HPositions | TPositions], Count, Empties):-
 /* ************************************************ */
 
 color(g, 'Green').
-color(b, 'Blue').
+color(r, 'Red').
 
 
 /* ************************************************ */
@@ -1100,23 +1100,23 @@ next_color(b, g).
 /*                                                  */
 /* ************************************************ */
 
-crab_stats(Crab, 'S', g):-
-        Crab == 'S1'.
+crab_stats(Crab, s, g):-
+        Crab == s1.
         
-crab_stats(Crab, 'M', g):-
-        Crab == 'M1'.
+crab_stats(Crab, m, g):-
+        Crab == m1.
         
-crab_stats(Crab, 'B', g):-
-        Crab == 'B1'.
+crab_stats(Crab, b, g):-
+        Crab == b1.
         
-crab_stats(Crab, 'S', b):-
-        Crab == 'S2'.
+crab_stats(Crab, s, r):-
+        Crab == s2.
         
-crab_stats(Crab, 'M', b):-
-        Crab == 'M2'.
+crab_stats(Crab, m, r):-
+        Crab == m2.
         
-crab_stats(Crab, 'B', b):-
-        Crab == 'B2'.
+crab_stats(Crab, b, r):-
+        Crab == b2.
         
 
 /* ************************************************ */

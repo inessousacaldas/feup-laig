@@ -38,6 +38,13 @@ MyPiece.prototype = Object.create(CGFobject.prototype);
 MyPiece.prototype.constructor = MyPiece;
 
 
+
+
+MyPiece.prototype.toString = function() {
+
+   return this.crabType + this.player + "";
+}
+
 MyPiece.prototype.chooseCrab = function() {
 
     switch (this.crabType){

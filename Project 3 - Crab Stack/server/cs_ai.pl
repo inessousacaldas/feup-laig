@@ -52,9 +52,9 @@ number_tile_crab(Board, Player, Type, Pos, Counter, Total_Number):-
 evaluate_board(Board, Player, Value):-
         moves_left(Board, Player, 0, [], 1, _Moves, List_Moves),
         length(List_Moves, NumMoves),
-        number_tile_crab(Board, Player, 'B', 1, 0, Number_Bigs),
-        number_tile_crab(Board, Player, 'M', 1, 0, Number_Mediums),
-        number_tile_crab(Board, Player, 'S', 1, 0, Number_Smalls),
+        number_tile_crab(Board, Player, 'b', 1, 0, Number_Bigs),
+        number_tile_crab(Board, Player, 'm', 1, 0, Number_Mediums),
+        number_tile_crab(Board, Player, 's', 1, 0, Number_Smalls),
         Value is NumMoves + Number_Smalls + 2*Number_Mediums + 3*Number_Bigs.
 
 

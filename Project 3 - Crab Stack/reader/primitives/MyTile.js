@@ -44,7 +44,7 @@ MyTile.prototype = Object.create(CGFobject.prototype);
 MyTile.prototype.constructor = MyTile;
 
 
-MyTile.prototype.topPieceType = function() {
+MyTile.prototype.topPiece = function() {
 
     return this.pieces[this.pieces.length - 1];
 }
