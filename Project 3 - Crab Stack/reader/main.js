@@ -59,6 +59,10 @@ serialInclude(['../lib/CGF.js',
 'animations/CircularAnimation.js',
 'animations/LinearAnimation.js',
 'animations/RotationAnimation.js',
+'graph/Graph.js',
+'graph/Edge.js',
+'graph/Queue.js',
+'graph/Vertex.js',
 
 
 main=function()

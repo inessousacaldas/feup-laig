@@ -20,6 +20,9 @@ function MyGameboard(scene){
 
     this.sendRequest('init_board');
 
+    this.graph = new Graph();
+
+
 }
 
 MyGameboard.prototype = Object.create(CGFobject.prototype);
@@ -143,7 +146,7 @@ MyGameboard.prototype.movePiece = function(data) {
 
         if (tileFrom.pieces.length > 0){
             var piece = tileFrom.removePiece();
-            piece.move(this.toTileSelected);
+            piece.move(this.toTileSelected, this.graph);
             this.toTileSelected.addPiece(piece);
             console.log("O tile " +  this.toTileSelected.id + " ficou com " +  this.toTileSelected.pieces.length + " peças");
             console.log("O tile " + tileFrom.id + " ficou com " + tileFrom.pieces.length + " peças");

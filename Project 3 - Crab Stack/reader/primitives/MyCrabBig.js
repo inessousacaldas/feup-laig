@@ -90,7 +90,7 @@ MyCrabBig.prototype.moveAnimation = function (){
 }
 
 
- MyCrabBig.prototype.makeMove = function (init_time){
+ MyCrabBig.prototype.makeMove = function (init_time, path){
 
      this.moving = true;
      this.moveClimbingDown = true;
