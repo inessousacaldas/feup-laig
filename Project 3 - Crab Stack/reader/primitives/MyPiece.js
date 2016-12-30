@@ -80,7 +80,7 @@ MyPiece.prototype.display = function() {
         this.scene.rotate(90*deg2rad,1,0,0);
         this.scene.rotate(180*deg2rad,0,0,1);
         this.scene.rotate(180*deg2rad,0,1,0);
-        this.scene.translate(0.5,0.7,0);
+        this.scene.translate(0.5,0.8,0);
         this.scene.translate(this.posX,this.posZ,0);
         if (this.player == 1)
             this.materialRed.apply();
@@ -136,7 +136,7 @@ MyPiece.prototype.move = function(tile, graph) {
     //this.posZ = tile.posZ;
     //+++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    path.reverse();
+    //path.reverse();
     this.crab.makeMove(this.time, path);
 }
 

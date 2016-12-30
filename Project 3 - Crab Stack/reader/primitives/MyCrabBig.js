@@ -19,10 +19,12 @@ function MyCrabBig(scene){
     this.animation;
     this.init_time = 0;
 
+    this.currentPath = [];
+    this.path;
+
     this.lastTransformation = mat4.create();
     mat4.identity(this.lastTransformation);
 
-    //Para testar - alterar
     this.moveAnimation();
 }
 
@@ -40,8 +42,12 @@ MyCrabBig.prototype.moveAnimation = function (){
         var z = 0;
         controlPoints.push(vec3.fromValues(x,y,z));
 
-        y = -1;
-        z = -1;
+        y = 1;
+
+        controlPoints.push(vec3.fromValues(x,y,z));
+
+        y = 2;
+        z = -2;
 
         controlPoints.push(vec3.fromValues(x,y,z));
         var timeSpan = 2;
@@ -58,8 +64,8 @@ MyCrabBig.prototype.moveAnimation = function (){
         var z = 0;
         controlPoints.push(vec3.fromValues(x,y,z));
 
-        y = 1;
-        z = 1;
+        y = -1;
+        z = 0;
 
         controlPoints.push(vec3.fromValues(x,y,z));
         var timeSpan = 2;
@@ -76,8 +82,17 @@ MyCrabBig.prototype.moveAnimation = function (){
         var z = 0;
         controlPoints.push(vec3.fromValues(x,y,z));
 
-        x = 1;
-        z = 1;
+
+        if (this.currentPath[0] <= 2){
+            if (this.currentPath[1] == this.currentPath[0] + 3){
+                //move para baixo-esquerda
+            }
+            else if (this.currentPath[1] == this.currentPath[0] + 4){
+                //move para baixo-direita
+            }
+        }
+        x = 0;
+        z = 0;
 
         controlPoints.push(vec3.fromValues(x,y,z));
         var timeSpan = 2;
@@ -95,6 +110,7 @@ MyCrabBig.prototype.moveAnimation = function (){
      this.moving = true;
      this.moveClimbingDown = true;
      this.init_time = init_time;
+     this.path = path;
 
      this.moveAnimation();
 
@@ -129,6 +145,7 @@ MyCrabBig.prototype.update = function(currTime) {
             this.movingPath = true;
             mat4.identity(this.lastTransformation);
             mat4.multiply(this.lastTransformation , this.lastTransformation,this.animationTransformation);
+            this.currentPath = this.path.pop();
             this.moveAnimation();
         }
     }
@@ -137,11 +154,18 @@ MyCrabBig.prototype.update = function(currTime) {
     else if (this.moving && this.movingPath){
         if(time > this.animation.timeSpan){
             this.init_time = currTime;
-            this.moveClimbingUp = true;
-            this.movingPath = false;
-            //mat4.identity(this.lastTransformation);
-            mat4.multiply(this.lastTransformation , this.lastTransformation,this.animationTransformation);
+            if (this.path.length > 0){
+                this.currentPath = this.path.pop();
+                console.log( this.currentPath);
+            } else {
+                this.moveClimbingUp = true;
+                this.movingPath = false;
+                //mat4.identity(this.lastTransformation);
+                mat4.multiply(this.lastTransformation , this.lastTransformation,this.animationTransformation);
+                //this.moveAnimation();
+            }
             this.moveAnimation();
+
         }
     }
 
