@@ -509,6 +509,35 @@ in_range(Tile) :-
 /*            can go given it's size and position.  */
 /*                                                  */
 /* ************************************************ */
+check(Rocks):-
+	init_board(Board),
+	print_board(Board),
+	dist_crab(Board, b, 4, Rocks).
+	
+dist_crab(Board, Size, Rock, Rocks):-
+	dist(Size, Rock, AllRocks),
+	check_dist(Board, Size, AllRocks, [], Rocks).
+	
+	
+check_dist(_, _, [], Rocks, Rocks).
+
+	
+check_dist(Board, Size, [H|AllRocks], TmpRocks, Rocks):-
+	get_rock(H, Board, Crab),
+	crab_stats(Crab, Size2, _),
+	valid_pile_crab(Size, Size2),
+	check_dist(Board, Size, AllRocks, [H|TmpRocks], Rocks).
+
+check_dist(Board, Size, [H|AllRocks], TmpRocks, Rocks):-
+	\+ get_rock(H, Board, _),
+	check_dist(Board, Size, AllRocks, TmpRocks, Rocks).
+	
+check_dist(Board, Size, [H|AllRocks], TmpRocks, Rocks):-
+	get_rock(H, Board, Crab),
+	crab_stats(Crab, Size2, _),
+	\+ valid_pile_crab(Size, Size2),
+	check_dist(Board, Size, AllRocks, TmpRocks, Rocks).
+	
 
 dist(b, 1, [2, 4, 5]).
 dist(m, 1, [2, 3, 4, 5, 6, 8, 9]).

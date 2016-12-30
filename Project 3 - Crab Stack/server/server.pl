@@ -108,7 +108,7 @@ parse_input(quit, goodbye).
 
 % Init Board Game
 parse_input(init_board, Board):- init_board(Board).
-parse_input(dist(Crab_Size,Tile), Moves) :- dist(Crab_Size,Tile,Moves).
+parse_input(dist_crab(Board, Crab_Size, Tile), Moves) :- dist_crab(Board, Crab_Size,Tile,Moves).
 parse_input(valid_crab_movement(Board, Rock_Init, Rock, Crab, Crab_Size), FinalBoard) :- valid_crab_movement(Board, Rock_Init, Rock, Crab, Crab_Size, FinalBoard).
 
 % Game Over

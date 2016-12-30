@@ -18,11 +18,8 @@ function MyGameboard(scene){
 
     this.tileSelected = null;
     this.toTileSelected = null;
-
+   //this.sendRequest('quit');
     this.sendRequest('init_board');
-
-    this.graph = new Graph();
-
 
 }
 
@@ -49,7 +46,7 @@ MyGameboard.prototype.sendRequest = function(requestString){
 
 
     }
-    else if(/dist\(\'\w\',\d+\)/g.test(requestString)){
+    else if(requestString.startsWith("dist_crab")){
         this.scene.prologConnection.getPrologRequest(requestString, function(data){
 
             var data = data.target.response;
@@ -90,7 +87,7 @@ MyGameboard.prototype.processPickedTile = function(picked_tile) {
 
     if (this.tileSelected == null && picked_tile.selected && piece != null){
 
-        var requestMoves = "dist('"+ piece.crabType + "'," + picked_tile.id + ")";
+        var requestMoves = "dist_crab(" + this.board + "," + piece.crabType + "," + picked_tile.id + ")";
         this.sendRequest(requestMoves);
         this.tileSelected = picked_tile.id;
         console.log("Selecionei o tile " + this.tileSelected);
