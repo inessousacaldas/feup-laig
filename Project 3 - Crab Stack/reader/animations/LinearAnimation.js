@@ -84,7 +84,7 @@ LinearAnimation.prototype.update = function(currTime) {
     vec3.add(position, position, translation_amount); 
 
     mat4.translate(matrix, matrix, position);
-    //mat4.rotateY(matrix,matrix,this.rotations[index]);
+    mat4.rotateY(matrix,matrix,this.rotations[index]);
     
     this.animationTransformation = matrix;
     return matrix;

@@ -80,7 +80,7 @@ MyPiece.prototype.display = function() {
         this.scene.rotate(90*deg2rad,1,0,0);
         this.scene.rotate(180*deg2rad,0,0,1);
         this.scene.rotate(180*deg2rad,0,1,0);
-        this.scene.translate(0.5,0.8,0);
+        this.scene.translate(0.5,0.7,0);
         this.scene.translate(this.posX,this.posZ,0);
         if (this.player == 1)
             this.materialRed.apply();
@@ -111,33 +111,14 @@ MyPiece.prototype.update = function(currTime) {
 }
 
 
-MyPiece.prototype.move = function(tile, graph) {
-
-    var origin = this.tile.id;
-    if (this.tile.id < 10)
-        origin = this.tile.id - 1;
-    graph.BFSearch(origin);
-    var id = tile.id;
-    if (tile.id < 10)
-        id = tile.id - 1;
-    var path = [];
-    console.log("Origem: " + origin);
-    console.log("ID: " + id);
-    while (id != origin){
-        path.push([graph.vertexSet[id].parent, id]);
-        id = graph.vertexSet[id].parent;
-        console.log("ID: " + id);
-    }
-    console.log("Destino: " + tile.id);
-    //this.tile = tile;
+MyPiece.prototype.move = function(tile) {
+    this.tile = tile;
     //COMENTAR ESTE BLOCO PARA PEÇA NAO IR PARA O DESTINO
     //+++++++++++++++++++++++++++++++++++++++++++++++++++
-    //this.posX = tile.posX;
-    //this.posZ = tile.posZ;
+    this.posX = tile.posX;
+    this.posZ = tile.posZ;
     //+++++++++++++++++++++++++++++++++++++++++++++++++++
-
-    //path.reverse();
-    this.crab.makeMove(this.time, path);
+    this.crab.makeMove(this.time);
 }
 
 

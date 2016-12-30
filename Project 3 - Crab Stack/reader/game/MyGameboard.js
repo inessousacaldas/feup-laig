@@ -13,6 +13,7 @@ function MyGameboard(scene){
     this.tiles = [];
     this.currentTile = 0;
 
+
     for (var i=0;i<=17;i++)
         this.tiles[i] = new MyTile(this.scene,i+1,this,null);
 
