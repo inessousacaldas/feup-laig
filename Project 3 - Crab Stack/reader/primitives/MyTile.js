@@ -95,6 +95,18 @@ MyTile.prototype.processPick = function() {
         this.select();
 }
 
+MyTile.prototype.empty = function() {
+   if(this.pieces.length == 0)
+        return true;
+    return false;
+}
+
+MyTile.prototype.washCrabs = function() {
+   while(!this.empty())
+        this.pieces.pop();
+}
+
+
 
 /**
  * Display function of the scene to render this object.

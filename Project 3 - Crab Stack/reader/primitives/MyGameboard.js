@@ -8,6 +8,7 @@ function MyGameboard(scene){
     this.scene = scene;
     this.board = [];
     this.time = 0;
+    this.pieces = 18;
 
     this.tiles = [];
     this.currentTile = 0;
@@ -27,6 +28,7 @@ function MyGameboard(scene){
 
 MyGameboard.prototype = Object.create(CGFobject.prototype);
 MyGameboard.prototype.constructor = MyGameboard;
+
 
 MyGameboard.prototype.sendRequest = function(requestString){
     var self = this;
@@ -66,13 +68,12 @@ MyGameboard.prototype.sendRequest = function(requestString){
 
         });
     }
-    else
-        console.log('Unknown request string');
-
-
+    else{
+        this.scene.prologConnection.getPrologRequest(requestString)
+         console.log('Unknown request string');
+    }
 
 }
-
 
 MyGameboard.prototype.processPick = function(picked_obj) {
     if (picked_obj instanceof MyTile){
@@ -110,6 +111,35 @@ MyGameboard.prototype.processPickedTile = function(picked_tile) {
         console.log("Unknown request string.")
 }
 
+
+MyGameboard.prototype.processPickedTile2 = function(picked_obj) {
+
+    var piece = picked_obj.topPiece();
+    picked_obj.processPick();
+    if (this.tileSelected == null && picked_obj.selected && piece != null){
+
+        var requestMoves = "dist('"+ piece.crabType + "'," + picked_obj.id + ")";
+        this.sendRequest(requestMoves);
+        this.tileSelected = picked_obj.id;
+        console.log("Selecionei o tile " + this.tileSelected);
+    }else if(this.tileSelected == picked_obj.id && !picked_obj.selected){
+            console.log("Desselecionei o tile " + this.tileSelected);
+            this.dehighlightMoves();
+            this.tileSelected = null;
+    } else if(this.tileSelected != null) {
+        this.toTileSelected = picked_obj;
+        for(var i = 0; i < this.tiles.length; i++)
+            if(this.tiles[i].id == this.tileSelected)
+               var crab = this.tiles[i].topPiece().toString();
+
+        var string = 'valid_crab_movement(' + this.board + ',' + this.tileSelected + ',' + picked_obj.id + ',' + crab + ',' + crab[0] + ')';
+        this.sendRequest(string);
+
+    }else console.log("Unknown request string.")
+
+}
+
+
 MyGameboard.prototype.dehighlightMoves = function() {
 
     for(var i = 0; i < this.tiles.length; i++)
@@ -141,7 +171,8 @@ MyGameboard.prototype.movePiece = function(data) {
     if(data != 'Bad Request'){
 
         this.board = data;
-
+        console.log(this.board);
+        this.checkWave()
         var tileFrom = this.tiles[this.tileSelected-1];
 
         if (tileFrom.pieces.length > 0){
@@ -153,10 +184,40 @@ MyGameboard.prototype.movePiece = function(data) {
 
         }
 
+        this.sendRequest('game_over(' + this.board + ')');
+
 
     }
     this.dehighlightMoves();
     this.unselectAllTiles();
+}
+
+MyGameboard.prototype.checkWave = function() {
+
+    var curr_pieces = 0;
+    var _board = this.board.replace(/\[|\]/g,'');
+    var array = _board.split(',').map(String);
+    n_crabs = array.filter(function(n){ return n != "" });
+
+   if(n_crabs.length != this.pieces){
+
+        this.pieces = n_crabs.length;
+        this.createWave();
+
+   }
+}
+
+MyGameboard.prototype.createWave = function(){
+
+    var array = this.board.match(/[\[]([bms]\d+([\,][bms]\d+)*)*[\]]/g);
+    for(var i = 0; i < array.length; i++){
+
+        if(array[i] == '[]' && !this.tiles[i].empty())
+            this.tiles[i].washCrabs();
+
+    }
+
+
 
 }
 
