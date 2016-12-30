@@ -13,6 +13,9 @@ function MyGameboard(scene){
     this.tiles = [];
     this.currentTile = 0;
 
+    this.gameHistory;
+    this.currPlayer;
+
 
     for (var i=0;i<=17;i++)
         this.tiles[i] = new MyTile(this.scene,i+1,this,null);
@@ -38,6 +41,7 @@ MyGameboard.prototype.sendRequest = function(requestString){
 
             //self.initBoard(data.target.response);
             self.board = data.target.response;
+            self.gameHistory = new GameHistory(self.board);
             var data = data.target.response;
             data = data.replace(/\[|\]/g,'');
             var array = data.split(",").map(String);
@@ -168,18 +172,17 @@ MyGameboard.prototype.movePiece = function(data) {
 
     if(data != 'Bad Request'){
 
-        this.board = data;
-        console.log(this.board);
-        this.checkWave()
         var tileFrom = this.tiles[this.tileSelected-1];
 
         if (tileFrom.pieces.length > 0){
+            this.board = data;
+            this.checkWave()
             var piece = tileFrom.removePiece();
             piece.move(this.toTileSelected, this.graph);
             this.toTileSelected.addPiece(piece);
+            this.gameHistory.addMove(this.board, tileFrom, this.toTileSelected);
             console.log("O tile " +  this.toTileSelected.id + " ficou com " +  this.toTileSelected.pieces.length + " peças");
             console.log("O tile " + tileFrom.id + " ficou com " + tileFrom.pieces.length + " peças");
-
         }
 
         this.sendRequest('game_over(' + this.board + ')');
