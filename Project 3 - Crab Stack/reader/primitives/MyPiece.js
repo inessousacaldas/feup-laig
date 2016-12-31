@@ -18,6 +18,9 @@ function MyPiece(scene, id, tile, crab, player){
     this.posX = this.tile.posX;
     this.posZ = this.tile.posZ;
 
+    this.newPosX = 0;
+    this.newPosZ = 0;
+
     this.height = 0;
 
     this.localTransformations = mat4.create();
@@ -44,7 +47,10 @@ MyPiece.prototype = Object.create(CGFobject.prototype);
 MyPiece.prototype.constructor = MyPiece;
 
 
+MyPiece.prototype.setTile = function(tile) {
 
+    this.tile = tile;
+}
 
 MyPiece.prototype.toString = function() {
 
@@ -69,6 +75,8 @@ MyPiece.prototype.chooseCrab = function() {
     }
 
     this.height = this.crab.height;
+    //this.tile.addHeight(this.height);
+    //console.log(this.tile.height);
 }
 
 /**
@@ -77,11 +85,14 @@ MyPiece.prototype.chooseCrab = function() {
 MyPiece.prototype.display = function() {
 
     this.scene.pushMatrix();
+
         this.scene.rotate(90*deg2rad,1,0,0);
         this.scene.rotate(180*deg2rad,0,0,1);
         this.scene.rotate(180*deg2rad,0,1,0);
-        this.scene.translate(0.5,0.7,0);
+        this.scene.translate(0.5,0.8,0);
         this.scene.translate(this.posX,this.posZ,0);
+
+    //this.scene.translate(this.posX - this.newPosX,this.posZ - this.newPosZ,0);
         if (this.player == 1)
             this.materialRed.apply();
         else
@@ -90,12 +101,17 @@ MyPiece.prototype.display = function() {
         if(this.crab.isMoving()){
             //mat4.multiply(this.localTransformations, this.crab.update(this.time), this.localTransformations);
             this.scene.multMatrix(this.crab.update(this.time));
-        } else {
-            // this.localTransformations = this.crab.lastTransformation;
-            //this.scene.multMatrix(this.localTransformations);
-        }
-        if (this.crab.finishedMoving)
+        } else if (this.crab.isFinishedMoving()){
+            /*this.scene.translate(-this.posX,-this.posZ,0);
+            this.posX = this.tile.posX;
+            this.posZ = this.tile.posZ;*/
+            //this.posX = this.newPosX;
+            //this.posZ = this.newPosZ;
+            this.crab.setFinishedMoving(false);
             this.localTransformations = this.crab.lastTransformation;
+        }
+        //if (this.crab.finishedMoving)
+            //
 
         this.scene.multMatrix(this.localTransformations);
         this.crab.display();
@@ -111,14 +127,34 @@ MyPiece.prototype.update = function(currTime) {
 }
 
 
-MyPiece.prototype.move = function(tile) {
-    this.tile = tile;
+MyPiece.prototype.move = function(tile, graph) {
+
+    var origin = this.tile.id;
+    if (this.tile.id < 10)
+        origin = this.tile.id - 1;
+    graph.BFSearch(origin);
+    var id = tile.id;
+    if (tile.id < 10)
+        id = tile.id - 1;
+    var path = [];
+    console.log("Origem: " + origin);
+    console.log("ID: " + id);
+    while (id != origin){
+        path.push([graph.vertexSet[id].parent, id]);
+        id = graph.vertexSet[id].parent;
+        console.log("ID: " + id);
+    }
+    console.log("Destino: " + tile.id);
+
     //COMENTAR ESTE BLOCO PARA PEÇA NAO IR PARA O DESTINO
     //+++++++++++++++++++++++++++++++++++++++++++++++++++
-    this.posX = tile.posX;
-    this.posZ = tile.posZ;
+    this.newPosX = tile.posX;
+    this.newPosZ = tile.posZ;
     //+++++++++++++++++++++++++++++++++++++++++++++++++++
-    this.crab.makeMove(this.time);
+    this.tile = tile;
+    //this.tile.addHeight(this.height);
+    //path.reverse();
+    this.crab.makeMove(this.time, path, this.tile.currentHeight);
 }
 
 

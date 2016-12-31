@@ -6,7 +6,7 @@
  * @param {MyGameboard} board The board this tile belongs to.
  * @param {MyPiece} piece The piece that is on top of this tile.
  */
-function MyTile(scene, id, board, piece){
+function MyTile(scene, id, board){
     CGFobject.call(this,scene);
     this.scene = scene;
     this.id = id;
@@ -52,9 +52,11 @@ MyTile.prototype.topPiece = function() {
 MyTile.prototype.addPiece = function(piece) {
 
     this.pieces.push(piece);
+    this.currentHeight += piece.height;
 }
 
 MyTile.prototype.removePiece = function() {
+    this.currentHeight -= this.pieces[this.pieces.length - 1];
     return this.pieces.pop();
 }
 
@@ -95,17 +97,9 @@ MyTile.prototype.processPick = function() {
         this.select();
 }
 
-MyTile.prototype.empty = function() {
-   if(this.pieces.length == 0)
-        return true;
-    return false;
+MyTile.prototype.addHeight = function(height) {
+    this.currentHeight += height;
 }
-
-MyTile.prototype.washCrabs = function() {
-   while(!this.empty())
-        this.pieces.pop();
-}
-
 
 
 /**

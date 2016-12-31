@@ -8,28 +8,25 @@ function MyGameboard(scene){
     this.scene = scene;
     this.board = [];
     this.time = 0;
-    this.pieces = 18;
 
     this.tiles = [];
     this.currentTile = 0;
 
-    this.gameHistory;
-    this.currPlayer;
-
-
     for (var i=0;i<=17;i++)
-        this.tiles[i] = new MyTile(this.scene,i+1,this,null);
+        this.tiles[i] = new MyTile(this.scene,i+1,this);
 
     this.tileSelected = null;
     this.toTileSelected = null;
-   //this.sendRequest('quit');
+
     this.sendRequest('init_board');
+
+    this.graph = new Graph();
+
 
 }
 
 MyGameboard.prototype = Object.create(CGFobject.prototype);
 MyGameboard.prototype.constructor = MyGameboard;
-
 
 MyGameboard.prototype.sendRequest = function(requestString){
     var self = this;
@@ -41,7 +38,6 @@ MyGameboard.prototype.sendRequest = function(requestString){
 
             //self.initBoard(data.target.response);
             self.board = data.target.response;
-            self.gameHistory = new GameHistory(self.board);
             var data = data.target.response;
             data = data.replace(/\[|\]/g,'');
             var array = data.split(",").map(String);
@@ -51,7 +47,7 @@ MyGameboard.prototype.sendRequest = function(requestString){
 
 
     }
-    else if(requestString.startsWith("dist_crab")){
+    else if(/dist\(\'\w\',\d+\)/g.test(requestString)){
         this.scene.prologConnection.getPrologRequest(requestString, function(data){
 
             var data = data.target.response;
@@ -70,12 +66,13 @@ MyGameboard.prototype.sendRequest = function(requestString){
 
         });
     }
-    else{
-        this.scene.prologConnection.getPrologRequest(requestString)
-         console.log('Unknown request string');
-    }
+    else
+        console.log('Unknown request string');
+
+
 
 }
+
 
 MyGameboard.prototype.processPick = function(picked_obj) {
     if (picked_obj instanceof MyTile){
@@ -92,7 +89,7 @@ MyGameboard.prototype.processPickedTile = function(picked_tile) {
 
     if (this.tileSelected == null && picked_tile.selected && piece != null){
 
-        var requestMoves = "dist_crab(" + this.board + "," + piece.crabType + "," + picked_tile.id + ")";
+        var requestMoves = "dist('"+ piece.crabType + "'," + picked_tile.id + ")";
         this.sendRequest(requestMoves);
         this.tileSelected = picked_tile.id;
         console.log("Selecionei o tile " + this.tileSelected);
@@ -112,35 +109,6 @@ MyGameboard.prototype.processPickedTile = function(picked_tile) {
     } else
         console.log("Unknown request string.")
 }
-
-
-MyGameboard.prototype.processPickedTile2 = function(picked_obj) {
-
-    var piece = picked_obj.topPiece();
-    picked_obj.processPick();
-    if (this.tileSelected == null && picked_obj.selected && piece != null){
-
-        var requestMoves = "dist('"+ piece.crabType + "'," + picked_obj.id + ")";
-        this.sendRequest(requestMoves);
-        this.tileSelected = picked_obj.id;
-        console.log("Selecionei o tile " + this.tileSelected);
-    }else if(this.tileSelected == picked_obj.id && !picked_obj.selected){
-            console.log("Desselecionei o tile " + this.tileSelected);
-            this.dehighlightMoves();
-            this.tileSelected = null;
-    } else if(this.tileSelected != null) {
-        this.toTileSelected = picked_obj;
-        for(var i = 0; i < this.tiles.length; i++)
-            if(this.tiles[i].id == this.tileSelected)
-               var crab = this.tiles[i].topPiece().toString();
-
-        var string = 'valid_crab_movement(' + this.board + ',' + this.tileSelected + ',' + picked_obj.id + ',' + crab + ',' + crab[0] + ')';
-        this.sendRequest(string);
-
-    }else console.log("Unknown request string.")
-
-}
-
 
 MyGameboard.prototype.dehighlightMoves = function() {
 
@@ -172,53 +140,23 @@ MyGameboard.prototype.movePiece = function(data) {
 
     if(data != 'Bad Request'){
 
+        this.board = data;
+
         var tileFrom = this.tiles[this.tileSelected-1];
 
         if (tileFrom.pieces.length > 0){
-            this.board = data;
-            this.checkWave()
             var piece = tileFrom.removePiece();
             piece.move(this.toTileSelected, this.graph);
             this.toTileSelected.addPiece(piece);
-            this.gameHistory.addMove(this.board, tileFrom, this.toTileSelected);
             console.log("O tile " +  this.toTileSelected.id + " ficou com " +  this.toTileSelected.pieces.length + " peças");
             console.log("O tile " + tileFrom.id + " ficou com " + tileFrom.pieces.length + " peças");
-        }
 
-        this.sendRequest('game_over(' + this.board + ')');
+        }
 
 
     }
     this.dehighlightMoves();
     this.unselectAllTiles();
-}
-
-MyGameboard.prototype.checkWave = function() {
-
-    var curr_pieces = 0;
-    var _board = this.board.replace(/\[|\]/g,'');
-    var array = _board.split(',').map(String);
-    n_crabs = array.filter(function(n){ return n != "" });
-
-   if(n_crabs.length != this.pieces){
-
-        this.pieces = n_crabs.length;
-        this.createWave();
-
-   }
-}
-
-MyGameboard.prototype.createWave = function(){
-
-    var array = this.board.match(/[\[]([bms]\d+([\,][bms]\d+)*)*[\]]/g);
-    for(var i = 0; i < array.length; i++){
-
-        if(array[i] == '[]' && !this.tiles[i].empty())
-            this.tiles[i].washCrabs();
-
-    }
-
-
 
 }
 
@@ -256,7 +194,10 @@ MyGameboard.prototype.startBoard = function(data) {
 
         var size = data[i][0];
         var player = data[i][1];
-        this.tiles[i].addPiece(new MyPiece(this.scene,i,this.tiles[i],size,player));
+        var piece = new MyPiece(this.scene,i,this.tiles[i],size,player);
+        this.tiles[i].addPiece(piece);
+        //PORQUÊ QUE NAO ADICIONA A ALTURA?????????
+        this.tiles[i].addHeight(piece.height);
     }
 }
 
