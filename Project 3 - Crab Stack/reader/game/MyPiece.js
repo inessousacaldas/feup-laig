@@ -94,7 +94,7 @@ MyPiece.prototype.display = function() {
         this.scene.rotate(180*deg2rad,0,0,1);
         this.scene.rotate(180*deg2rad,0,1,0);
         this.scene.translate(0.5,0.8,0);
-        this.scene.translate(this.posX,this.posZ,0);
+        this.scene.translate(this.posX, this.posZ, this.tile.currentHeight - this.height);
 
         if (this.player == 1)
             this.materialRed.apply();
@@ -105,7 +105,7 @@ MyPiece.prototype.display = function() {
             //mat4.multiply(this.localTransformations, this.crab.update(this.time), this.localTransformations);
             this.teste = this.crab.update(this.time);
             this.scene.multMatrix(this.teste);
-            this.scene.multMatrix(this.localTransformations);
+            //this.scene.multMatrix(this.localTransformations);
             this.crab.display();
             this.scene.setDefaultAppearance();
         } else if (this.crab.isFinishedMoving()){
@@ -113,15 +113,18 @@ MyPiece.prototype.display = function() {
             this.crab.setFinishedMoving(false);
 
             this.scene.multMatrix(this.teste);
-            this.scene.multMatrix(this.localTransformations);
+            //this.scene.multMatrix(this.localTransformations);
             this.crab.display();
+            this.posX = this.newPosX;
+            this.posZ = this.newPosZ;
             this.scene.setDefaultAppearance();
 
         }else{
-        this.scene.multMatrix(this.teste);
-                this.scene.multMatrix(this.localTransformations);
-                this.crab.display();
-                this.scene.setDefaultAppearance();
+            mat4.identity(this.teste);
+            this.scene.multMatrix(this.teste);
+            //this.scene.multMatrix(this.localTransformations);
+            this.crab.display();
+            this.scene.setDefaultAppearance();
         }
 
 
