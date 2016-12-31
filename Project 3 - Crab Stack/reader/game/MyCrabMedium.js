@@ -8,14 +8,22 @@ function MyCrabMedium(scene){
     this.scene = scene;
 
     this.height = 1;
+    this.currHeight = 0;
 
     this.cylinder = new MyFullCylinder(this.scene,1,0.3,0.3,16,16);
 
-    this.move = false;
-    this.animation;
-    this.init_time = 0;
+    this.moving = false;
+    this.finishedMoving = false;
 
-    //Para testar - alterar
+    this.animation = [];
+    this.init_time = 0;
+    this.tileHeight = 0;
+
+    this.path = [];
+
+    this.lastTransformation = mat4.create();
+    mat4.identity(this.lastTransformation);
+
     this.moveAnimation();
 }
 
@@ -25,35 +33,186 @@ MyCrabMedium.prototype.constructor = MyCrabMedium;
 
 MyCrabMedium.prototype.moveAnimation = function (){
 
-    var controlPoints = [];
+    if (this.moving){
+        var controlPoints = [];
 
-    var x = 0;
-    var y = 0;
-    var z = 0;
-    controlPoints.push(vec3.fromValues(x,y,z));
+        var x = 0;
+        var y = 0;
+        var z = 0;
 
-    z = 1;
+        var seconds = 1;
+        controlPoints.push(vec3.fromValues(x,y,z));
 
-    controlPoints.push(vec3.fromValues(x,y,z));
-    var timeSpan = 100;
-    var id = "BigCrab";
 
-    this.animation = new LinearAnimation(id, timeSpan, controlPoints);
+        y += 1;
+        seconds++;
+
+        controlPoints.push(vec3.fromValues(x,y,z));
+
+        y += 0.5;
+        z += -1;
+        z += -this.currHeight;
+
+        seconds++;
+        controlPoints.push(vec3.fromValues(x,y,z));
+
+        while (this.path.length > 0){
+            var currentPath = this.path.pop();
+            if (currentPath[0] <= 2){
+                if (currentPath[1] == currentPath[0] + 3){
+                    console.log("1a fila - baixo esquerda");
+                    x += 2.5;
+                    y += -1.5;
+
+                }
+                else if (currentPath[1] == currentPath[0] + 4){
+                    console.log("1a fila - baixo direita");
+                    x += 2.5;
+                    y += 1.5;
+                }
+            }
+            else if (currentPath[0] <= 6){
+                if (currentPath[1] == currentPath[0] - 4){
+                    console.log("2a fila - cima esquerda");
+                    x += -2.5;
+                    y += -1.5;
+
+                }
+                else if (currentPath[1] == currentPath[0] - 3){
+                    console.log("2a fila - cima direita");
+                    x += -2.5;
+                    y += 1.5;
+                }
+                else if (currentPath[1] == currentPath[0] + 4){
+                    console.log("2a fila - baixo esquerda");
+                    x += 2.5;
+                    y += -1.5;
+                }
+                else if (currentPath[1] == currentPath[0] + 5){
+                    console.log("2a fila - baixo direita");
+                    x += 2.5;
+                    y += 1.5;
+                }
+            }
+            else if (currentPath[0] <= 11){
+                if (currentPath[1] == currentPath[0] - 5){
+                    console.log("3a fila - cima esquerda");
+                    x += -2.5;
+                    y += -1.5;
+
+                }
+                else if (currentPath[1] == currentPath[0] - 4){
+                    console.log("3a fila - cima direita");
+                    x += -2.5;
+                    y += 1.5;
+                }
+                else if (currentPath[1] == currentPath[0] + 4){
+                    console.log("3a fila - baixo esquerda");
+                    x += 2.5;
+                    y += -1.5;
+                }
+                else if (currentPath[1] == currentPath[0] + 5){
+                    console.log("3a fila - baixo direita");
+                    x += 2.5;
+                    y += 1.5;
+                }
+            }
+            else if (currentPath[0] <= 15){
+                if (currentPath[1] == currentPath[0] - 5){
+                    console.log("4a fila - cima esquerda");
+                    x += -2.5;
+                    y += -1.5;
+
+                }
+                else if (currentPath[1] == currentPath[0] - 4){
+                    console.log("4a fila - cima direita");
+                    x += -2.5;
+                    y += 1.5;
+                }
+                else if (currentPath[1] == currentPath[0] - 1){
+                    console.log("3a fila - só esquerda");
+                    y += -3;
+                }
+                else if (currentPath[1] == currentPath[0] + 1){
+                    console.log("3a fila - só direita");
+                    y += 3;
+                }
+                else if (currentPath[1] == currentPath[0] + 3){
+                    console.log("4a fila - baixo esquerda");
+                    x += 2.5;
+                    y += -1.5;
+                }
+                else if (currentPath[1] == currentPath[0] + 4){
+                    console.log("4a fila - baixo direita");
+                    x += 2.5;
+                    y += 1.5;
+                }
+            }
+            else if (currentPath[0] <= 18){
+                if (currentPath[1] == currentPath[0] - 4){
+                    console.log("5a fila - cima esquerda");
+                    x += -2.5;
+                    y += -1.5;
+
+                }
+                else if (currentPath[1] == currentPath[0] - 3){
+                    console.log("5a fila - cima direita");
+                    x += -2.5;
+                    y += 1.5;
+                }
+            }
+
+            seconds++;
+            controlPoints.push(vec3.fromValues(x,y,z));
+        }
+
+        y += -0.5;
+        z += 1;
+
+        seconds++;
+        controlPoints.push(vec3.fromValues(x,y,z));
+
+        y += -1;
+        z += this.tileHeight;
+
+        seconds++;
+        controlPoints.push(vec3.fromValues(x,y,z));
+
+        var id = "MediumCrab";
+
+        this.animation = new LinearAnimation(id, seconds, controlPoints);
+    }
 
 }
 
- MyCrabMedium.prototype.makeMove = function (init_time){
+MyCrabMedium.prototype.makeMove = function (init_time, path, currHeight, height){
 
-     this.move = true;
-     this.init_time = init_time;
+    this.moving = true;
+    this.init_time = init_time;
+    this.path = path;
+    this.tileHeight = height;
+    this.currHeight = currHeight;
+    this.moveAnimation();
 
- }
+}
 
- MyCrabMedium.prototype.isMoving = function (){
+MyCrabMedium.prototype.isMoving = function (){
 
-     return this.move;
+    return this.moving;
 
- }
+}
+
+MyCrabMedium.prototype.isFinishedMoving = function (){
+
+    return this.finishedMoving;
+
+}
+
+MyCrabMedium.prototype.setFinishedMoving = function (finish){
+
+    this.finishedMoving = finish;
+
+}
 
 
 /**
@@ -61,19 +220,40 @@ MyCrabMedium.prototype.moveAnimation = function (){
  */
 MyCrabMedium.prototype.display = function() {
 
-    this.scene.pushMatrix();
+    // this.scene.pushMatrix();
     this.cylinder.display();
-    this.scene.popMatrix();
+    // this.scene.popMatrix();
 }
 
 MyCrabMedium.prototype.update = function(currTime) {
 
     var time = currTime;
-    time = this.init_time - this.animation.timeSpan;
+    time = time - this.init_time;
 
+    //to change from climbing down animation to walking one
+    if (this.moving){
+        if(time > this.animation.timeSpan){
+            this.init_time = currTime;
+            mat4.identity(this.lastTransformation);
+            mat4.multiply(this.lastTransformation , this.lastTransformation,this.animationTransformation);
+            this.finishedMoving = true;
+            this.moving = false;
+            return this.lastTransformation;
+        }
+    }
+
+
+    //if (this.finishedMoving)
+    //mat4.multiply(this.lastTransformation , this.lastTransformation,this.animationTransformation);
     this.animationTransformation = this.animation.update(time);
-    return this.animationTransformation;
+
+    anim = mat4.create();
+    mat4.identity(anim);
+    mat4.multiply(anim, this.lastTransformation, this.animationTransformation);
+    this.local = anim;
+    return anim;
 }
+
 
 
 

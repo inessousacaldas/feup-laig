@@ -25,6 +25,8 @@ function MyGameboard(scene){
    //this.sendRequest('quit');
     this.sendRequest('init_board');
 
+    this.graph = new Graph();
+
 }
 
 MyGameboard.prototype = Object.create(CGFobject.prototype);
