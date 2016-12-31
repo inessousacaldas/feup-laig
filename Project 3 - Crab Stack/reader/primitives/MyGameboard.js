@@ -42,6 +42,7 @@ MyGameboard.prototype.sendRequest = function(requestString){
             data = data.replace(/\[|\]/g,'');
             var array = data.split(",").map(String);
             self.startBoard(array);
+            self.tiles;
 
         });
 
@@ -98,7 +99,7 @@ MyGameboard.prototype.processPickedTile = function(picked_tile) {
         this.dehighlightMoves();
         this.tileSelected = null;
     } else if (this.tileSelected != null) {
-        this.toTileSelected = picked_tile;
+        this.toTileSelected = this.tiles[picked_tile.id - 1];
         for(var i = 0; i < this.tiles.length; i++)
             if(this.tiles[i].id == this.tileSelected)
                 var crab = this.tiles[i].topPiece().toString();
@@ -196,8 +197,7 @@ MyGameboard.prototype.startBoard = function(data) {
         var player = data[i][1];
         var piece = new MyPiece(this.scene,i,this.tiles[i],size,player);
         this.tiles[i].addPiece(piece);
-        //PORQUÊ QUE NAO ADICIONA A ALTURA?????????
-        this.tiles[i].addHeight(piece.height);
+       // this.tiles[i].addHeight(piece.height);
     }
 }
 

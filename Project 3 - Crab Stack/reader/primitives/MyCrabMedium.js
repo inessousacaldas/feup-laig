@@ -170,11 +170,12 @@ MyCrabMedium.prototype.moveAnimation = function (){
         controlPoints.push(vec3.fromValues(x,y,z));
 
         y += -1;
+        z += this.tileHeight;
 
         seconds++;
         controlPoints.push(vec3.fromValues(x,y,z));
 
-        var id = "BigCrab";
+        var id = "MediumCrab";
 
         this.animation = new LinearAnimation(id, seconds, controlPoints);
     }
@@ -182,11 +183,12 @@ MyCrabMedium.prototype.moveAnimation = function (){
 }
 
 
-MyCrabMedium.prototype.makeMove = function (init_time, path){
+MyCrabMedium.prototype.makeMove = function (init_time, path, height){
 
     this.moving = true;
     this.init_time = init_time;
     this.path = path;
+    this.tileHeight = height;
 
     this.moveAnimation();
 

@@ -44,6 +44,11 @@ MyTile.prototype = Object.create(CGFobject.prototype);
 MyTile.prototype.constructor = MyTile;
 
 
+MyTile.prototype.getCurrentHeight = function() {
+    console.log(this.currentHeight);
+    return this.currentHeight;
+}
+
 MyTile.prototype.topPiece = function() {
 
     return this.pieces[this.pieces.length - 1];
@@ -111,11 +116,11 @@ MyTile.prototype.display = function() {
         for (var i=0;i<this.pieces.length;i++){
             this.scene.pushMatrix();
             this.scene.translate(0,-this.currentHeight,0);
-            this.currentHeight += this.pieces[i].height;
+           // this.currentHeight += this.pieces[i].height;
 
             this.scene.popMatrix();
         }
-        this.currentHeight = 0;
+       // this.currentHeight = 0;
 
         this.scene.scale(1,0.5,1);
         if (this.selected)

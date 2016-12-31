@@ -23,8 +23,12 @@ function MyPiece(scene, id, tile, crab, player){
 
     this.height = 0;
 
+
     this.localTransformations = mat4.create();
     mat4.identity(this.localTransformations);
+
+    this.teste = mat4.create();
+    mat4.identity(this.teste);
     
     this.chooseCrab()
 
@@ -92,7 +96,6 @@ MyPiece.prototype.display = function() {
         this.scene.translate(0.5,0.8,0);
         this.scene.translate(this.posX,this.posZ,0);
 
-    //this.scene.translate(this.posX - this.newPosX,this.posZ - this.newPosZ,0);
         if (this.player == 1)
             this.materialRed.apply();
         else
@@ -100,22 +103,27 @@ MyPiece.prototype.display = function() {
 
         if(this.crab.isMoving()){
             //mat4.multiply(this.localTransformations, this.crab.update(this.time), this.localTransformations);
-            this.scene.multMatrix(this.crab.update(this.time));
+            this.teste = this.crab.update(this.time);
+            this.scene.multMatrix(this.teste);
+            this.scene.multMatrix(this.localTransformations);
+            this.crab.display();
+            this.scene.setDefaultAppearance();
         } else if (this.crab.isFinishedMoving()){
-            /*this.scene.translate(-this.posX,-this.posZ,0);
-            this.posX = this.tile.posX;
-            this.posZ = this.tile.posZ;*/
-            //this.posX = this.newPosX;
-            //this.posZ = this.newPosZ;
-            this.crab.setFinishedMoving(false);
-            this.localTransformations = this.crab.lastTransformation;
-        }
-        //if (this.crab.finishedMoving)
-            //
 
-        this.scene.multMatrix(this.localTransformations);
-        this.crab.display();
-        this.scene.setDefaultAppearance();
+            this.crab.setFinishedMoving(false);
+
+            this.scene.multMatrix(this.teste);
+            this.scene.multMatrix(this.localTransformations);
+            this.crab.display();
+            this.scene.setDefaultAppearance();
+
+        }else{
+        this.scene.multMatrix(this.teste);
+                this.scene.multMatrix(this.localTransformations);
+                this.crab.display();
+                this.scene.setDefaultAppearance();
+        }
+
 
     this.scene.popMatrix();
 }
@@ -151,10 +159,12 @@ MyPiece.prototype.move = function(tile, graph) {
     this.newPosX = tile.posX;
     this.newPosZ = tile.posZ;
     //+++++++++++++++++++++++++++++++++++++++++++++++++++
+    console.log(this.tile.getCurrentHeight());
+    var _currentHeight = this.tile.currentHeight;
     this.tile = tile;
     //this.tile.addHeight(this.height);
     //path.reverse();
-    this.crab.makeMove(this.time, path, this.tile.currentHeight);
+    this.crab.makeMove(this.time, path, _currentHeight, this.tile.currentHeight);
 }
 
 

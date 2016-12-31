@@ -8,6 +8,7 @@ function MyCrabBig(scene){
     this.scene = scene;
 
     this.height = 1.3;
+    this.currHeight = 0;
 
     this.cylinder = new MyFullCylinder(this.scene,1.3,0.5,0.5,16,16);
 
@@ -184,13 +185,13 @@ MyCrabBig.prototype.moveAnimation = function (){
 }
 
 
- MyCrabBig.prototype.makeMove = function (init_time, path, height){
+ MyCrabBig.prototype.makeMove = function (init_time, path, currHeight, height){
 
      this.moving = true;
      this.init_time = init_time;
      this.path = path;
      this.tileHeight = height;
-
+     this.currHeight = currHeight;
      this.moveAnimation();
 
  }
@@ -219,9 +220,9 @@ MyCrabBig.prototype.setFinishedMoving = function (finish){
  */
 MyCrabBig.prototype.display = function() {
 
-   // this.scene.pushMatrix();
-        this.cylinder.display();
-   // this.scene.popMatrix();
+
+    this.cylinder.display();
+
 }
 
 MyCrabBig.prototype.update = function(currTime) {
@@ -237,6 +238,7 @@ MyCrabBig.prototype.update = function(currTime) {
             mat4.multiply(this.lastTransformation , this.lastTransformation,this.animationTransformation);
             this.finishedMoving = true;
             this.moving = false;
+            return this.lastTransformation;
         }
     }
 
@@ -245,9 +247,10 @@ MyCrabBig.prototype.update = function(currTime) {
        //mat4.multiply(this.lastTransformation , this.lastTransformation,this.animationTransformation);
     this.animationTransformation = this.animation.update(time);
 
-    var anim = mat4.create();
-     mat4.identity(anim);
-     mat4.multiply(anim, this.lastTransformation, this.animationTransformation);
+    anim = mat4.create();
+    mat4.identity(anim);
+    mat4.multiply(anim, this.lastTransformation, this.animationTransformation);
+    this.local = anim;
     return anim;
 }
 
