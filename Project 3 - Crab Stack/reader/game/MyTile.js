@@ -14,6 +14,7 @@ function MyTile(scene, id, board, piece){
     this.pieces = [];
 
     this.hexagon = new MyHexagon(this.scene);
+	this.rock = new MyRock(this.scene);
 
     this.selected = false;
     this.highlighted = false;
@@ -37,6 +38,8 @@ function MyTile(scene, id, board, piece){
     this.posZ = 0;
 
     this.currentHeight = 0;
+	
+	
 
 }
 
@@ -134,8 +137,10 @@ MyTile.prototype.display = function() {
             this.material.apply();
         else if(this.highlighted)
             this.highlightedMaterial.apply();
-
-        this.hexagon.display();
+		this.scene.pushMatrix();
+			this.scene.translate(0,6,0);
+			this.rock.display();
+		this.scene.popMatrix();
         this.scene.setDefaultAppearance();
 
     this.scene.popMatrix();
