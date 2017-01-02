@@ -15,27 +15,17 @@
             <to x="0" y="0" z="-5" />
         </perspective>
 
-		<perspective id="millView" near="0.1" far="500" angle="25">
-            <from x="64" y="40" z="38" />
-            <to x="41" y="7" z="-16" />
+        <perspective id="player2" near="0.1" far="800" angle="100">
+            <from x="-30" y="30" z="-5" />
+            <to x="0" y="0" z="-5" />
         </perspective>
 
-		<perspective id="templeView" near="0.1" far="500" angle="25">
-           <from x="-104" y="105" z="80" />
-           <to x="-12" y="20" z="-6" />
-        </perspective>
-		
-		<perspective id="templeGameView" near="0.1" far="500" angle="25">
-            <from x="-31" y="36.25" z="10" />
-            <to x="-23" y="28" z="-21" />
-        </perspective>
-        
     </views>
     
 
     <illumination doublesided = "0" local = "0">
 	
-        <ambient r="0.1" g="0.5" b="0.7" a="1" />
+        <ambient r="1" g="1" b="1" a="1" />
 		<background r="0.1" g="0.4" b="0.5" a="1" />
     
 	</illumination>

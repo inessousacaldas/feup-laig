@@ -9,6 +9,8 @@ function MyGameboard(scene){
     this.board = [];
     this.time = 0;
     this.pieces = 18;
+    this.text = new Marker(scene);
+    this.text.setText("text");
 
     this.tiles = [];
     this.currentTile = 0;
@@ -24,8 +26,6 @@ function MyGameboard(scene){
     this.toTileSelected = null;
    //this.sendRequest('quit');
     this.sendRequest('init_board');
-
-    this.graph = new Graph();
 
 }
 
@@ -274,11 +274,17 @@ MyGameboard.prototype.unselectAllTiles = function() {
  * Display function of the scene to render this object.
  */
 MyGameboard.prototype.display = function() {
+    this.scene.pushMatrix();
+    this.scene.translate(-4.5, -1.5, 0);
+    //this.scene.rotate(Math.PI, 1, 0, 0);
+    this.scene.scale(2, 2, 2);
+    this.text.display();
 
-
+    this.scene.popMatrix();
     this.scene.pushMatrix();
 
         this.scene.rotate(Math.PI, 1, 0, 0);
+       // this.scene.translate(-5.5, 0, -4.5);
 
         for (var i=0;i<=17;i++){
             this.scene.pushMatrix();

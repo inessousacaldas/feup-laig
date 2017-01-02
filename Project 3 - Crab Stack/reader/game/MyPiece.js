@@ -18,17 +18,10 @@ function MyPiece(scene, id, tile, crab, player){
     this.posX = this.tile.posX;
     this.posZ = this.tile.posZ;
 
-    this.newPosX = 0;
-    this.newPosZ = 0;
-
     this.height = 0;
-
 
     this.localTransformations = mat4.create();
     mat4.identity(this.localTransformations);
-
-    this.teste = mat4.create();
-    mat4.identity(this.teste);
     
     this.chooseCrab()
 
@@ -51,10 +44,7 @@ MyPiece.prototype = Object.create(CGFobject.prototype);
 MyPiece.prototype.constructor = MyPiece;
 
 
-MyPiece.prototype.setTile = function(tile) {
 
-    this.tile = tile;
-}
 
 MyPiece.prototype.toString = function() {
 
@@ -79,8 +69,6 @@ MyPiece.prototype.chooseCrab = function() {
     }
 
     this.height = this.crab.height;
-    //this.tile.addHeight(this.height);
-    //console.log(this.tile.height);
 }
 
 /**
@@ -89,44 +77,29 @@ MyPiece.prototype.chooseCrab = function() {
 MyPiece.prototype.display = function() {
 
     this.scene.pushMatrix();
-
         this.scene.rotate(90*deg2rad,1,0,0);
         this.scene.rotate(180*deg2rad,0,0,1);
         this.scene.rotate(180*deg2rad,0,1,0);
-        this.scene.translate(0.5,0.8,0);
-        this.scene.translate(this.posX, this.posZ, this.tile.currentHeight - this.height);
-
-        if (this.player == 1)
+        this.scene.translate(0.5,0.7,0);
+        this.scene.translate(this.posX,this.posZ,0);
+       /* if (this.player == 1)
             this.materialRed.apply();
         else
-            this.materialBlue.apply();
+            this.materialBlue.apply();*/
 
         if(this.crab.isMoving()){
             //mat4.multiply(this.localTransformations, this.crab.update(this.time), this.localTransformations);
-            this.teste = this.crab.update(this.time);
-            this.scene.multMatrix(this.teste);
+            this.scene.multMatrix(this.crab.update(this.time));
+        } else {
+            // this.localTransformations = this.crab.lastTransformation;
             //this.scene.multMatrix(this.localTransformations);
-            this.crab.display();
-            this.scene.setDefaultAppearance();
-        } else if (this.crab.isFinishedMoving()){
-
-            this.crab.setFinishedMoving(false);
-
-            this.scene.multMatrix(this.teste);
-            //this.scene.multMatrix(this.localTransformations);
-            this.crab.display();
-            this.posX = this.newPosX;
-            this.posZ = this.newPosZ;
-            this.scene.setDefaultAppearance();
-
-        }else{
-            mat4.identity(this.teste);
-            this.scene.multMatrix(this.teste);
-            //this.scene.multMatrix(this.localTransformations);
-            this.crab.display();
-            this.scene.setDefaultAppearance();
         }
+        if (this.crab.finishedMoving)
+            this.localTransformations = this.crab.lastTransformation;
 
+        this.scene.multMatrix(this.localTransformations);
+        this.crab.display();
+        this.scene.setDefaultAppearance();
 
     this.scene.popMatrix();
 }
@@ -138,36 +111,14 @@ MyPiece.prototype.update = function(currTime) {
 }
 
 
-MyPiece.prototype.move = function(tile, graph) {
-
-    var origin = this.tile.id;
-    if (this.tile.id < 10)
-        origin = this.tile.id - 1;
-    graph.BFSearch(origin);
-    var id = tile.id;
-    if (tile.id < 10)
-        id = tile.id - 1;
-    var path = [];
-    console.log("Origem: " + origin);
-    console.log("ID: " + id);
-    while (id != origin){
-        path.push([graph.vertexSet[id].parent, id]);
-        id = graph.vertexSet[id].parent;
-        console.log("ID: " + id);
-    }
-    console.log("Destino: " + tile.id);
-
+MyPiece.prototype.move = function(tile) {
+    this.tile = tile;
     //COMENTAR ESTE BLOCO PARA PEÇA NAO IR PARA O DESTINO
     //+++++++++++++++++++++++++++++++++++++++++++++++++++
-    this.newPosX = tile.posX;
-    this.newPosZ = tile.posZ;
+    this.posX = tile.posX;
+    this.posZ = tile.posZ;
     //+++++++++++++++++++++++++++++++++++++++++++++++++++
-    console.log(this.tile.getCurrentHeight());
-    var _currentHeight = this.tile.currentHeight;
-    this.tile = tile;
-    //this.tile.addHeight(this.height);
-    //path.reverse();
-    this.crab.makeMove(this.time, path, _currentHeight, this.tile.currentHeight);
+    this.crab.makeMove(this.time);
 }
 
 
