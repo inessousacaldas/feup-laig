@@ -1,3 +1,5 @@
+deg2rad = Math.PI / 180
+
 /**
  * DSXScene extends CFGscene
  * @constructor
@@ -25,6 +27,7 @@ DSXScene.prototype.init = function (application) {
 
 	this.primitives = [];
  	this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
+ 	this.updatables = [];
 
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -88,7 +91,10 @@ DSXScene.prototype.initCameras = function () {
 };
 DSXScene.prototype.updateCamera = function () {
 	this.graph.views.changeView();
-	this.initCameras();
+	//this.addUpdatable(this.graph.views.getCurrentView());
+	this.setCamera();
+	//setCamera();
+	//this.initCameras();
 }
 
 
@@ -343,4 +349,53 @@ DSXScene.prototype.changeMaterials=function () {
 DSXScene.prototype.update = function(currTime) {
     if (this.lastUpdate != 0)
         this.timer += (currTime - this.lastUpdate) / 1000;
+
+        for (var i = 0; i < this.updatables.length; ++i)
+            this.updatables[i].update(currTime);
 }
+
+
+DSXScene.prototype.setCamera = function() {
+	var scene = this;
+	if (this.updatingCamera)
+		return;
+
+	this.updatingCamera = true;
+	var view = this.graph.views.getCurrentView();
+    var new_pos = vec3.fromValues(view.fromX, view.fromY, view.fromZ);
+	this.addUpdatable({
+		startTime: Date.now(),
+		startPosition: vec3.clone(scene.camera.position),
+		endPosition: new_pos,
+		span : 2000,
+		totalAngle: 0,
+		update : function(currTime) {
+			var delta = currTime - this.startTime;
+			var angle = 180/this.span * deg2rad
+			if (delta >= this.span) {
+				console.log("Camera changed");
+				scene.removeUpdatable(this);
+				scene.updatingCamera = false;
+				return;
+			}
+
+            scene.camera.setTarget(vec3.fromValues(0, 0, 0));
+            var angleS = angle*delta - this.totalAngle;
+            this.totalAngle += angleS;
+			scene.camera.orbit('y', angleS);
+		}
+	});
+}
+
+DSXScene.prototype.removeUpdatable = function(updatable) {
+	var index = this.updatables.indexOf(updatable);
+	if(index != -1) {
+		this.updatables.splice(index, 1);
+	}
+}
+
+DSXScene.prototype.addUpdatable = function(updatable) {
+	this.updatables.push(updatable);
+}
+
+

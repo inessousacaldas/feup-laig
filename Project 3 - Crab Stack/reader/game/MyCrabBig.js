@@ -3,7 +3,7 @@
  * @constructor
  * @param {CGFscene} scene The scene to which this tile belongs.
  */
-function MyCrabBig(scene){
+function MyCrabBig(scene, player){
     CGFobject.call(this,scene);
     this.scene = scene;
 
@@ -11,6 +11,7 @@ function MyCrabBig(scene){
     this.currHeight = 0;
 
     this.cylinder = new MyFullCylinder(this.scene,1.3,0.5,0.5,16,16);
+	this.crab = new MyCrab(this.scene, player);
 
     this.moving = false;
     this.finishedMoving = false;
@@ -223,6 +224,8 @@ MyCrabBig.prototype.display = function() {
 
 
     this.cylinder.display();
+	this.scene.translate(0,0,5);
+	this.crab.display();
 
 }
 

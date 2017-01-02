@@ -68,15 +68,15 @@ MyPiece.prototype.chooseCrab = function() {
     switch (this.crabType){
         case "B":
         case "b":
-            this.crab = new MyCrabBig(this.scene);
+            this.crab = new MyCrabBig(this.scene, this.player);
             break;
         case "M":
         case "m":
-            this.crab = new MyCrabMedium(this.scene);
+            this.crab = new MyCrabMedium(this.scene, this.player);
             break;
         case "S":
         case "s":
-            this.crab = new MyCrabSmall(this.scene);
+            this.crab = new MyCrabSmall(this.scene, this.player);
             break;
     }
 
@@ -97,11 +97,6 @@ MyPiece.prototype.display = function() {
         this.scene.rotate(180*deg2rad,0,1,0);
         this.scene.translate(0.5,0.8,0);
         this.scene.translate(this.posX, this.posZ, this.posY);
-
-        if (this.player == 1)
-            this.materialRed.apply();
-        else
-            this.materialBlue.apply();
 
         if(this.crab.isMoving()){
             //mat4.multiply(this.localTransformations, this.crab.update(this.time), this.localTransformations);

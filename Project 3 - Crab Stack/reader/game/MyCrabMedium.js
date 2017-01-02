@@ -3,7 +3,7 @@
  * @constructor
  * @param {CGFscene} scene The scene to which this tile belongs.
  */
-function MyCrabMedium(scene){
+function MyCrabMedium(scene, player){
     CGFobject.call(this,scene);
     this.scene = scene;
 

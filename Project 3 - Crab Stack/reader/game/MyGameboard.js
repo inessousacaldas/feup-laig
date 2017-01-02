@@ -9,6 +9,10 @@ function MyGameboard(scene){
     this.board = [];
     this.time = 0;
     this.pieces = 18;
+    /* TESTE*/
+    this.text = new Marker(scene);
+    this.text.setText("text");
+
 
     this.tiles = [];
     this.currentTile = 0;
@@ -113,34 +117,6 @@ MyGameboard.prototype.processPickedTile = function(picked_tile) {
 
     } else
         console.log("Unknown request string.")
-}
-
-
-MyGameboard.prototype.processPickedTile2 = function(picked_obj) {
-
-    var piece = picked_obj.topPiece();
-    picked_obj.processPick();
-    if (this.tileSelected == null && picked_obj.selected && piece != null){
-
-        var requestMoves = "dist('"+ piece.crabType + "'," + picked_obj.id + ")";
-        this.sendRequest(requestMoves);
-        this.tileSelected = picked_obj.id;
-        console.log("Selecionei o tile " + this.tileSelected);
-    }else if(this.tileSelected == picked_obj.id && !picked_obj.selected){
-            console.log("Desselecionei o tile " + this.tileSelected);
-            this.dehighlightMoves();
-            this.tileSelected = null;
-    } else if(this.tileSelected != null) {
-        this.toTileSelected = picked_obj;
-        for(var i = 0; i < this.tiles.length; i++)
-            if(this.tiles[i].id == this.tileSelected)
-               var crab = this.tiles[i].topPiece().toString();
-
-        var string = 'valid_crab_movement(' + this.board + ',' + this.tileSelected + ',' + picked_obj.id + ',' + crab + ',' + crab[0] + ')';
-        this.sendRequest(string);
-
-    }else console.log("Unknown request string.")
-
 }
 
 
@@ -274,6 +250,17 @@ MyGameboard.prototype.unselectAllTiles = function() {
  * Display function of the scene to render this object.
  */
 MyGameboard.prototype.display = function() {
+
+    /* TESTE*/
+
+     this.scene.pushMatrix();
+        this.scene.translate(-4.5, 8, 0);
+        //this.scene.rotate(Math.PI, 1, 0, 0);
+        this.scene.scale(2, 2, 2);
+        this.text.display();
+
+        this.scene.popMatrix();
+     this.scene.pushMatrix();
 
 
     this.scene.pushMatrix();
