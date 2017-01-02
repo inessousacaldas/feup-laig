@@ -43,7 +43,7 @@ MyCrab.prototype.display = function() {
 
     this.scene.pushMatrix();
             this.scene.translate(0,0,2);
-            this.pyramid.display();
+            //this.pyramid.display();
        this.scene.popMatrix();
 
 

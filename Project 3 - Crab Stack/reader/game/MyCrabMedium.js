@@ -11,6 +11,8 @@ function MyCrabMedium(scene, player){
     this.currHeight = 0;
 
     this.cylinder = new MyFullCylinder(this.scene,1,0.3,0.3,16,16);
+    this.crab = new MyCrab(this.scene, player);
+    this.angle = 0;
 
     this.moving = false;
     this.finishedMoving = false;
@@ -220,9 +222,10 @@ MyCrabMedium.prototype.setFinishedMoving = function (finish){
  */
 MyCrabMedium.prototype.display = function() {
 
-    // this.scene.pushMatrix();
     this.cylinder.display();
-    // this.scene.popMatrix();
+    this.scene.rotate(this.angle,0,0,1);
+    this.scene.translate(0,0,1);
+    this.crab.display();
 }
 
 MyCrabMedium.prototype.update = function(currTime) {

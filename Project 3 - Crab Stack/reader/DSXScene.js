@@ -367,7 +367,7 @@ DSXScene.prototype.setCamera = function() {
 		startTime: Date.now(),
 		startPosition: vec3.clone(scene.camera.position),
 		endPosition: new_pos,
-		span : 2000,
+		span : 6000,
 		totalAngle: 0,
 		update : function(currTime) {
 			var delta = currTime - this.startTime;
@@ -379,10 +379,19 @@ DSXScene.prototype.setCamera = function() {
 				return;
 			}
 
-            scene.camera.setTarget(vec3.fromValues(0, 0, 0));
+			 scene.camera.setTarget(vec3.fromValues(0, 0, 0));
             var angleS = angle*delta - this.totalAngle;
             this.totalAngle += angleS;
-			scene.camera.orbit('y', angleS);
+            scene.camera.orbit('y', angleS);
+
+			for(var i = 0; i < scene.gameboard.tiles.length; i++){
+			    var pieces = scene.gameboard.tiles[i].pieces;
+			    for(var j = 0; j < pieces.length; j++){
+			        pieces[j].crab.angle += angleS;
+                }
+			}
+
+
 		}
 	});
 }

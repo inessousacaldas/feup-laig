@@ -13,6 +13,8 @@ function MyGameboard(scene){
     this.text = new Marker(scene);
     this.text.setText("text");
 
+    this.currentPlayer = 1;
+    this.otherPlayer = 2;
 
     this.tiles = [];
     this.currentTile = 0;
@@ -94,6 +96,9 @@ MyGameboard.prototype.processPick = function(picked_obj) {
 
 MyGameboard.prototype.processPickedTile = function(picked_tile) {
     var piece = picked_tile.topPiece();
+
+    if(piece.player != this.currentPlayer && this.tileSelected == null)
+            return;
     picked_tile.processPick();
 
     if (this.tileSelected == null && picked_tile.selected && piece != null){
@@ -162,7 +167,10 @@ MyGameboard.prototype.movePiece = function(data) {
             console.log("O tile " +  this.toTileSelected.id + " ficou com " +  this.toTileSelected.pieces.length + " peças");
             console.log("O tile " + tileFrom.id + " ficou com " + tileFrom.pieces.length + " peças");
         }
-
+        var player = this.currentPlayer;
+        this.currentPlayer = this.otherPlayer;
+        this.otherPlayer = player;
+        this.scene.updateCamera();
         this.sendRequest('game_over(' + this.board + ')');
 
 
