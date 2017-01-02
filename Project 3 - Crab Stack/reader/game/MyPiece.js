@@ -23,6 +23,8 @@ function MyPiece(scene, id, tile, crab, player){
 
     this.height = 0;
 
+    this.posY = 0;
+
 
     this.localTransformations = mat4.create();
     mat4.identity(this.localTransformations);
@@ -94,7 +96,7 @@ MyPiece.prototype.display = function() {
         this.scene.rotate(180*deg2rad,0,0,1);
         this.scene.rotate(180*deg2rad,0,1,0);
         this.scene.translate(0.5,0.8,0);
-        this.scene.translate(this.posX, this.posZ, this.tile.currentHeight - this.height);
+        this.scene.translate(this.posX, this.posZ, this.posY);
 
         if (this.player == 1)
             this.materialRed.apply();
@@ -117,6 +119,7 @@ MyPiece.prototype.display = function() {
             this.crab.display();
             this.posX = this.newPosX;
             this.posZ = this.newPosZ;
+            this.calculateNewPosY();
             this.scene.setDefaultAppearance();
 
         }else{
@@ -134,6 +137,19 @@ MyPiece.prototype.display = function() {
 MyPiece.prototype.update = function(currTime) {
 
     this.time = currTime;
+
+}
+
+MyPiece.prototype.calculateNewPosY = function() {
+
+    var currHeight = 0;
+    for (var i=0;i<this.tile.pieces.length;i++){
+        if (this.tile.pieces[i].id == this.id)
+            break;
+        currHeight += this.tile.pieces[i].height;
+    }
+
+    this.posY = currHeight;
 
 }
 
