@@ -3,7 +3,7 @@
  * @constructor
  * @param {CGFscene} scene The scene to which this gameboard belongs.
  */
-function MyGameboard(scene){
+function MyGameboard(scene, player1, player2){
     CGFobject.call(this, scene);
     this.scene = scene;
     this.board = [];
@@ -13,8 +13,8 @@ function MyGameboard(scene){
     this.text = new Marker(scene);
     this.text.setText("text");
 
-    this.currentPlayer = 1;
-    this.otherPlayer = 2;
+    this.currentPlayer = player1;
+    this.otherPlayer = player2;
 
     this.tiles = [];
     this.currentTile = 0;
@@ -28,8 +28,10 @@ function MyGameboard(scene){
 
     this.tileSelected = null;
     this.toTileSelected = null;
-   //this.sendRequest('quit');
+    //this.sendRequest('quit');
     this.sendRequest('init_board');
+
+    this.tree = new MyTree(this.scene);
 
     this.graph = new Graph();
 
@@ -69,12 +71,21 @@ MyGameboard.prototype.sendRequest = function(requestString){
 
         });
     }
-    else if(requestString.startsWith("valid_crab_movement")){
+     else if(requestString.startsWith("valid_crab_movement")){
         this.scene.prologConnection.getPrologRequest(requestString, function(data){
 
         var data = data.target.response;
 
         self.movePiece(data);
+
+        });
+    }
+    else if(requestString.startsWith("move_computer")){
+        this.scene.prologConnection.getPrologRequest(requestString, function(data){
+
+            var data = data.target.response;
+
+            self.movePieceByComputer(data);
 
         });
     }
@@ -179,6 +190,40 @@ MyGameboard.prototype.movePiece = function(data) {
     this.unselectAllTiles();
 }
 
+/**
+ * movePieceByComputer
+ * @param data{string} response from server
+ */
+MyGameboard.prototype.movePieceByComputer = function(data) {
+
+    console.log(data);
+    if(data != 'Bad Request'){
+        //var array this.board.match(/[\[]([bms]\d+([\,][bms]\d+)*)*[\]]/g);
+        var tileFrom = 'a';
+        /*var tileFrom = this.tiles[this.tileSelected-1];
+
+        if (tileFrom.pieces.length > 0){
+            this.board = data;
+            this.checkWave()
+            var piece = tileFrom.removePiece();
+            piece.move(this.toTileSelected, this.graph);
+            this.toTileSelected.addPiece(piece);
+            this.gameHistory.addMove(this.board, tileFrom, this.toTileSelected);
+            console.log("O tile " +  this.toTileSelected.id + " ficou com " +  this.toTileSelected.pieces.length + " peças");
+            console.log("O tile " + tileFrom.id + " ficou com " + tileFrom.pieces.length + " peças");
+        }
+        var player = this.currentPlayer;
+        this.currentPlayer = this.otherPlayer;
+        this.otherPlayer = player;
+        this.scene.updateCamera();
+        this.sendRequest('game_over(' + this.board + ')');*/
+
+
+    }
+
+}
+
+
 MyGameboard.prototype.checkWave = function() {
 
     var curr_pieces = 0;
@@ -204,46 +249,63 @@ MyGameboard.prototype.createWave = function(){
 
     }
 
-
-
 }
 
 MyGameboard.prototype.startBoard = function(data) {
 
+    var z_dist = 8;
+    var x_dist = 0;
+    var x_inc = z_dist;
     //1st row - 3 hexagons
     for (var i=0;i<3;i++){
-        this.tiles[this.currentTile++].setPosition(0,i*3+0.5);
+        this.tiles[this.currentTile++].setPosition(x_dist,i*z_dist+0.5);
     }
+
+    x_dist += x_inc;
 
     //2nd row - 4 hexagons
     for (var i=0;i<4;i++){
-        this.tiles[this.currentTile++].setPosition(2.5,i*3-1);
+        this.tiles[this.currentTile++].setPosition(x_dist,i*z_dist-1);
     }
+
+    x_dist += x_inc;
 
     //3rd row - 5 hexagons, but skips middle one
     for (var i=0;i<5;i++){
         if (i==2)
             continue;
-        this.tiles[this.currentTile++].setPosition(5,i*3-2.5);
+        this.tiles[this.currentTile++].setPosition(x_dist,i*z_dist-2.5);
     }
+
+    x_dist += x_inc;
 
     //4th row - 4 hexagons
     for (var i=0;i<4;i++){
-        this.tiles[this.currentTile++].setPosition(7.5,i*3-1);
+        this.tiles[this.currentTile++].setPosition(x_dist,i*z_dist-1);
     }
+
+    x_dist += x_inc;
 
     //5th row - 3 hexagons
     for (var i=0;i<3;i++){
-        this.tiles[this.currentTile++].setPosition(10,i*3+0.5);
+        this.tiles[this.currentTile++].setPosition(x_dist,i*z_dist+0.5);
     }
+
     this.currentTile = 0;
 
    for(var i = 0; i < data.length; i++){
 
         var size = data[i][0];
-        var player = data[i][1];
-        this.tiles[i].addPiece(new MyPiece(this.scene,i,this.tiles[i],size,player));
+        var player_id = data[i][1];
+        if(player_id == this.currentPlayer.id)
+            var player = this.currentPlayer;
+        else
+            var player = this.otherPlayer;
+
+        this.tiles[i].addPiece(new MyPiece(this.scene,i,this.tiles[i],size, player));
     }
+
+    this.sendRequest('move_computer(' + this.board + ',r,1)');
 }
 
 MyGameboard.prototype.unselectAllTiles = function() {
@@ -270,6 +332,13 @@ MyGameboard.prototype.display = function() {
         this.scene.popMatrix();
      this.scene.pushMatrix();
 
+
+     this.scene.pushMatrix();
+
+       // this.tree.display();
+
+        this.scene.popMatrix();
+     this.scene.pushMatrix();
 
     this.scene.pushMatrix();
 

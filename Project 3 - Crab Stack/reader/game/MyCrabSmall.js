@@ -223,7 +223,7 @@ MyCrabSmall.prototype.setFinishedMoving = function (finish){
  */
 MyCrabSmall.prototype.display = function() {
 
-    this.cylinder.display();
+    this.scene.translate(-0.5,-0.5,0.5);
     this.scene.rotate(this.angle,0,0,1);
     this.scene.scale(0.8,0.8,0.8);
     this.scene.translate(0,0,1);

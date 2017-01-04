@@ -34,9 +34,13 @@ serialInclude(['../lib/CGF.js',
 'game/MyCrabMedium.js',
 'game/MyCrabSmall.js',
 'game/MyCrab.js',
+'game/MyCrabClaw.js',
+'game/MyCrabLeg.js',
+'game/MyTree.js',
 'game/MyPiece.js',
 'game/MyRock.js',
 'game/Marker.js',
+'game/Player.js',
 'game/state/GameHistory.js',
 'game/state/PlayerMove.js',
 'DSXSceneGraph.js',
@@ -74,9 +78,10 @@ serialInclude(['../lib/CGF.js',
 
 main=function()
 {
-	// Standard application, scene and interface setup
+;
+	// Standard application, scene and interface setu
     var app = new CGFapplication(document.body);
-    var myScene = new DSXScene();
+    var myScene = new DSXScene(player1_name, player1_type, player1_color, player2_name, player2_type, player2_color);
     var myInterface = new MyInterface();
 
     app.init();
@@ -88,10 +93,45 @@ main=function()
 
     myInterface.setActiveCamera(myScene.camera);
 
-	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
-	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
-	
-	var filename=getUrlVars()['file'] || "worldScene.dsx";
+
+    // get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml
+    // or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
+    var gameVars = getUrlVars();
+    var player1_type = gameVars['player1_type'];
+    var player1_color = gameVars['player1_color'];
+    var player1_name = gameVars['player1_name'];
+    var player1_lvl = 0;
+
+    var player2_type = gameVars['player2_type'];
+    var player2_color = gameVars['player2_color'];
+    var player2_name = gameVars['player2_name'];
+    var player2_lvl = 0;
+
+    var turn_time = parseInt(gameVars['turn_time']);
+
+    if(player1_type != 'human'){
+
+        var array = player1_type.split("_");
+        player1_type = array[0];
+        player1_lvl = array[1];
+
+    }
+
+    if(player2_type != 'human'){
+
+        var array = player2_type.split("_");
+        player2_type = array[0];
+        player2_lvl = array[1];
+
+    }
+
+    var player1 = new Player(1, player1_name, player1_type, player1_color, player1_lvl);
+    var player2 = new Player(2, player2_name, player2_type, player2_color, player2_lvl);
+
+    myScene.setPlayers(player1, player2);
+   // myScene.
+
+	var filename="worldScene.dsx";
 
 	//Loads the graph from DSX filename
 	var myGraph = new DSXSceneGraph(filename, myScene);

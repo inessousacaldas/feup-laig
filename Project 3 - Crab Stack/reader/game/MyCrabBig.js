@@ -223,10 +223,9 @@ MyCrabBig.prototype.setFinishedMoving = function (finish){
  */
 MyCrabBig.prototype.display = function() {
 
-
-    this.cylinder.display();
+    this.scene.translate(-0.5,-0.5,0);
     this.scene.rotate(this.angle,0,0,1);
-    this.scene.scale(1.8,1.8,1.8);
+    this.scene.scale(1.5,1.5,1.5);
 	this.scene.translate(0,0,1);
 	this.crab.display();
 

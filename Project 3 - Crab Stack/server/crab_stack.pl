@@ -94,6 +94,7 @@ play(Board, 'human', P1_Color,'computer', P2_Color, Depth) :-
         print_board(Board),
         make_move(Board, 'human', P1_Color, FinalBoard), !,
         display_board(FinalBoard),
+		write(P2_Color), write(Depth),nl,
         move_computer(FinalBoard, P2_Color, Depth, Computer_FinalBoard),
         play(Computer_FinalBoard, 'human', P1_Color, 'computer', P2_Color, Depth).
 
@@ -340,7 +341,7 @@ remove_crab_board(Board, Rock, FinalBoard):-
 /*                                                  */
 /* ************************************************ */
 
-game_over(Board, r) :-
+game_over(Board, b) :-
         moves_left(Board, g, 0, [], 1, Moves, _List_Moves),
         Moves == 0.
         
@@ -509,11 +510,7 @@ in_range(Tile) :-
 /*            can go given it's size and position.  */
 /*                                                  */
 /* ************************************************ */
-check(Rocks):-
-	init_board(Board),
-	print_board(Board),
-	dist_crab(Board, b, 4, Rocks).
-	
+
 dist_crab(Board, Size, Rock, Rocks):-
 	dist(Size, Rock, AllRocks),
 	check_dist(Board, Size, AllRocks, [], Rocks).
@@ -1041,7 +1038,7 @@ empty_neighbors(Board, [HPositions | TPositions], Count, Empties):-
 
 /* ************************************************ */
 /*   color/2                                        */
-/*      +Arg 1: the color (g or r)                  */
+/*      +Arg 1: the color (g or b)                  */
 /*      -Arg 2: text representation                 */
 /*   Summary: Returns a string representation of    */
 /*            the color.                            */
@@ -1115,8 +1112,8 @@ msg(6, 'Pwnt. n00b l0lz.').
 /*                                                  */
 /* ************************************************ */
 
-next_color(g, b).
-next_color(b, g).
+next_color(g, r).
+next_color(r, g).
 
 
 /* ************************************************ */
@@ -1128,7 +1125,7 @@ next_color(b, g).
 /*   Summary: determines the crab size and color    */
 /*                                                  */
 /* ************************************************ */
-
+		
 crab_stats(Crab, s, g):-
         Crab == s1.
         
@@ -1146,7 +1143,6 @@ crab_stats(Crab, m, r):-
         
 crab_stats(Crab, b, r):-
         Crab == b2.
-        
 
 /* ************************************************ */
 /*                  End of program                  */

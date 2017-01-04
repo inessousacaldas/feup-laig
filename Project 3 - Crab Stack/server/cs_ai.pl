@@ -52,9 +52,9 @@ number_tile_crab(Board, Player, Type, Pos, Counter, Total_Number):-
 evaluate_board(Board, Player, Value):-
         moves_left(Board, Player, 0, [], 1, _Moves, List_Moves),
         length(List_Moves, NumMoves),
-        number_tile_crab(Board, Player, 'b', 1, 0, Number_Bigs),
-        number_tile_crab(Board, Player, 'm', 1, 0, Number_Mediums),
-        number_tile_crab(Board, Player, 's', 1, 0, Number_Smalls),
+        number_tile_crab(Board, Player, b, 1, 0, Number_Bigs),
+        number_tile_crab(Board, Player, m, 1, 0, Number_Mediums),
+        number_tile_crab(Board, Player, s, 1, 0, Number_Smalls),
         Value is NumMoves + Number_Smalls + 2*Number_Mediums + 3*Number_Bigs.
 
 
@@ -69,16 +69,32 @@ evaluate_board(Board, Player, Value):-
 /*                                                  */
 /* ************************************************ */
 
+move_computer(Board, Player, Depth, A) :- 
+        alpha_beta(Board, Player, Depth, -200, 200, [Init_Pos, Final_Pos], _),
+        get_rock(Init_Pos, Board, Crab),
+        update_board(Board, Final_Pos, Init_Pos, Crab, Final_Board),
+		append([Init_Pos, Final_Pos], [Final_Board], A),
+		write(A),
+        nl,
+        print('Computer moved crab from '),
+        print(Init_Pos),
+        print(' to '),
+        print(Final_Pos), nl, nl.
+		
+/*	
 move_computer(Board, Player, Depth, Final_Board) :- 
         alpha_beta(Board, Player, Depth, -200, 200, [Init_Pos, Final_Pos], _),
         get_rock(Init_Pos, Board, Crab),
         update_board(Board, Final_Pos, Init_Pos, Crab, Final_Board),
+		append([Init_Pos, Final_Pos], Final_Board, A),
+		write(A),
         nl,
         print('Computer moved crab from '),
         print(Init_Pos),
         print(' to '),
         print(Final_Pos), nl, nl.
 
+*/
 
 /* ************************************************ */
 /*                                                  */
@@ -174,8 +190,8 @@ cutoff(Board, Player, _Move, Value, Depth, Alpha, Beta, Moves, Record, BestMove)
 /*                                                  */
 /* ************************************************ */
  
-other_player(g, b).
-other_player(b, g).
+other_player(g, r).
+other_player(r, g).
 
 
 /* ************************************************ */

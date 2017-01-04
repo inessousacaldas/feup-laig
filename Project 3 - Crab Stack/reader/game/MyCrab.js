@@ -6,28 +6,26 @@
 
 deg2rad = Math.PI / 180;
 
-function MyCrab(scene, player){
+function MyCrab(scene, player, color){
     this.x = 0.863;
     this.player = player;
     CGFobject.call(this,scene);
     this.scene = scene;
 
-    if (this.player == 1)
-                 this.texture = new Texture(this.scene, 'scenes/textures/crab.jpg', 'crab');
-            else
-                 this.texture = new Texture(this.scene, 'scenes/textures/crab2.jpg', 'crab');
+     this.texture = new Texture(this.scene, 'scenes/textures/crab/crab_' + this.player.color +'.jpg', 'crab');
 
-    this.textureChest = new Texture(this.scene, 'scenes/textures/crabChest.jpg', 'crabChest');
-    this.textureEye = new Texture(this.scene, 'scenes/textures/crabEye.jpg', 'crabEye');
+    this.textureChest = new Texture(this.scene, 'scenes/textures/crab/crabChest.jpg', 'crabChest');
+    this.textureEye = new Texture(this.scene, 'scenes/textures/crab/crabEye.jpg', 'crabEye');
 
-    this.topShell = new MyQuad(this.scene, 1, 1, 0.5, 100, 100);
-    this.bottomShell = new MyQuad(this.scene, 0.88, 0.7, 0.5, 100, 100);
+    this.topShell = new MyQuad(this.scene, 1, 1.5, 1, 100, 100);
+    this.bottomShell = new MyQuad(this.scene, 0.88, 1.2, 1, 100, 100);
 
     this.bodyTriangle = new MyTriangle(this.scene, 0,0,0, 0.09, this.x, -0.14, 0.25, this.x, 0.5);
     this.bodyTriangle2 = new MyTriangle(this.scene, 0,0,0, 0.16, 0, -0.64, 0.25, -this.x, -0.5);
     this.bottomEye = new MyFullCylinder(this.scene, 0.30, 0.05, 0.025);
     this.eye = new MySphere(this.scene, 0.1, 16, 16);
-    this.pyramid = new MyPyramid(this.scene, 1, 5);
+    this.leg = new MyCrabLeg(this.scene);
+    this.claw = new MyCrabClaw(this.scene);
 
 }
 
@@ -42,10 +40,67 @@ MyCrab.prototype.display = function() {
     this.texture.bind();
 
     this.scene.pushMatrix();
-            this.scene.translate(0,0,2);
-            //this.pyramid.display();
-       this.scene.popMatrix();
+        this.scene.translate(0,0,2);
+        //this.scene.rotate(15*deg2rad, 0,0,1);
+       // this.scene.rotate(-60*deg2rad, 1,0,0);
+       // this.scene.scale(0.16,0.29,0.16 );
+     //   this.claw.display();
+   this.scene.popMatrix();
 
+    /* CRAB LEGS */
+
+    //FRONT LEGS
+    this.scene.pushMatrix();
+        this.scene.translate(0.3,-0.8,-0.55);
+        this.scene.rotate(15*deg2rad, 0,0,1);
+        this.scene.rotate(-60*deg2rad, 1,0,0);
+        this.scene.scale(0.16,0.29,0.16 );
+        this.leg.display();
+   this.scene.popMatrix();
+
+   this.scene.pushMatrix();
+       this.scene.translate(0.3,0.8,-0.55);
+       this.scene.rotate(165*deg2rad, 0,0,1);
+       this.scene.rotate(-60*deg2rad, 1,0,0);
+       this.scene.scale(0.16,0.29,0.16);
+       this.leg.display();
+  this.scene.popMatrix();
+
+    //MIDDLE LEGES
+    this.scene.pushMatrix();
+        this.scene.translate(-0.05,-0.8,-0.50);
+        this.scene.rotate(-10*deg2rad, 0,0,1);
+        this.scene.rotate(-60*deg2rad, 1,0,0);
+        this.scene.scale(0.15,0.27,0.15);
+        this.leg.display();
+   this.scene.popMatrix();
+
+   this.scene.pushMatrix();
+       this.scene.translate(-0.05,0.8,-0.50);
+       this.scene.rotate(190*deg2rad, 0,0,1);
+       this.scene.rotate(-60*deg2rad, 1,0,0);
+       this.scene.scale(0.15,0.27,0.15);
+       this.leg.display();
+  this.scene.popMatrix();
+
+    //BACK LEGS
+    this.scene.pushMatrix();
+        this.scene.translate(-0.3,-0.8,-0.50);
+        this.scene.rotate(-30*deg2rad, 0,0,1);
+        this.scene.rotate(-60*deg2rad, 1,0,0);
+        this.scene.scale(0.13,0.24,0.13);
+        this.leg.display();
+   this.scene.popMatrix();
+
+   this.scene.pushMatrix();
+       this.scene.translate(-0.3,0.8,-0.50);
+       this.scene.rotate(210*deg2rad, 0,0,1);
+       this.scene.rotate(-60*deg2rad, 1,0,0);
+       this.scene.scale(0.13,0.24,0.13);
+       this.leg.display();
+  this.scene.popMatrix();
+
+  /* -- END LEGS --*/
 
     //Top shell right
    this.scene.pushMatrix();
@@ -82,14 +137,14 @@ MyCrab.prototype.display = function() {
     this.scene.popMatrix();
 
     this.scene.pushMatrix();
-        this.scene.translate(-0.25,this.x,-0.25);
+        this.scene.translate(-0.50,this.x,-0.25); //aqui
         this.scene.rotate(180*deg2rad, 0,0,1);
         this.bodyTriangle.display();
     this.scene.popMatrix();
 
     //Shell chest back
     this.scene.pushMatrix();
-        this.scene.translate(-0.5,0,0.25);
+        this.scene.translate(-0.75,0,0.25); //aqui
         this.bodyTriangle2.display();
     this.scene.popMatrix();
 
@@ -111,13 +166,13 @@ MyCrab.prototype.display = function() {
 
     //Shell chest back
     this.scene.pushMatrix();
-        this.scene.translate(0.25,-this.x,-0.25);
+        this.scene.translate(0.50,-this.x,-0.25);
         this.bodyTriangle.display();
     this.scene.popMatrix();
 
     //Shell chest
     this.scene.pushMatrix();
-        this.scene.translate(0.5,0,0.25);
+        this.scene.translate(0.75,0,0.25);
         this.scene.rotate(-180*deg2rad, 0,0,1);
         this.bodyTriangle2.display();
     this.scene.popMatrix();

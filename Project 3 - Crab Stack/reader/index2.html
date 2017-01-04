@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<!--
+	Overflow by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Overflow by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+
+	<!-- Header -->
+	<section id="header">
+		<header>
+			<h1>Crab Stack</h1>
+			<p>By AwesomeTeam UP</p>
+		</header>
+		<form action="index.html" method="GET">
+			<div class="form-group input-group">
+				<select class="select-color red" id="color-player1" name="player1_color">
+					<option class="red" value="red" ></option>
+					<option class="blue"   value="blue" ></option>
+					<option class="yellow" value="yellow" ></option>
+					<option class="green" value="green" ></option>
+				</select>
+				<input type="text" value="Player1" name="player1_name">
+				<select class="form-control" name="player1_type">
+					<option value="human">Human</option>
+					<option value="computer">Computer</option>
+				</select>
+			</div>
+
+			<div class="form-group input-group">
+				<select class="select-color blue" id="color-player2" name="player2_color">
+					<option class="red" value="blue" ></option>
+					<option class="blue"   value="red" ></option>
+					<option class="yellow" value="yellow" ></option>
+					<option class="green" value="green" ></option>
+				</select>
+				<input type="text" value="Player2" name="player2_name">
+				<select class="form-control" name="player2_type">
+					<option value="human">Human</option>
+					<option value="computer">Computer</option>
+				</select>
+			</div>
+
+			<input type="submit" value="Play" />
+		</form>
+		<footer>
+			<a href="ola.com" class="button style2 scrolly-middle">Proceed as anticipated</a>
+		</footer>
+	</section>
+
+			
+
+	<section id="footer">
+		<ul class="icons">
+			<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+			<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+			<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+			<li><a href="#" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+			<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+			<li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+		</ul>
+		<div class="copyright">
+			<ul class="menu">
+				<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/jquery.poptrox.min.js"></script>
+		<script src="assets/js/skel.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
+
+<script>
+
+	var select1 = document.getElementById('color-player1');
+	select1.onchange = function () {
+		select1.className = this.options[this.selectedIndex].className + " select-color";
+	}
+
+	var select2 = document.getElementById('color-player2');
+	select2.onchange = function () {
+		select2.className = this.options[this.selectedIndex].className + " select-color";;
+	}
+</script>

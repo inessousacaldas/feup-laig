@@ -31,7 +31,9 @@ MyPyramid.prototype.constructor = MyPyramid;
 MyPyramid.prototype.display = function() {
 
     var _height = Math.sqrt(Math.pow(this.height,2) + Math.pow(0.5*this.dimBase,2));
-    var angle = Math.acos(0.5*this.h/this.height);
+    /* TODO: expression for angle */
+    //var angle = Math.acos(0.5*this.h/this.height);
+    var angle = 73 * deg2rad;
 
     this.scene.pushMatrix();
         this.scene.rotate(180*deg2rad, 0, 1, 0);

@@ -60,7 +60,7 @@ MyPiece.prototype.setTile = function(tile) {
 
 MyPiece.prototype.toString = function() {
 
-   return this.crabType + this.player + "";
+   return this.crabType + this.player.id + "";
 }
 
 MyPiece.prototype.chooseCrab = function() {

@@ -7,6 +7,7 @@ deg2rad = Math.PI / 180
  */
 function DSXScene(application) {
     CGFscene.call(this);
+
 }
 
 DSXScene.prototype = Object.create(CGFscene.prototype);
@@ -55,6 +56,16 @@ DSXScene.prototype.init = function (application) {
  */
 DSXScene.prototype.setInterface = function(myinterface) {
 	this.myinterface = myinterface;
+}
+
+
+/**
+ * Sets the players of the scene
+ * @param myinterface MyInterface
+ */
+DSXScene.prototype.setPlayers = function(player1, player2) {
+	this.player1 = player1;
+	this.player2 = player2;
 }
 
 
@@ -183,7 +194,7 @@ DSXScene.prototype.onGraphLoaded = function ()
 						leaf.texture, leaf.su, leaf.sv, leaf.c1, leaf.c2, leaf.cs);
                 break;
             case "gameboard":
-                this.primitives[key] = new MyGameboard(this);
+                this.primitives[key] = new MyGameboard(this, this.player1, this.player2);
                 this.gameboard = this.primitives[key];
                 break;
             /**case "boat":
@@ -379,7 +390,7 @@ DSXScene.prototype.setCamera = function() {
 				return;
 			}
 
-			 scene.camera.setTarget(vec3.fromValues(0, 0, 0));
+			scene.camera.setTarget(vec3.fromValues(0, 0, 0));
             var angleS = angle*delta - this.totalAngle;
             this.totalAngle += angleS;
             scene.camera.orbit('y', angleS);

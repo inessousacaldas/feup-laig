@@ -82,65 +82,6 @@
 
 	<texture id="forest" file="textures/hillGreen.png" length_s="0.2" length_t="0.33333" />
 
-	<texture id="stoneHouse" file="textures/wallStone.png" length_s="1" length_t="1" />
-
-	<texture id="wallHouse" file="textures/wallHouse.png" length_s="1" length_t="1" />
-
-	<texture id="towerStone" file="textures/stoneWall.png" length_s="1" length_t="1" />
-
-	<texture id="towerWall" file="textures/stoneWall.png" length_s="1" length_t="4" />
-
-	<texture id="roofHouse" file="textures/roof.png" length_s="1" length_t="1" />
-
-	<texture id="wood" file="textures/wood.png" length_s="1" length_t="1" />
-
-	<texture id="texWater" file="textures/water.png" length_s="0.5" length_t="10" />
-
-	<texture id="hillGreen" file="textures/hillGreen.png" length_s="1" length_t="1" />
-
-	<texture id="hillStep" file="textures/hillStep.png" length_s="0.4" length_t="1" />
-
-	<texture id="leafText" file="textures/Leaf_Floor_texture.png" length_s="1" length_t="1" />
-
-	<texture id="woodTree" file="textures/wood_texture.png" length_s="1" length_t="1" />
-
-	<texture id="woodTree2" file="textures/treeWood.png" length_s="1" length_t="1" />
-
-	<texture id="fireText" file="textures/fire.png" length_s="1" length_t="1" />
-
-	<texture id="woodFloor" file="textures/woodFloor.png" length_s="0.2" length_t="0.2" />
-
-	<texture id="doorText" file="textures/door.png" length_s="1" length_t="1" />
-
-	<texture id="windowText" file="textures/window.png" length_s="1" length_t="1" />
-
-	<texture id="pathTextX" file="textures/path.png" length_s="0.16667" length_t="1" />
-
-	<texture id="pathTextZ" file="textures/path.png" length_s="1" length_t="0.16667" />
-
-	<texture id="vaneText" file="textures/post.png" length_s="1" length_t="1" />
-
-	<texture id="sailText" file="textures/sail.png" length_s="1" length_t="1" />
-
-	<texture id="bridgeText" file="textures/brick.jpg" length_s="1" length_t="1" />
-
-	<texture id="log" file="textures/log.jpg" length_s="1" length_t="1" />
-
-	<texture id="carrot" file="textures/carrot.jpg" length_s="1" length_t="1" />
-
-	<texture id="jackClothes" file="textures/dark_world/robe.jpg" length_s="4" length_t="4" />
-
-    <texture id="jackShade" file="textures/dark_world/dirtShade.jpg" length_s="1" length_t="1" />
-
-    <texture id="pumpkin" file="textures/dark_world/pumpkin.jpg" length_s="1" length_t="1" />
-
-    <texture id="metal" file="textures/dark_world/metal.jpg" length_s="1" length_t="1" />
-
-    <texture id="stone" file="textures/dark_world/wallCastle.jpg" length_s="1" length_t="1" />
-
-    <texture id="iron" file="textures/dark_world/iron.jpg" length_s="1" length_t="1" />
-
-
 </textures>
 
 
@@ -370,26 +311,6 @@
 		<primitive id="idBeach">
 			<terrain texture = "sand_texture.png" heightmap = "sand_texture_height.png" height = "4" dheight = "4"/>
 		</primitive>
-
-		<primitive id="myBalloon">
-			<vehicle type="balloon"/>
-		</primitive>
-		
-		<primitive id="myChessBoard">
-			<chessboard du="8" dv="8" textureref="wallHouse" su="1" sv="1">
-				<c1 r="0" g="0" b="0" a="1" />
-				<c2 r="1" g="1" b="1" a="1" />
-				<cs r="1" g="0" b="0" a="1" />
-			</chessboard>
-		</primitive>
-
-		<primitive id="mySatellite">
-            <chessboard du="15" dv="15" textureref="iron" su="7" sv="7">
-                <c1 r="0.71" g="0.71" b="0.71" a="1" />
-                <c2 r="1" g="1" b="1" a="1" />
-                <cs r="0.2" g="0.2" b="0.2" a="1" />
-            </chessboard>
-        </primitive>
 
         <primitive id="myGameBoard">
             <gameboard />

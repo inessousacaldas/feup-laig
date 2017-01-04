@@ -125,20 +125,14 @@ MyTile.prototype.display = function() {
     this.scene.pushMatrix();
         for (var i=0;i<this.pieces.length;i++){
             this.scene.pushMatrix();
-            this.scene.translate(0,-this.currentHeight,0);
-            //this.currentHeight += this.pieces[i].height;
-
+      //      this.scene.translate(0,-this.currentHeight,0);
             this.scene.popMatrix();
         }
-        //this.currentHeight = 0;
-
-        this.scene.scale(1,0.5,1);
         if (this.selected)
             this.material.apply();
         else if(this.highlighted)
             this.highlightedMaterial.apply();
 		this.scene.pushMatrix();
-			this.scene.translate(0,6,0);
 			this.rock.display();
 		this.scene.popMatrix();
         this.scene.setDefaultAppearance();
