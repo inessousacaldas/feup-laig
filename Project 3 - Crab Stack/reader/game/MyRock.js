@@ -17,6 +17,9 @@ function MyRock(scene){
     this.shader = new CGFshader(this.scene.gl, 'shaders/rock.vert', 'shaders/rock.frag');
     this.shader.setUniformsValues({uSampler2: 1});
     this.shader.setUniformsValues({scale: this.scale});
+    this.c1 = [1,0,0,1];
+    [this.c1[0], this.c1[1], this.c1[2], this.c1[3]]
+    this.shader.setUniformsValues({color: this.c1});
 
 }
 

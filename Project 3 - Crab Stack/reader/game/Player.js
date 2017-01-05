@@ -14,6 +14,8 @@ function Player(id, name, type, color, lvl){
 	this.type = type;
 	this.color = color;
 	this.lvl = lvl;
+	this.moves = 0;
+	this.winner = false;
 
     if(this.id == 1)
         this.logic_color = 'g';

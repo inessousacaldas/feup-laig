@@ -38,10 +38,12 @@ function MyTile(scene, id, board, piece){
     this.posZ = 0;
 
     this.currentHeight = 0;
+
+    this.pickable = true;
+
+    this.waveHeight = 0;
 	
-	this.pickable = true;
 	
-	this.waveHeight = 0;
 
 }
 
@@ -54,7 +56,8 @@ MyTile.prototype.getCurrentHeight = function() {
 }
 
 MyTile.prototype.topPiece = function() {
-
+    if(this.pieces.length == 0)
+        return null;
     return this.pieces[this.pieces.length - 1];
 }
 
@@ -113,14 +116,16 @@ MyTile.prototype.empty = function() {
 }
 
 MyTile.prototype.washCrabs = function() {
-   //while(!this.empty())
-        //this.pieces.pop();
-	this.pickable = false;
-	for (var i=0;i<this.pieces.length;i++){
-		this.pieces[i].washCrabs();
-	}
+    this.pickable = false;
+    for (var i=0;i<this.pieces.length;i++)
+        this.pieces[i].washCrabs();
+
 }
 
+MyTile.prototype.cleanTile = function() {
+    this.pieces = [];
+    this.currentHeight = 0;
+}
 
 
 /**
@@ -147,17 +152,17 @@ MyTile.prototype.display = function() {
         this.scene.setDefaultAppearance();
 
     this.scene.popMatrix();
-	
-	
-		
+
+
+
 }
+
 
 MyTile.prototype.update = function(currTime) {
 
     this.time = currTime;
     for (var i = 0; i < this.pieces.length; i++)
         this.pieces[i].update(currTime);
-	
 }
 
 

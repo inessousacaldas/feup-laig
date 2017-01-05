@@ -394,7 +394,7 @@ DSXScene.prototype.setCamera = function() {
             var angleS = angle*delta - this.totalAngle;
             this.totalAngle += angleS;
             scene.camera.orbit('y', angleS);
-
+            scene.gameboard.angle += angleS;
 			for(var i = 0; i < scene.gameboard.tiles.length; i++){
 			    var pieces = scene.gameboard.tiles[i].pieces;
 			    for(var j = 0; j < pieces.length; j++){

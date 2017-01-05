@@ -305,11 +305,11 @@
 		</primitive>
 
 		<primitive id="idSea">
-			<terrain texture = "water-texture.png" heightmap = "water-texture-height.png" height = "0.2" dheight = "0.4"/>
+			<terrain texture = "water-texture.jpg" heightmap = "water-texture-height.png" height = "0.2" dheight = "0.4"/>
 		</primitive>
 
 		<primitive id="idBeach">
-			<terrain texture = "sand_texture.png" heightmap = "sand_texture_height.png" height = "4" dheight = "4"/>
+			<terrain texture = "sand-texture.jpg" heightmap = "sand_texture_height.png" height = "4" dheight = "4"/>
 		</primitive>
 
         <primitive id="myGameBoard">

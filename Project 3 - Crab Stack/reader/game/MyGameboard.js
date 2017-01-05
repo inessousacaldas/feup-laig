@@ -9,12 +9,26 @@ function MyGameboard(scene, player1, player2){
     this.board = null;
     this.time = 0;
     this.pieces = 18;
-    /* TESTE*/
-    this.text = new Marker(scene);
-    this.text.setText("Undo");
+    this.angle = 0;
+
+    /* Text Options */
+    this.undoText = new Marker(scene);
+    this.undoText.setText("Undo");
+
+    this.replayText = new Marker(scene);
+    this.replayText.setText("Replay");
+
+    this.player1Text = new Marker(scene);
+    this.player1Text.setText(player1.name + " " + player1.moves);
+
+    this.player2Text = new Marker(scene);
+    this.player2Text.setText(player2.name + " " + player2.moves);
+
 
     this.currentPlayer = player1;
     this.otherPlayer = player2;
+
+    this.winner = false;
 
     this.tiles = [];
     this.currentTile = 0;
@@ -23,7 +37,8 @@ function MyGameboard(scene, player1, player2){
     this.currPlayer;
 
     this.freeTurn = true;
-	this.wave = false;
+    this.replay = false;
+    this.wave = false;
 
     for (var i=0;i<=17;i++)
         this.tiles[i] = new MyTile(this.scene,i+1,this,null);
@@ -42,6 +57,27 @@ function MyGameboard(scene, player1, player2){
 MyGameboard.prototype = Object.create(CGFobject.prototype);
 MyGameboard.prototype.constructor = MyGameboard;
 
+MyGameboard.prototype.init = function(data, player1, player2){
+
+    this.currentPlayer = player1;
+    this.otherPlayer = player2;
+
+    this.freeTurn = true;
+
+    this.currentTile = 0;
+    this.cleanTiles();
+
+    this.startBoard(data);
+}
+
+MyGameboard.prototype.cleanTiles = function(){
+
+    for(var i = 0; i < this.tiles.length; i++)
+        this.tiles[i].cleanTile();
+
+}
+
+
 
 MyGameboard.prototype.sendRequest = function(requestString){
     var self = this;
@@ -53,7 +89,7 @@ MyGameboard.prototype.sendRequest = function(requestString){
 
             //self.initBoard(data.target.response);
             self.board = data.target.response;
-            self.gameHistory = new GameHistory(self.board);
+            self.gameHistory = new GameHistory(self.board, self.currentPlayer, self.otherPlayer);
             var data = data.target.response;
             data = data.replace(/\[|\]/g,'');
             var array = data.split(",").map(String);
@@ -89,6 +125,36 @@ MyGameboard.prototype.sendRequest = function(requestString){
 
         });
     }
+    else if(requestString.startsWith("moves_player")){
+            this.scene.prologConnection.getPrologRequest(requestString, function(data){
+
+                var data = data.target.response;
+                data = data.replace(/\[|\]/g,'');
+                var array = data.split(',').map(String)
+                console.log(array);
+                if(self.currentPlayer.logic_color == array[0])
+                    self.currentPlayer.moves = array[1];
+                else
+                    self.otherPlayer.moves = array[1];
+            });
+    }
+    else if(requestString.startsWith("game_over")){
+        this.scene.prologConnection.getPrologRequest(requestString, function(data){
+
+            var data = data.target.response;
+            if(data != 'Bad Request'){
+
+                self.winner = true;
+                if(self.currentPlayer.logic_color == data)
+                    self.currentPlayer.winner = true;
+                else
+                    self.otherPlayer.winner = true;
+            }
+
+
+        });
+    }
+
     else{
         this.scene.prologConnection.getPrologRequest(requestString)
          console.log('Unknown request string');
@@ -98,12 +164,30 @@ MyGameboard.prototype.sendRequest = function(requestString){
 
 MyGameboard.prototype.processPick = function(picked_obj) {
 
-    if(!this.freeTurn)
+    /* Doesn't accept input when turn has not ended or is in replay*/
+
+    if(!this.freeTurn || this.replay)
         return;
+
     if (picked_obj instanceof Marker){
-        console.log('aaaaaa ' + picked_obj);
-        this.freeTurn = false;
-        this.undoMove();
+
+        if(picked_obj.string == 'Undo'){
+            console.log('undo');
+            this.freeTurn = false;
+            this.undoMove();
+
+        }
+        else if(picked_obj.string == 'Replay'){
+
+            console.log('replay');
+            this.gameHistory.startReplay();
+            var data = this.gameHistory.init_board;
+            data = data.replace(/\[|\]/g,'');
+            var array = data.split(",").map(String);
+            this.init(array, this.gameHistory.player1, this.gameHistory.player2);
+            this.replay = true;
+
+        }
 
     }
     else if (picked_obj instanceof MyTile){
@@ -114,8 +198,51 @@ MyGameboard.prototype.processPick = function(picked_obj) {
 
 }
 
+MyGameboard.prototype.undoMove = function(){
+
+    var move = this.gameHistory.undo();
+
+    //Don't exist moves to undo
+    if(move == null){
+
+        this.freeTurn = true;
+        return;
+    }
+
+    this.tileSelected = move.to.id;
+    this.toTileSelected =  move.from;
+    this.movePiece(move.init_board, false);
+
+
+}
+
+MyGameboard.prototype.replay = function(){
+
+    var move = this.gameHistory.undo();
+
+    //Don't exist moves to undo
+    if(move == null){
+
+        this.freeTurn = true;
+        return;
+    }
+
+    this.tileSelected = move.to.id;
+    this.toTileSelected =  move.from;
+    this.movePiece(move.init_board, false);
+
+
+}
+
+
+
+
+
 MyGameboard.prototype.processPickedTile = function(picked_tile) {
     var piece = picked_tile.topPiece();
+
+    if(piece == null)
+        return;
 
     if(piece.player != this.currentPlayer && this.tileSelected == null)
             return;
@@ -172,31 +299,32 @@ MyGameboard.prototype.highlightMoves = function(moves) {
                 this.tiles[j].addMoves(moves);
 }
 
-MyGameboard.prototype.movePiece = function(){
-
-    var move = this.gameHistory.undo();
-
-    if(move == null)
-        return;
-
-}
 
 
-MyGameboard.prototype.movePiece = function(data) {
+MyGameboard.prototype.movePiece = function(data, newMove = true) {
+
 
     if(data != 'Bad Request'){
-        this.gameHistory.addMove();
+
         var tileFrom = this.tiles[this.tileSelected-1];
 
+        if(newMove)
+            this.gameHistory.addMove(this.board, tileFrom, this.toTileSelected);
+
         if (tileFrom.pieces.length > 0){
-			this.checkWave(data);
+
+            this.checkWave(data);
             this.board = data;
             var piece = tileFrom.removePiece();
             piece.move(this.toTileSelected, this.graph);
             this.toTileSelected.addPiece(piece);
-            this.gameHistory.addMove(this.board, tileFrom, this.toTileSelected);
             console.log("O tile " +  this.toTileSelected.id + " ficou com " +  this.toTileSelected.pieces.length + " peças");
             console.log("O tile " + tileFrom.id + " ficou com " + tileFrom.pieces.length + " peças");
+            var string = 'moves_player('+this.board+','+this.currentPlayer.logic_color+')';
+            this.sendRequest(string);
+            string = 'moves_player('+this.board+','+this.otherPlayer.logic_color+')';
+            this.sendRequest(string);
+
         }
         var player = this.currentPlayer;
         this.currentPlayer = this.otherPlayer;
@@ -230,21 +358,23 @@ MyGameboard.prototype.movePieceByComputer = function(data) {
 }
 
 
+
 MyGameboard.prototype.checkWave = function(data) {
 
     var _board = this.board.replace(/\[|\]/g,'');
     var array = _board.split(',').map(String);
     var curr_pieces = array.filter(function(n){ return n != "" });
-	
+
 	_board = data.replace(/\[|\]/g,'');
     array = _board.split(',').map(String);
     var n_crabs = array.filter(function(n){ return n != "" });
 
    if(n_crabs.length != curr_pieces.length)
 	   this.wave = true;
-	
-   
+
+
 }
+
 
 MyGameboard.prototype.createWave = function(){
 
@@ -316,6 +446,11 @@ MyGameboard.prototype.startBoard = function(data) {
         this.tiles[i].addPiece(new MyPiece(this.scene,i,this.tiles[i],size, player));
     }
 
+    var string = 'moves_player('+this.board+','+this.currentPlayer.logic_color+')';
+    this.sendRequest(string);
+    string = 'moves_player('+this.board+','+this.otherPlayer.logic_color+')';
+    this.sendRequest(string);
+
 }
 
 
@@ -338,50 +473,139 @@ MyGameboard.prototype.display = function() {
 
        // this.tree.display();
 
-        this.scene.popMatrix();
-     this.scene.pushMatrix();
+    this.scene.popMatrix();
 
     this.scene.pushMatrix();
 
-        this.scene.rotate(Math.PI, 1, 0, 0);
+        this.scene.pushMatrix();
+
+            this.scene.rotate(Math.PI, 1, 0, 0);
+
+            for (var i=0;i<=17;i++){
+                this.scene.pushMatrix();
+                    if (this.tiles[i].pickable)
+                        this.scene.registerForPick(idPick++, this.tiles[i]);
+                    this.scene.translate(this.tiles[i].posX,0,this.tiles[i].posZ);
+                    this.tiles[i].display();
+                this.scene.popMatrix();
+            }
+
+        this.scene.popMatrix();
 
         for (var i=0;i<=17;i++){
-            this.scene.pushMatrix();
-				if (this.tiles[i].pickable)
-					this.scene.registerForPick(idPick++, this.tiles[i]);
-                this.scene.translate(this.tiles[i].posX,0,this.tiles[i].posZ);
-                this.tiles[i].display();
-            this.scene.popMatrix();
+            for (var j=0;j<this.tiles[i].pieces.length;j++){
+                if (this.tiles[i].pickable)
+                    this.scene.registerForPick(idPick++, this.tiles[i].pieces[j]);
+                this.tiles[i].pieces[j].display();
+            }
         }
 
     this.scene.popMatrix();
+        this.scene.scale(2, 2, 2);
+    this.scene.pushMatrix();
+    this.scene.rotate(this.angle, 0,1,0);
+    this.scene.registerForPick(idPick++, this.undoText);
 
-    for (var i=0;i<=17;i++){
-        for (var j=0;j<this.tiles[i].pieces.length;j++){
-			if (this.tiles[i].pickable)
-				this.scene.registerForPick(idPick++, this.tiles[i].pieces[j]);
-            this.tiles[i].pieces[j].display();
-        }
+    this.scene.pushMatrix();
+        //this.scene.scale(2, 2, 2);
+        this.scene.translate(-1, 12, 5);
+        //this.scene.rotate(Math.PI, 1, 0, 0);
+        this.undoText.display();
+    this.scene.popMatrix();
+
+    this.scene.registerForPick(idPick++, this.replayText);
+
+    this.scene.pushMatrix();
+        this.scene.translate(0, 12, 0);
+        //this.scene.rotate(Math.PI, 1, 0, 0);
+        this.replayText.display();
+    this.scene.popMatrix();
+
+   this.scene.pushMatrix();
+            this.scene.translate(2, 12, 18);
+            //this.scene.rotate(Math.PI, 1, 0, 0);
+            if(this.currentPlayer.id == 1)
+                this.player1Text.setText(this.currentPlayer.name + " " + this.currentPlayer.moves);
+            else
+                this.player1Text.setText(this.otherPlayer.name + " " + this.otherPlayer.moves);
+            this.player1Text.display();
+     this.scene.popMatrix();
+
+
+   this.scene.pushMatrix();
+            this.scene.translate(2, 10, 18);
+            //this.scene.rotate(Math.PI, 1, 0, 0);
+            if(this.currentPlayer.id == 2)
+                this.player2Text.setText(this.currentPlayer.name + " " + this.currentPlayer.moves);
+            else
+                this.player2Text.setText(this.otherPlayer.name + " " + this.otherPlayer.moves);
+            this.player2Text.display();
+     this.scene.popMatrix();
+
+    if(this.winner){
+        var winner_player = new Marker(this.scene);
+        if(this.currentPlayer.winner)
+            winner_player.setText(this.currentPlayer.name + "wins!");
+        else
+            winner_player.setText(this.otherPlayer.name + "wins!");
+
+
+        this.scene.translate(10, 2, winner_player.string.length/2);
+        winner_player.display();
+        sleep(5000);
+        window.location.href = "./index.html";
     }
 
-    /* TESTE*/
-    this.scene.registerForPick(idPick++, this.text);
-    this.scene.pushMatrix();
-        this.scene.translate(-4.5, 8, 0);
-        //this.scene.rotate(Math.PI, 1, 0, 0);
-        this.scene.scale(2, 2, 2);
-        this.text.display();
 
-        this.scene.popMatrix();
-    this.scene.pushMatrix();
+
+    this.scene.popMatrix();
+
+
 
 }
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
 
 MyGameboard.prototype.update = function(currTime) {
 
     this.time = currTime;
     for (var i = 0; i < this.tiles.length; i++)
         this.tiles[i].update(currTime);
+
+
+    if(this.replay){
+
+
+        if(this.freeTurn){
+
+
+          var move = this.gameHistory.replay();
+
+            //Don't exist moves to undo
+            if(move == null){
+
+                this.replay = false;
+                return;
+            }
+
+            this.freeTurn = false;
+            this.tileSelected = move.from.id;
+            this.toTileSelected = move.to
+
+            this.movePiece(move.init_board, false);
+
+        }
+
+
+    }
 
     if(this.board != null && this.freeTurn && this.currentPlayer.isComputer()){
          this.freeTurn = false;
@@ -398,15 +622,14 @@ MyGameboard.prototype.update = function(currTime) {
         var topPiece = this.toTileSelected.topPiece();
         if(topPiece != null && topPiece.crab.finishedMoving){
             if(this.wave){
-				this.wave = false;
-				this.createWave();
-			}
+                this.wave = false;
+                this.createWave();
+            }
             this.unselectAllTiles();
             this.freeTurn = true;
         }
 
     }
-
 
 }
 

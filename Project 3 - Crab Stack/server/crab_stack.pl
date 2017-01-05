@@ -19,6 +19,13 @@
 /*                                                  */
 /* ************************************************ */
 
+teste(Moves):-
+	init_board(Board),
+	moves_player(Board, g, Moves).
+
+moves_player(Board, Player_Color, [Player_Color,Moves]):-
+	moves_left(Board, Player_Color, 0, [], 1, Moves, _List_Moves).
+
 crabStack:-
         mainMenu.
 

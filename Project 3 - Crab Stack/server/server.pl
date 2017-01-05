@@ -119,6 +119,9 @@ parse_input(game_over(Board), Winner) :- game_over(Board, Winner).
 % Move Computer
 parse_input(move_computer(Board, Player, Depth), FinalBoard) :- move_computer(Board, Player, Depth, FinalBoard).
 
+% Number of Moves
+parse_input(moves_player(Board, Player_Color), Moves) :- moves_player(Board, Player_Color, Moves).
+
 
 
 
