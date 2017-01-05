@@ -9,7 +9,7 @@
  */
 function MyTerrain(scene, textureUrl, heightMapUrl, height, maxHeight){
     CGFobject.call(this,scene);
-	this.plane = new MyPlane(this.scene, 60, 60, 30, 30);
+	this.plane = new MyPlane(this.scene, 80, 80, 60, 60);
 	this.texture = new CGFtexture(this.scene, textureUrl);
 	this.heightMap = new CGFtexture(this.scene, heightMapUrl);
 	this.height = height;

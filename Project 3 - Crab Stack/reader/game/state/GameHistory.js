@@ -24,4 +24,6 @@ GameHistory.prototype.undo = function() {
 
     if(this.moves.length != 0)
         return moves.pop();
+
+    else return null;
 }

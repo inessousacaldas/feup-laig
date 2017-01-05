@@ -33,7 +33,7 @@ MyCrabBig.prototype = Object.create(CGFobject.prototype);
 MyCrabBig.prototype.constructor = MyCrabBig;
 
 
-MyCrabBig.prototype.moveAnimation = function (){
+MyCrabBig.prototype.moveAnimation = function (posY, newPosY){
 
     if (this.moving){
         var controlPoints = [];
@@ -46,139 +46,171 @@ MyCrabBig.prototype.moveAnimation = function (){
         controlPoints.push(vec3.fromValues(x,y,z));
 
 
-        y += 1;
+        y += 2;
         seconds++;
 
         controlPoints.push(vec3.fromValues(x,y,z));
 
-        y += 0.5;
-        z += -1;
+        y += 2;
+        z += -1.5;
         z += -this.currHeight;
 
         seconds++;
         controlPoints.push(vec3.fromValues(x,y,z));
+		
+		var diagonal;
 
         while (this.path.length > 0){
+			
             var currentPath = this.path.pop();
+			var x_dist = 8;
+			var y_dist = 4;
+			var y_dist_1 = 4;
+			var y_dist_2 = 4;
             if (currentPath[0] <= 2){
                 if (currentPath[1] == currentPath[0] + 3){
                     console.log("1a fila - baixo esquerda");
-                    x += 2.5;
-                    y += -1.5;
+                    x += x_dist;
+                    y += -y_dist_1;
+					diagonal = true;
 
                 }
                 else if (currentPath[1] == currentPath[0] + 4){
                     console.log("1a fila - baixo direita");
-                    x += 2.5;
-                    y += 1.5;
+                    x += x_dist;
+                    y += y_dist_2;
+					diagonal = false;
                 }
             }
             else if (currentPath[0] <= 6){
                 if (currentPath[1] == currentPath[0] - 4){
                     console.log("2a fila - cima esquerda");
-                    x += -2.5;
-                    y += -1.5;
+                    x += -x_dist;
+                    y += -y_dist_2;
+					diagonal = false;
 
                 }
                 else if (currentPath[1] == currentPath[0] - 3){
                     console.log("2a fila - cima direita");
-                    x += -2.5;
-                    y += 1.5;
+                    x += -x_dist;
+                    y += y_dist_1;
+					diagonal = true;
                 }
                 else if (currentPath[1] == currentPath[0] + 4){
                     console.log("2a fila - baixo esquerda");
-                    x += 2.5;
-                    y += -1.5;
+                    x += x_dist;
+                    y += -y_dist_1;
+					diagonal = true;
                 }
                 else if (currentPath[1] == currentPath[0] + 5){
                     console.log("2a fila - baixo direita");
-                    x += 2.5;
-                    y += 1.5;
+                    x += x_dist;
+                    y += y_dist_2;
+					diagonal = false;
                 }
             }
             else if (currentPath[0] <= 11){
                 if (currentPath[1] == currentPath[0] - 5){
                     console.log("3a fila - cima esquerda");
-                    x += -2.5;
-                    y += -1.5;
+                    x += -x_dist;
+                    y += -y_dist_2;
+					diagonal = false;
 
                 }
                 else if (currentPath[1] == currentPath[0] - 4){
                     console.log("3a fila - cima direita");
-                    x += -2.5;
-                    y += 1.5;
+                    x += -x_dist;
+                    y += y_dist_1;
+					diagonal = true;
                 }
                 else if (currentPath[1] == currentPath[0] - 1){
                     console.log("3a fila - só esquerda");
-                    y += -1.5;
+                    y += -y_dist;
                 }
                 else if (currentPath[1] == currentPath[0] + 1){
                     console.log("3a fila - só direita");
-                    y += 1.5;
+                    y += y_dist;
                 }
                 else if (currentPath[1] == currentPath[0] + 4){
                     console.log("3a fila - baixo esquerda");
-                    x += 2.5;
-                    y += -1.5;
+                    x += x_dist;
+                    y += -y_dist_1;
+					diagonal = true;
                 }
                 else if (currentPath[1] == currentPath[0] + 5){
                     console.log("3a fila - baixo direita");
-                    x += 2.5;
-                    y += 1.5;
+                    x += x_dist;
+                    y += y_dist_2;
+					diagonal = false;
                 }
             }
             else if (currentPath[0] <= 15){
                 if (currentPath[1] == currentPath[0] - 5){
                     console.log("4a fila - cima esquerda");
-                    x += -2.5;
-                    y += -1.5;
+                    x += -x_dist;
+                    y += -y_dist_2;
+					diagonal = false;
 
                 }
                 else if (currentPath[1] == currentPath[0] - 4){
                     console.log("4a fila - cima direita");
-                    x += -2.5;
-                    y += 1.5;
+                    x += -x_dist;
+                    y += y_dist_1;
+					diagonal = true;
                 }
                 else if (currentPath[1] == currentPath[0] + 3){
                     console.log("4a fila - baixo esquerda");
-                    x += 2.5;
-                    y += -1.5;
+                    x += x_dist;
+                    y += -y_dist_1;
+					diagonal = true;
                 }
                 else if (currentPath[1] == currentPath[0] + 4){
                     console.log("4a fila - baixo direita");
-                    x += 2.5;
-                    y += 1.5;
+                    x += x_dist;
+                    y += y_dist_2;
+					diagonal = false;
                 }
             }
             else if (currentPath[0] <= 18){
                 if (currentPath[1] == currentPath[0] - 4){
                     console.log("5a fila - cima esquerda");
-                    x += -2.5;
-                    y += -1.5;
+                    x += -x_dist;
+                    y += -y_dist_2;
+					diagonal = false;
 
                 }
                 else if (currentPath[1] == currentPath[0] - 3){
                     console.log("5a fila - cima direita");
-                    x += -2.5;
-                    y += 1.5;
+                    x += -x_dist;
+                    y += y_dist_1;
+					diagonal = true;
                 }
             }
 
             seconds++;
             controlPoints.push(vec3.fromValues(x,y,z));
+			
+			
         }
 
-        y += -0.5;
-        z += 1;
+        y += -2;
+        z += 1.5;
 
         seconds++;
         controlPoints.push(vec3.fromValues(x,y,z));
 
-        y += -1;
+        y = newPosY - posY;
+		console.log("DIAGONAL " + diagonal);
+		
         z += this.tileHeight;
 
         seconds++;
         controlPoints.push(vec3.fromValues(x,y,z));
+		
+		
+		
+		console.log("ANIMATION X " + x);
+		console.log("ANIMATION Y " + y);
 
         var id = "BigCrab";
 
@@ -188,14 +220,14 @@ MyCrabBig.prototype.moveAnimation = function (){
 }
 
 
- MyCrabBig.prototype.makeMove = function (init_time, path, currHeight, height){
+ MyCrabBig.prototype.makeMove = function (init_time, path, currHeight, height, posY, newPosY){
 
      this.moving = true;
      this.init_time = init_time;
      this.path = path;
      this.tileHeight = height;
      this.currHeight = currHeight;
-     this.moveAnimation();
+     this.moveAnimation(posY, newPosY);
 
  }
 

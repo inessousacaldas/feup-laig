@@ -8,7 +8,7 @@ function Marker(scene) {
 	if (!Marker.shaderInitialized) {
 		Marker.initializeShader(scene);
 	}
-	this.plane = new MyPlane(this.scene, 1, 1, 100,  100);
+	this.plane = new MyPlaneText(this.scene, 100);
 	this.setText("");
 }
 
@@ -52,12 +52,12 @@ Marker.prototype.charToCoords = function(c){
 Marker.prototype.display = function(){
 	var currShader = this.scene.activeShader;
 	this.scene.setActiveShaderSimple(Marker.shader);
-	
+
 	this.scene.pushMatrix();
 		Marker.fontTexture.bind();
 		this.scene.translate(-(this.string.length - 1)/2, 0,0);
-		this.scene.rotate(Math.PI,1,0,0);
-		this.scene.rotate(Math.PI/2,0,1,0);
+		this.scene.rotate(Math.PI/2,1,0,0);
+		this.scene.rotate(-Math.PI/2,0,0,1);
 		for(var c = 0; c < this.string.length; ++c){
 			var pos = this.charToCoords(this.string[c]);
 			this.scene.activeShader.setUniformsValues({'charCoords': pos});

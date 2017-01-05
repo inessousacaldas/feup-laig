@@ -13,7 +13,6 @@ function MyRock(scene){
     this.texture = new Texture(this.scene, 'scenes/textures/rock/rock.jpg', 'rock');
     this.heightMap = new Texture(this.scene, 'scenes/textures/rock/rock_map.png', 'rock_map');
 
-
     this.rock = new MySphere(this.scene, 1, 16, 16);
     this.shader = new CGFshader(this.scene.gl, 'shaders/rock.vert', 'shaders/rock.frag');
     this.shader.setUniformsValues({uSampler2: 1});
@@ -29,19 +28,21 @@ MyRock.prototype.constructor = MyRock;
  */
 MyRock.prototype.display = function() {
 
-	this.scene.setActiveShader(this.shader);
-	this.texture.bind();
-	this.heightMap.bind(1);
+    this.scene.setActiveShader(this.shader);
 
-	this.scene.pushMatrix();
-		this.scene.scale(1.6,1,1.6);
-		this.rock.display();
-	this.scene.popMatrix();
+    this.texture.bind();
+    this.heightMap.bind(1);
 
-	this.heightMap.unbind(1);
-	this.texture.unbind();
+    this.scene.pushMatrix();
+        this.scene.scale(1.6,1,1.6);
+        this.rock.display();
+   this.scene.popMatrix();
+
+    this.heightMap.unbind(1);
+    this.texture.unbind();
 
 	this.scene.setActiveShader(this.scene.defaultShader);
+
 
 
 }

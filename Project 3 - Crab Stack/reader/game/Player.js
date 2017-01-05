@@ -1,10 +1,11 @@
 /**
- * MyTile constructor.
+ * Player constructor.
  * @constructor
- * @param {CGFscene} scene The scene to which this tile belongs.
- * @param {Integer} id Id of the tile.
- * @param {MyGameboard} board The board this tile belongs to.
- * @param {MyPiece} piece The piece that is on top of this tile.
+ * @param {Integer} identifier of player
+ * @param {String} name of player
+ * @param {String} type of player ("human", "computer")
+ * @param {String} color of the player's crabs
+ * @param {Integer} level of the player (not used for type "human")
  */
 function Player(id, name, type, color, lvl){
 
@@ -23,3 +24,15 @@ function Player(id, name, type, color, lvl){
 
 Player.prototype = Object.create(Object.prototype);
 Player.prototype.constructor = Player;
+
+/**
+ *
+ */
+Player.prototype.isComputer = function (){
+
+    if(this.type == "computer")
+        return true;
+
+    return false;
+
+}

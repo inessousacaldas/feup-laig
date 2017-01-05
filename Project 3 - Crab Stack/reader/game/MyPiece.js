@@ -172,13 +172,17 @@ MyPiece.prototype.move = function(tile, graph) {
     //+++++++++++++++++++++++++++++++++++++++++++++++++++
     this.newPosX = tile.posX;
     this.newPosZ = tile.posZ;
+	console.log("ANTIGA POSIÇAO X" + this.posX);
+	console.log("ANTIGA POSIÇAO Y" + this.posZ);
+	console.log("NOVA POSIÇAO X" + this.newPosX);
+	console.log("NOVA POSIÇAO Y" + this.newPosZ);
     //+++++++++++++++++++++++++++++++++++++++++++++++++++
     console.log(this.tile.getCurrentHeight());
     var _currentHeight = this.tile.currentHeight;
     this.tile = tile;
     //this.tile.addHeight(this.height);
     //path.reverse();
-    this.crab.makeMove(this.time, path, _currentHeight, this.tile.currentHeight);
+    this.crab.makeMove(this.time, path, _currentHeight, this.tile.currentHeight, this.posZ, this.newPosZ);
 }
 
 
