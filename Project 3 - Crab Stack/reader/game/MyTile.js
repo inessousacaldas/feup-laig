@@ -39,7 +39,9 @@ function MyTile(scene, id, board, piece){
 
     this.currentHeight = 0;
 	
+	this.pickable = true;
 	
+	this.waveHeight = 0;
 
 }
 
@@ -111,8 +113,12 @@ MyTile.prototype.empty = function() {
 }
 
 MyTile.prototype.washCrabs = function() {
-   while(!this.empty())
-        this.pieces.pop();
+   //while(!this.empty())
+        //this.pieces.pop();
+	this.pickable = false;
+	for (var i=0;i<this.pieces.length;i++){
+		this.pieces[i].washCrabs();
+	}
 }
 
 
@@ -133,11 +139,17 @@ MyTile.prototype.display = function() {
         else if(this.highlighted)
             this.highlightedMaterial.apply();
 		this.scene.pushMatrix();
+			if (!this.pickable && this.waveHeight > -7)
+				this.waveHeight = this.waveHeight - 0.2;
+			this.scene.translate(0,-this.waveHeight,0);
 			this.rock.display();
 		this.scene.popMatrix();
         this.scene.setDefaultAppearance();
 
     this.scene.popMatrix();
+	
+	
+		
 }
 
 MyTile.prototype.update = function(currTime) {
@@ -145,6 +157,7 @@ MyTile.prototype.update = function(currTime) {
     this.time = currTime;
     for (var i = 0; i < this.pieces.length; i++)
         this.pieces[i].update(currTime);
+	
 }
 
 

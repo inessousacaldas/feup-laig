@@ -23,6 +23,7 @@ function MyGameboard(scene, player1, player2){
     this.currPlayer;
 
     this.freeTurn = true;
+	this.wave = false;
 
     for (var i=0;i<=17;i++)
         this.tiles[i] = new MyTile(this.scene,i+1,this,null);
@@ -188,6 +189,7 @@ MyGameboard.prototype.movePiece = function(data) {
         var tileFrom = this.tiles[this.tileSelected-1];
 
         if (tileFrom.pieces.length > 0){
+			this.checkWave(data);
             this.board = data;
             var piece = tileFrom.removePiece();
             piece.move(this.toTileSelected, this.graph);
@@ -228,19 +230,20 @@ MyGameboard.prototype.movePieceByComputer = function(data) {
 }
 
 
-MyGameboard.prototype.checkWave = function() {
+MyGameboard.prototype.checkWave = function(data) {
 
-    var curr_pieces = 0;
     var _board = this.board.replace(/\[|\]/g,'');
     var array = _board.split(',').map(String);
-    n_crabs = array.filter(function(n){ return n != "" });
+    var curr_pieces = array.filter(function(n){ return n != "" });
+	
+	_board = data.replace(/\[|\]/g,'');
+    array = _board.split(',').map(String);
+    var n_crabs = array.filter(function(n){ return n != "" });
 
-   if(n_crabs.length != this.pieces){
-
-        this.pieces = n_crabs.length;
-        this.createWave();
-
-   }
+   if(n_crabs.length != curr_pieces.length)
+	   this.wave = true;
+	
+   
 }
 
 MyGameboard.prototype.createWave = function(){
@@ -252,6 +255,7 @@ MyGameboard.prototype.createWave = function(){
             this.tiles[i].washCrabs();
 
     }
+	console.log("Wave criada");
 
 }
 
@@ -343,7 +347,8 @@ MyGameboard.prototype.display = function() {
 
         for (var i=0;i<=17;i++){
             this.scene.pushMatrix();
-                this.scene.registerForPick(idPick++, this.tiles[i]);
+				if (this.tiles[i].pickable)
+					this.scene.registerForPick(idPick++, this.tiles[i]);
                 this.scene.translate(this.tiles[i].posX,0,this.tiles[i].posZ);
                 this.tiles[i].display();
             this.scene.popMatrix();
@@ -353,7 +358,8 @@ MyGameboard.prototype.display = function() {
 
     for (var i=0;i<=17;i++){
         for (var j=0;j<this.tiles[i].pieces.length;j++){
-            this.scene.registerForPick(idPick++, this.tiles[i].pieces[j]);
+			if (this.tiles[i].pickable)
+				this.scene.registerForPick(idPick++, this.tiles[i].pieces[j]);
             this.tiles[i].pieces[j].display();
         }
     }
@@ -391,7 +397,10 @@ MyGameboard.prototype.update = function(currTime) {
 
         var topPiece = this.toTileSelected.topPiece();
         if(topPiece != null && topPiece.crab.finishedMoving){
-            this.checkWave();
+            if(this.wave){
+				this.wave = false;
+				this.createWave();
+			}
             this.unselectAllTiles();
             this.freeTurn = true;
         }
