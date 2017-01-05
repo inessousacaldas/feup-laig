@@ -47,10 +47,9 @@ function MyPiece(scene, id, tile, crab, player){
     this.materialBlue.setDiffuse(0,0,1,1);
     this.materialBlue.setSpecular(0,0,1,1);
     this.materialBlue.setShininess(0.2);
-
-    this.wave = false;
-    this.waveHeight = 0;
-
+	
+	this.wave = false;
+	this.waveHeight = 0;
 }
 
 MyPiece.prototype = Object.create(CGFobject.prototype);
@@ -125,8 +124,8 @@ MyPiece.prototype.display = function() {
             mat4.identity(this.teste);
             this.scene.multMatrix(this.teste);
             if (this.wave && this.waveHeight > -7)
-                this.waveHeight = this.waveHeight - 0.2;
-            this.scene.translate(0,0,this.waveHeight);
+				this.waveHeight = this.waveHeight - 0.2;
+			this.scene.translate(0,0,this.waveHeight);
             this.crab.display();
             this.scene.setDefaultAppearance();
         }
@@ -151,6 +150,12 @@ MyPiece.prototype.calculateNewPosY = function() {
     }
 
     this.posY = currHeight;
+
+}
+
+MyPiece.prototype.washCrabs = function() {
+
+    this.wave = true;
 
 }
 
@@ -189,12 +194,6 @@ MyPiece.prototype.move = function(tile, graph) {
     //this.tile.addHeight(this.height);
     //path.reverse();
     this.crab.makeMove(this.time, path, _currentHeight, this.tile.currentHeight, this.posZ, this.newPosZ);
-}
-
-MyPiece.prototype.washCrabs = function() {
-
-    this.wave = true;
-
 }
 
 

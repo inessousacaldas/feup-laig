@@ -3,10 +3,12 @@
  * @constructor
  * @param {CGFscene} scene The scene to which this gameboard belongs.
  */
-function MyGameboard(scene, player1, player2){
+function MyGameboard(scene, player1, player2, ambient){
     CGFobject.call(this, scene);
     this.scene = scene;
     this.board = null;
+    this.time = 0;
+    this.pieces = 18;
     this.time = 0;
     this.pieces = 18;
     this.angle = 0;
@@ -24,11 +26,12 @@ function MyGameboard(scene, player1, player2){
     this.player2Text = new Marker(scene);
     this.player2Text.setText(player2.name + " " + player2.moves);
 
-
     this.currentPlayer = player1;
     this.otherPlayer = player2;
-
-    this.winner = false;
+	
+	this.ambientType = ambient;
+	
+	this.winner = false;
 
     this.tiles = [];
     this.currentTile = 0;
@@ -37,11 +40,11 @@ function MyGameboard(scene, player1, player2){
     this.currPlayer;
 
     this.freeTurn = true;
-    this.replay = false;
-    this.wave = false;
+	this.replay = false;
+	this.wave = false;
 
     for (var i=0;i<=17;i++)
-        this.tiles[i] = new MyTile(this.scene,i+1,this,null);
+        this.tiles[i] = new MyTile(this.scene,i+1,this,this.ambientType);
 
     this.tileSelected = null;
     this.toTileSelected = null;
@@ -76,8 +79,6 @@ MyGameboard.prototype.cleanTiles = function(){
         this.tiles[i].cleanTile();
 
 }
-
-
 
 MyGameboard.prototype.sendRequest = function(requestString){
     var self = this;
@@ -234,14 +235,10 @@ MyGameboard.prototype.replay = function(){
 
 }
 
-
-
-
-
 MyGameboard.prototype.processPickedTile = function(picked_tile) {
     var piece = picked_tile.topPiece();
-
-    if(piece == null)
+	
+	if(piece == null)
         return;
 
     if(piece.player != this.currentPlayer && this.tileSelected == null)
@@ -299,6 +296,14 @@ MyGameboard.prototype.highlightMoves = function(moves) {
                 this.tiles[j].addMoves(moves);
 }
 
+MyGameboard.prototype.movePiece = function(){
+
+    var move = this.gameHistory.undo();
+
+    if(move == null)
+        return;
+
+}
 
 
 MyGameboard.prototype.movePiece = function(data, newMove = true) {
@@ -358,23 +363,21 @@ MyGameboard.prototype.movePieceByComputer = function(data) {
 }
 
 
-
 MyGameboard.prototype.checkWave = function(data) {
 
     var _board = this.board.replace(/\[|\]/g,'');
     var array = _board.split(',').map(String);
     var curr_pieces = array.filter(function(n){ return n != "" });
-
+	
 	_board = data.replace(/\[|\]/g,'');
     array = _board.split(',').map(String);
     var n_crabs = array.filter(function(n){ return n != "" });
 
    if(n_crabs.length != curr_pieces.length)
 	   this.wave = true;
-
-
+	
+   
 }
-
 
 MyGameboard.prototype.createWave = function(){
 
@@ -445,8 +448,8 @@ MyGameboard.prototype.startBoard = function(data) {
 
         this.tiles[i].addPiece(new MyPiece(this.scene,i,this.tiles[i],size, player));
     }
-
-    var string = 'moves_player('+this.board+','+this.currentPlayer.logic_color+')';
+	
+	var string = 'moves_player('+this.board+','+this.currentPlayer.logic_color+')';
     this.sendRequest(string);
     string = 'moves_player('+this.board+','+this.otherPlayer.logic_color+')';
     this.sendRequest(string);
@@ -572,7 +575,6 @@ function sleep(milliseconds) {
     }
   }
 }
-
 
 MyGameboard.prototype.update = function(currTime) {
 

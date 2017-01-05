@@ -107,6 +107,8 @@ main=function()
     var player2_color = gameVars['player2_color'];
     var player2_name = gameVars['player2_name'];
     var player2_lvl = 0;
+	
+	var ambient = gameVars['ambient_type'];
 
     var turn_time = parseInt(gameVars['turn_time']);
 
@@ -130,9 +132,12 @@ main=function()
     var player2 = new Player(2, player2_name, player2_type, player2_color, player2_lvl);
 
     myScene.setPlayers(player1, player2);
+	myScene.setAmbientType(ambient);
    // myScene.
-
-	var filename="worldScene.dsx";
+	if (ambient == "sea")
+		var filename="worldScene.dsx";
+	else
+		var filename="swampscene.dsx";
 
 	//Loads the graph from DSX filename
 	var myGraph = new DSXSceneGraph(filename, myScene);

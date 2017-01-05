@@ -2,6 +2,7 @@
  * MyCrabSmall constructor.
  * @constructor
  * @param {CGFscene} scene The scene to which this tile belongs.
+ * @param {Integer} player Player who owns this crab
  */
 function MyCrabSmall(scene, player){
     CGFobject.call(this,scene);
@@ -32,7 +33,11 @@ function MyCrabSmall(scene, player){
 MyCrabSmall.prototype = Object.create(CGFobject.prototype);
 MyCrabSmall.prototype.constructor = MyCrabSmall;
 
-
+/**
+ * sets the control points for the crab movement
+ * @param {Integer} posY Initial position of the crab
+ * @param {Integer} newPosY Final position of the crab, after animation
+ */
 MyCrabSmall.prototype.moveAnimation = function (posY, newPosY){
 
     if (this.moving){
@@ -125,11 +130,11 @@ MyCrabSmall.prototype.moveAnimation = function (posY, newPosY){
                 }
                 else if (currentPath[1] == currentPath[0] - 1){
                     console.log("3a fila - só esquerda");
-                    y += -y_dist;
+                    y += -y_dist*2;
                 }
                 else if (currentPath[1] == currentPath[0] + 1){
                     console.log("3a fila - só direita");
-                    y += y_dist;
+                    y += y_dist*2;
                 }
                 else if (currentPath[1] == currentPath[0] + 4){
                     console.log("3a fila - baixo esquerda");
@@ -219,7 +224,15 @@ MyCrabSmall.prototype.moveAnimation = function (posY, newPosY){
 
 }
 
-
+/**
+ * starts the movement of the crab
+ * @param {Integer} init_time Initial time for the new animation
+ * @param {Integer[]} path Path the crab has to walk
+ * @param {Integer} currHeight Current height of the crab
+ * @param {Integer} height Current height of the tile
+ * @param {Integer} posY Initial position of the crab
+ * @param {Integer} newPosY Final position of the crab, after animation
+ */
 MyCrabSmall.prototype.makeMove = function (init_time, path, currHeight, height, posY, newPosY){
 
     this.moving = true;
@@ -231,18 +244,28 @@ MyCrabSmall.prototype.makeMove = function (init_time, path, currHeight, height, 
 
 }
 
+/**
+ * returns if this crab is moving
+ */
 MyCrabSmall.prototype.isMoving = function (){
 
     return this.moving;
 
 }
 
+/**
+ * returns if this crab has finished moving
+ */
 MyCrabSmall.prototype.isFinishedMoving = function (){
 
     return this.finishedMoving;
 
 }
 
+/**
+ * setFinishedMoving
+ * @param {Boolean} finish Animation finished movement
+ */
 MyCrabSmall.prototype.setFinishedMoving = function (finish){
 
     this.finishedMoving = finish;
@@ -262,6 +285,10 @@ MyCrabSmall.prototype.display = function() {
     this.crab.display();
 }
 
+/**
+ * Updates animation of the crab
+ * @param {Float} currTime current time
+ */
 MyCrabSmall.prototype.update = function(currTime) {
 
     var time = currTime;

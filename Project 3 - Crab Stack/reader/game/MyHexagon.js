@@ -13,7 +13,7 @@ function MyHexagon(scene){
     this.rectangle = new MyRectangle(this.scene,0,0,1,1);
     this.rectangleBackward = new MyRectangle(this.scene,0,1,1,0);
 
-
+	
 
 }
 
@@ -24,6 +24,11 @@ MyHexagon.prototype.constructor = MyHexagon;
  * Display function of the scene to render this object.
  */
 MyHexagon.prototype.display = function() {
+	
+	
+	
+	this.scene.scale(1.9,1,1.9);
+	this.scene.translate(-0.5,0,-0.7);
 
     //top hexagon
     this.scene.pushMatrix();
@@ -62,6 +67,8 @@ MyHexagon.prototype.display = function() {
         }
 
     this.scene.popMatrix();
+	
+	
 }
 
 

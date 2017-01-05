@@ -68,6 +68,10 @@ DSXScene.prototype.setPlayers = function(player1, player2) {
 	this.player2 = player2;
 }
 
+DSXScene.prototype.setAmbientType = function(ambient) {
+	this.ambient = ambient;
+}
+
 
 DSXScene.prototype.logPicking = function () {
     if (this.pickMode == false) {
@@ -194,7 +198,7 @@ DSXScene.prototype.onGraphLoaded = function ()
 						leaf.texture, leaf.su, leaf.sv, leaf.c1, leaf.c2, leaf.cs);
                 break;
             case "gameboard":
-                this.primitives[key] = new MyGameboard(this, this.player1, this.player2);
+                this.primitives[key] = new MyGameboard(this, this.player1, this.player2, this.ambient);
                 this.gameboard = this.primitives[key];
                 break;
             /**case "boat":
@@ -394,7 +398,7 @@ DSXScene.prototype.setCamera = function() {
             var angleS = angle*delta - this.totalAngle;
             this.totalAngle += angleS;
             scene.camera.orbit('y', angleS);
-            scene.gameboard.angle += angleS;
+			scene.gameboard.angle += angleS;
 			for(var i = 0; i < scene.gameboard.tiles.length; i++){
 			    var pieces = scene.gameboard.tiles[i].pieces;
 			    for(var j = 0; j < pieces.length; j++){

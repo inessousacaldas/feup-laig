@@ -2,15 +2,8 @@
  * MyPyramid
  * @constructor
  * @param scene CGFscene
- * @param x1 x-coord of vertice v1
- * @param y1 y-coord of vertice v1
- * @param z1 z-coord of vertice v1
- * @param x2 x-coord of vertice v2
- * @param y2 y-coord of vertice v2
- * @param z2 z-coord of vertice v2
- * @param x3 x-coord of vertice v3
- * @param y3 y-coord of vertice v3
- * @param z3 xzcoord of vertice v3
+ * @param dimBase dimension of the base
+ * @param height height of the pyramid
  */
 
 
@@ -28,6 +21,9 @@ function MyPyramid(scene, dimBase, height) {
 MyPyramid.prototype = Object.create(CGFobject.prototype);
 MyPyramid.prototype.constructor = MyPyramid;
 
+/**
+ * Display function of the scene to render this object.
+ */
 MyPyramid.prototype.display = function() {
 
     var _height = Math.sqrt(Math.pow(this.height,2) + Math.pow(0.5*this.dimBase,2));

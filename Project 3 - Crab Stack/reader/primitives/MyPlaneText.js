@@ -1,5 +1,5 @@
 /**
- * MyPlane constructor.
+ * MyPlaneText constructor.
  * @constructor
  * @param scene {CGFscene} The scene to which this cylinder belongs.
  * @param parts {Integer} Number of parts of the plane along each coordinate.

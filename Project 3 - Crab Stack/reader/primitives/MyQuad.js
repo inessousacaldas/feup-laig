@@ -1,8 +1,12 @@
 /**
- * MyPlane
+ * MyQuad
  * @constructor
  * @param {CGFscene} scene
- * @param {Integer} parts number of parts
+ * @param {Integer} dimX dimension in X
+ * @param {Integer} dimY dimension in Y
+ * @param {Integer} dimY2 dimension in Y2
+ * @param {Integer} partsX parts in X
+ * @param {Integer} partsY parts in Y
  */
 function MyQuad(scene, dimX, dimY, dimY2, partsX, partsY){
 
