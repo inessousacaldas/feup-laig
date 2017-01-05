@@ -2,6 +2,9 @@
  * MyGameboard constructor.
  * @constructor
  * @param {CGFscene} scene The scene to which this gameboard belongs.
+ * @param {Player} player1 Player1 for the game
+ * @param {Player} player2 Player2 for the game
+ * @param {String} ambient Ambient to load for the gameboard
  */
 function MyGameboard(scene, player1, player2, ambient){
     CGFobject.call(this, scene);
@@ -60,6 +63,12 @@ function MyGameboard(scene, player1, player2, ambient){
 MyGameboard.prototype = Object.create(CGFobject.prototype);
 MyGameboard.prototype.constructor = MyGameboard;
 
+/**
+ * Initiates the gameboard data
+ * @param {String} data Data to use to initiate the gameboard
+ * @param {Player} player1 Player1 for the game
+ * @param {Player} player2 Player2 for the game
+ */
 MyGameboard.prototype.init = function(data, player1, player2){
 
     this.currentPlayer = player1;
@@ -73,6 +82,9 @@ MyGameboard.prototype.init = function(data, player1, player2){
     this.startBoard(data);
 }
 
+/**
+ * Erases all pieces from all tiles
+ */
 MyGameboard.prototype.cleanTiles = function(){
 
     for(var i = 0; i < this.tiles.length; i++)
@@ -80,6 +92,10 @@ MyGameboard.prototype.cleanTiles = function(){
 
 }
 
+/**
+ * Sends a request to prologConnection
+ * @param {String} requestString Request to send
+ */
 MyGameboard.prototype.sendRequest = function(requestString){
     var self = this;
 
@@ -163,6 +179,10 @@ MyGameboard.prototype.sendRequest = function(requestString){
 
 }
 
+/**
+ * Proccess the picked object
+ * @param {Object} picked_obj Picked object
+ */
 MyGameboard.prototype.processPick = function(picked_obj) {
 
     /* Doesn't accept input when turn has not ended or is in replay*/
@@ -199,6 +219,9 @@ MyGameboard.prototype.processPick = function(picked_obj) {
 
 }
 
+/**
+ * Undo the last move
+ */
 MyGameboard.prototype.undoMove = function(){
 
     var move = this.gameHistory.undo();
@@ -217,6 +240,9 @@ MyGameboard.prototype.undoMove = function(){
 
 }
 
+/**
+ * Replays the game from the start
+ */
 MyGameboard.prototype.replay = function(){
 
     var move = this.gameHistory.undo();
@@ -235,6 +261,10 @@ MyGameboard.prototype.replay = function(){
 
 }
 
+/**
+ * Proccess the picked tile
+ * @param {MyTile} picked_obj Picked tile
+ */
 MyGameboard.prototype.processPickedTile = function(picked_tile) {
     var piece = picked_tile.topPiece();
 	
@@ -268,7 +298,9 @@ MyGameboard.prototype.processPickedTile = function(picked_tile) {
         console.log("Unknown request string.")
 }
 
-
+/**
+ * Dehighlights the possible moves for a piece
+ */
 MyGameboard.prototype.dehighlightMoves = function() {
 
     var moves;
@@ -285,7 +317,10 @@ MyGameboard.prototype.dehighlightMoves = function() {
 
 }
 
-
+/**
+ * Highlights the possible moves for a piece
+ * @param {String[]} moves Possible moves
+ */
 MyGameboard.prototype.highlightMoves = function(moves) {
 
     for(var i = 0; i < moves.length; i++)
@@ -296,6 +331,9 @@ MyGameboard.prototype.highlightMoves = function(moves) {
                 this.tiles[j].addMoves(moves);
 }
 
+/**
+ * Moves the piece when undoing
+ */
 MyGameboard.prototype.movePiece = function(){
 
     var move = this.gameHistory.undo();
@@ -305,7 +343,11 @@ MyGameboard.prototype.movePiece = function(){
 
 }
 
-
+/**
+ * Moves the piece
+ * @param {String} data New board
+ * @param {Boolean} newMove To add to game history or not
+ */
 MyGameboard.prototype.movePiece = function(data, newMove = true) {
 
 
@@ -347,7 +389,7 @@ MyGameboard.prototype.movePiece = function(data, newMove = true) {
 
 /**
  * movePieceByComputer
- * @param data{string} response from server
+ * @param {String} data Response from server
  */
 MyGameboard.prototype.movePieceByComputer = function(data) {
 
@@ -362,7 +404,10 @@ MyGameboard.prototype.movePieceByComputer = function(data) {
 
 }
 
-
+/**
+ * Checks the existence of a wave
+ * @param {String} data New board
+ */
 MyGameboard.prototype.checkWave = function(data) {
 
     var _board = this.board.replace(/\[|\]/g,'');
@@ -379,6 +424,9 @@ MyGameboard.prototype.checkWave = function(data) {
    
 }
 
+/**
+ * Creates a wave
+ */
 MyGameboard.prototype.createWave = function(){
 
     var array = this.board.match(/[\[]([bms]\d+([\,][bms]\d+)*)*[\]]/g);
@@ -392,6 +440,10 @@ MyGameboard.prototype.createWave = function(){
 
 }
 
+/**
+ * Starts the gameboard
+ * @param {String} data Data to start the game
+ */
 MyGameboard.prototype.startBoard = function(data) {
 
 	var posX = -16;
@@ -456,7 +508,9 @@ MyGameboard.prototype.startBoard = function(data) {
 
 }
 
-
+/**
+ * Unselects all tiles
+ */
 MyGameboard.prototype.unselectAllTiles = function() {
     for (var i=0;i<this.tiles.length;i++){
         this.tiles[i].unselect();
@@ -567,6 +621,10 @@ MyGameboard.prototype.display = function() {
 
 }
 
+/**
+ * Sleeps some time
+ * @param {Integer} milliseconds Time to sleep
+ */
 function sleep(milliseconds) {
   var start = new Date().getTime();
   for (var i = 0; i < 1e7; i++) {
@@ -576,6 +634,10 @@ function sleep(milliseconds) {
   }
 }
 
+/**
+ * Updates animations of the gameboard
+ * @param {Float} currTime current time
+ */
 MyGameboard.prototype.update = function(currTime) {
 
     this.time = currTime;

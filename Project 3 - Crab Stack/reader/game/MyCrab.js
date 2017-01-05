@@ -1,12 +1,12 @@
 /**
- * MyCrabBig constructor.
+ * MyCrab constructor.
  * @constructor
  * @param {CGFscene} scene The scene to which this tile belongs.
+ * @param {Integer} player Player who owns this crab
  */
-
 deg2rad = Math.PI / 180;
 
-function MyCrab(scene, player, color){
+function MyCrab(scene, player){
     this.x = 0.863;
     this.player = player;
     CGFobject.call(this,scene);

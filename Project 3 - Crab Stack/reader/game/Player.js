@@ -28,7 +28,7 @@ Player.prototype = Object.create(Object.prototype);
 Player.prototype.constructor = Player;
 
 /**
- *
+ * Checks if the player is a computer
  */
 Player.prototype.isComputer = function (){
 

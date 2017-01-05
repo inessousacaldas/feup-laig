@@ -1,7 +1,7 @@
 /**
- * MyCrabBig constructor.
+ * MyRock constructor.
  * @constructor
- * @param {CGFscene} scene The scene to which this tile belongs.
+ * @param {CGFscene} scene The scene to which this rock belongs.
  */
 
 deg2rad = Math.PI / 180;

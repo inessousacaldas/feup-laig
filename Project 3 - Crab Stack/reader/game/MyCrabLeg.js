@@ -1,5 +1,5 @@
 /**
- * MyCrabBig constructor.
+ * MyCrabLeg constructor.
  * @constructor
  * @param {CGFscene} scene The scene to which this tile belongs.
  */

@@ -1,10 +1,11 @@
 /**
  * MyPiece constructor.
  * @constructor
- * @param {CGFscene} scene The scene to which this tile belongs.
- * @param {Integer} id Id of the tile.
- * @param {MyGameboard} board The board this tile belongs to.
- * @param {MyPiece} piece The piece that is on top of this tile.
+ * @param {CGFscene} scene The scene to which this piece belongs.
+ * @param {Integer} id Id of the piece.
+ * @param {MyTile} tile The tile this piece belongs to.
+ * @param {String} crab Type of crab
+ * @param {Player} player The player that owns this piece
  */
 function MyPiece(scene, id, tile, crab, player){
     CGFobject.call(this,scene);
@@ -55,17 +56,26 @@ function MyPiece(scene, id, tile, crab, player){
 MyPiece.prototype = Object.create(CGFobject.prototype);
 MyPiece.prototype.constructor = MyPiece;
 
-
+/**
+ * Sets the tile of this piece
+ * @param {MyTile} tile Tile to set
+ */
 MyPiece.prototype.setTile = function(tile) {
 
     this.tile = tile;
 }
 
+/**
+ * Converts piece to string
+ */
 MyPiece.prototype.toString = function() {
 
    return this.crabType + this.player.id + "";
 }
 
+/**
+ * Chooses the crab type
+ */
 MyPiece.prototype.chooseCrab = function() {
 
     switch (this.crabType){
@@ -134,12 +144,19 @@ MyPiece.prototype.display = function() {
     this.scene.popMatrix();
 }
 
+/**
+ * Updates time
+ * @param {Float} currTime current time
+ */
 MyPiece.prototype.update = function(currTime) {
 
     this.time = currTime;
 
 }
 
+/**
+ * Calculates a new height for the piece
+ */
 MyPiece.prototype.calculateNewPosY = function() {
 
     var currHeight = 0;
@@ -153,13 +170,20 @@ MyPiece.prototype.calculateNewPosY = function() {
 
 }
 
+/**
+ * Creates a wave
+ */
 MyPiece.prototype.washCrabs = function() {
 
     this.wave = true;
 
 }
 
-
+/**
+ * Moves the piece
+ * @param {MyTile} tile Destination tile
+ * @param {Graph} graph Graph for animations path
+ */
 MyPiece.prototype.move = function(tile, graph) {
 
     var origin = this.tile.id;
