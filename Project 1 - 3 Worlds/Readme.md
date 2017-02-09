@@ -55,28 +55,28 @@ The scene consists in 3 "worlds":
 There is also a bridge connecting the Grass and Dark World and a stairway connecting the Grass and the Ice World.
 
 <p align="center">
-  <img src="https://github.com/inessousacaldas/laig16/blob/master/Projeto%201%20-%203%20Worlds/img1.jpg">
+  <img src="https://github.com/inessousacaldas/laig16/blob/master/Project%201%20-%203%20Worlds/img1.jpg">
   <span class="caption">
   <p align="center"><b>Fig. 1</b> - General view of the 3 worlds</p>
         </span>
 </p>
 
 <p align="center">
-  <img src="https://github.com/inessousacaldas/laig16/blob/master/Projeto%201%20-%203%20Worlds/img2.jpg">
+  <img src="https://github.com/inessousacaldas/laig16/blob/master/Project%201%20-%203%20Worlds/img2.jpg">
   <span class="caption">
   <p align="center"><b>Fig. 2</b> - Grass World view</p>
         </span>
 </p>
 
 <p align="center">
-  <img src="https://github.com/inessousacaldas/laig16/blob/master/Projeto%201%20-%203%20Worlds/img3.jpg">
+  <img src="https://github.com/inessousacaldas/laig16/blob/master/Project%201%20-%203%20Worlds/img3.jpg">
   <span class="caption">
   <p align="center"><b>Fig. 3</b> - Ice World view</p>
         </span>
 </p>
 
 <p align="center">
-  <img src="https://github.com/inessousacaldas/laig16/blob/master/Projeto%201%20-%203%20Worlds/img4.jpg">
+  <img src="https://github.com/inessousacaldas/laig16/blob/master/Project%201%20-%203%20Worlds/img4.jpg">
   <span class="caption">
   <p align="center"><b>Fig. 4</b> - Dark World view</p>
         </span>
