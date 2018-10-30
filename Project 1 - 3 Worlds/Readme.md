@@ -1,9 +1,9 @@
-#3 Worlds
+# 3 Worlds
 
 
 The scene consists in 3 "worlds":
 
-####The 1st (Grass World) is a small village that contains:
+#### The 1st (Grass World) is a small village that contains:
 
 - a tower with a fireplace (with light emission);
 
@@ -17,7 +17,7 @@ The scene consists in 3 "worlds":
 
 - a collection of trees and bushes.
 
-####The 2nd (Ice World) is a snow scenario that contains: 
+#### The 2nd (Ice World) is a snow scenario that contains: 
 
 - an igloo;
 
@@ -33,7 +33,7 @@ The scene consists in 3 "worlds":
 
 - a penguin.
 
-####The 3rd (Dark World) is a darker and gruesome scenario that contains:
+#### The 3rd (Dark World) is a darker and gruesome scenario that contains:
 
 - a frontal barred fence, with a wall and a small stairway;
 
